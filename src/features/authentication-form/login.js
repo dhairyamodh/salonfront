@@ -19,13 +19,16 @@ import { FormattedMessage, useIntl } from 'react-intl';
 import { closeModal } from '@redq/reuse-modal';
 import { Input } from 'components/forms/input';
 import { useDispatch } from 'react-redux';
-import { forgotPass, signIn, signOut, signUp, signInSuccess } from '../../redux/actions/authActions';
+import { forgotPass, login, signUp } from '../../redux/actions/authActions';
+import { showSnackBar } from '../../redux/actions/snackActions'
+import { getItemCart, transferItem } from 'redux/actions/cartActions';
+import { salonId } from 'redux/types';
 
 export default function SignInModal() {
   const intl = useIntl();
   const dispatch = useDispatch()
-  const [email, setEmail] = React.useState('');
-  const [password, setPassword] = React.useState('');
+  const [email, setEmail] = React.useState('asdadsadas@gmail.com');
+  const [password, setPassword] = React.useState('asd@1234');
 
   const toggleSignUpForm = () => {
     dispatch(signUp());
@@ -35,11 +38,19 @@ export default function SignInModal() {
     dispatch(forgotPass());
   };
 
-  const loginCallback = () => {
+
+  const loginCallback = (e) => {
+    e.preventDefault()
     if (typeof window !== 'undefined') {
-      localStorage.setItem('access_token', `${email}.${password}`);
-      dispatch(signInSuccess());
-      closeModal();
+      dispatch(login({ email, password })).then((res) => {
+        if (res.payload.status == 200) {
+          closeModal();
+          dispatch(transferItem())
+          dispatch(getItemCart(salonId))
+        }
+      }).catch((err) => {
+        dispatch(showSnackBar(err, 'error'))
+      });
     }
   };
 
@@ -94,13 +105,13 @@ export default function SignInModal() {
             <FormattedMessage id='continueBtn' defaultMessage='Continue' />
           </Button>
         </form>
-        <Divider>
+        {/* <Divider>
           <span>
             <FormattedMessage id='orText' defaultMessage='or' />
           </span>
-        </Divider>
+        </Divider> */}
 
-        <Button
+        {/* <Button
           variant='primary'
           size='big'
           style={{
@@ -117,9 +128,9 @@ export default function SignInModal() {
             id='continueFacebookBtn'
             defaultMessage='Continue with Facebook'
           />
-        </Button>
+        </Button> */}
 
-        <Button
+        {/* <Button
           variant='primary'
           size='big'
           style={{ width: '100%', backgroundColor: '#4285f4' }}
@@ -132,7 +143,7 @@ export default function SignInModal() {
             id='continueGoogleBtn'
             defaultMessage='Continue with Google'
           />
-        </Button>
+        </Button> */}
 
         <Offer style={{ padding: '20px 0' }}>
           <FormattedMessage

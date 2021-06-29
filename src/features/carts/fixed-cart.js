@@ -80,7 +80,7 @@ const FixedCart = ({
             <NoProductMsg>
               <FormattedMessage
                 id='noProductFound'
-                defaultMessage='No products found'
+                defaultMessage='No services found'
               />
             </NoProductMsg>
           )}

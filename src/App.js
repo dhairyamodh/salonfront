@@ -6,6 +6,7 @@ import Routes from './Routes/index'
 import store from './redux/store/store'
 
 function App() {
+  window.hehe = () => alert('hehe')
   return (
     <Router>
       <Provider store={store()}>

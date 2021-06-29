@@ -3,11 +3,8 @@ import { FormattedMessage } from 'react-intl';
 import NavLink from 'components/nav-link/nav-link';
 import { AUTHORIZED_MENU_ITEMS } from 'site-settings/site-navigation';
 
-type Props = {
-  onLogout: () => void;
-};
 
-export const AuthorizedMenu: React.FC<Props> = ({ onLogout }) => {
+export const AuthorizedMenu = ({ onLogout }) => {
   return (
     <>
       {AUTHORIZED_MENU_ITEMS.map((item, idx) => (

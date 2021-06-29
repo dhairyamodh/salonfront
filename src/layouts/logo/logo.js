@@ -1,13 +1,8 @@
-import React from 'react';
-import Router from 'next/router';
+import { useHistory } from 'react-router-dom';
 import { LogoBox, LogoImage } from './logo.style';
-type LogoProps = {
-  imageUrl: string;
-  alt: string;
-  onClick?: () => void;
-};
 
-const Logo: React.FC<LogoProps> = ({ imageUrl, alt, onClick }) => {
+const Logo = ({ imageUrl, alt, onClick }) => {
+  const Router = useHistory()
   function onLogoClick() {
     Router.push('/');
     if (onClick) {

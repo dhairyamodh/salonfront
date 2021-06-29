@@ -1,7 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import Link from 'next/link';
-import { useLocation } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { FormattedMessage } from 'react-intl';
 
 
@@ -11,6 +10,10 @@ const Icon = styled.span`
   display: flex;
   align-items: center;
   justify-content: center;
+`;
+
+const Link = styled.a`
+cursor:pointer;
 `;
 
 const NavLink = ({
@@ -23,49 +26,46 @@ const NavLink = ({
   iconClass,
   dynamic,
 }) => {
-  const router = useLocation()
+  const router = useHistory()
+  console.log(href);
   const isCurrentPath = router.pathname === href || router.asPath === href;
   return (
     <div onClick={onClick} className={className ? className : ''}>
       {dynamic ? (
-        <Link href={'/[type]'} as={href}>
-          <a
-            className={isCurrentPath ? ' current-page' : ''}
-            style={{ display: 'flex', alignItems: 'center' }}
-          >
-            {icon ? <Icon className={iconClass}>{icon}</Icon> : ''}
+        <Link onClick={() => router.push(href)}
+          className={isCurrentPath ? ' current-page' : ''}
+          style={{ display: 'flex', alignItems: 'center' }}
+        >
+          {icon ? <Icon className={iconClass}>{icon}</Icon> : ''}
 
-            <span className="label">
-              {intlId ? (
-                <FormattedMessage
-                  id={intlId ? intlId : 'defaultNavLinkId'}
-                  defaultMessage={label}
-                />
-              ) : (
-                label
-              )}
-            </span>
-          </a>
+          <span className="label">
+            {intlId ? (
+              <FormattedMessage
+                id={intlId ? intlId : 'defaultNavLinkId'}
+                defaultMessage={label}
+              />
+            ) : (
+              label
+            )}
+          </span>
         </Link>
       ) : (
-        <Link href={href}>
-          <a
-            className={isCurrentPath ? ' current-page' : ''}
-            style={{ display: 'flex', alignItems: 'center' }}
-          >
-            {icon ? <Icon className={iconClass}>{icon}</Icon> : ''}
+        <Link onClick={() => router.push(href)}
+          className={isCurrentPath ? ' current-page' : ''}
+          style={{ display: 'flex', alignItems: 'center' }}
+        >
+          {icon ? <Icon className={iconClass}>{icon}</Icon> : ''}
 
-            <span className="label">
-              {intlId ? (
-                <FormattedMessage
-                  id={intlId ? intlId : 'defaultNavLinkId'}
-                  defaultMessage={label}
-                />
-              ) : (
-                label
-              )}
-            </span>
-          </a>
+          <span className="label">
+            {intlId ? (
+              <FormattedMessage
+                id={intlId ? intlId : 'defaultNavLinkId'}
+                defaultMessage={label}
+              />
+            ) : (
+              label
+            )}
+          </span>
         </Link>
       )}
     </div>

@@ -41,8 +41,6 @@ const Cart = ({
   scrollbarHeight,
 }) => {
 
-  const [hasCoupon, setCoupon] = useState(false);
-  const { isRtl } = useSelector(state => state.app);
   const cart = useSelector(state => state.cart.items)
   const calculatePrice = () =>
     cartItemsTotalPrice(cart).toFixed(2);
@@ -89,7 +87,7 @@ const Cart = ({
               <NoProductMsg>
                 <FormattedMessage
                   id='noProductFound'
-                  defaultMessage='No products found'
+                  defaultMessage='No services found'
                 />
               </NoProductMsg>
             </>

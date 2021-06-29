@@ -40,12 +40,15 @@ export const Banner = ({
             values={{ minute: 90 }}
           />
         </Title>
-        <Description>
-          <FormattedMessage
-            id={intlDescriptionId}
-            defaultMessage={intlDescriptionId}
-          />
-        </Description>
+        {
+          intlDescriptionId && <Description>
+            <FormattedMessage
+              id={intlDescriptionId}
+              defaultMessage={intlDescriptionId}
+            />
+          </Description>
+        }
+
         <SearchWrapper>
           <Search
             className="banner-search"

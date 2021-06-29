@@ -18,7 +18,10 @@ import {
 } from 'assets/styles/pages.style';
 
 import CartPopUp from '../features/carts/cart-popup'
-
+import { useDispatch, useSelector } from 'react-redux';
+import { useEffect, useState } from 'react';
+import { salonId } from 'redux/types';
+import { getCategorySerivces } from '../redux/actions/serviceActions'
 // const bannerSlides = [
 //   {
 //     img: GroceryImgOne,
@@ -30,9 +33,32 @@ import CartPopUp from '../features/carts/cart-popup'
 //   },
 // ];
 
-const PAGE_TYPE = 'grocery';
+
 
 export default function Home({ deviceType }) {
+  const shop = useSelector(state => state.salon.salonData)
+  const { allServices: data, totalServices } = useSelector(state => state.service)
+  const [filterService, setFilterService] = useState()
+  const [page, setPage] = useState(1)
+  const [loading, setIsLoading] = useState(true)
+  const fetchLimit = 12
+  const dispatch = useDispatch();
+  const getSerivces = (filterService, page) => {
+    setIsLoading(true)
+    dispatch(getCategorySerivces(salonId, undefined, filterService, true, fetchLimit, page)).then((res) => {
+      if (res.payload.status === 200) {
+        setIsLoading(false)
+      }
+    }).catch((err) => {
+      setIsLoading(true)
+    });
+  }
+  const handleLoadMore = () => {
+    setPage(page + 1)
+  };
+  useEffect(() => {
+    getSerivces(filterService, page)
+  }, [filterService, page])
   const { elRef: targetRef, scroll } = useRefScroll({
     percentOfElement: 0,
     percentOfContainer: 0,
@@ -40,27 +66,28 @@ export default function Home({ deviceType }) {
   });
   return (
     <Modal>
-      <MobileBanner intlTitleId="Giving Shine to your Style" />
-      <Banner imageUrl={Saloon} intlTitleId="Giving Shine to your Style"
-        intlDescriptionId="We strive to reach beyond the roots (of hair), and into the refinement and healing of one’s core self." />
+      <MobileBanner intlTitleId={shop?.tagLine || 'adasd'} />
+      <Banner imageUrl={Saloon} intlTitleId={shop?.tagLine || 'dasd'}
+      />
       <OfferSection>
         <div style={{ margin: '0 -10px' }}>
           <Carousel deviceType={deviceType} data={siteOffers} />
         </div>
       </OfferSection>
       <MobileCarouselDropdown>
-        <SidebarCategory deviceType={deviceType} />
+        <SidebarCategory setFilterService={setFilterService} deviceType={deviceType} />
       </MobileCarouselDropdown>
       <MainContentArea>
         <SidebarSection>
-          <SidebarCategory deviceType={deviceType} />
+          <SidebarCategory setFilterService={setFilterService} deviceType={deviceType} />
         </SidebarSection>
         <ContentSection>
           <div ref={targetRef}>
-            <ProductGrid
-
+            <ProductGrid data={data}
+              totalServices={totalServices}
               deviceType={deviceType}
-              fetchLimit={20}
+              loading={loading}
+              handleLoadMore={handleLoadMore}
             />
           </div>
         </ContentSection>

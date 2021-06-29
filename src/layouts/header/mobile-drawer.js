@@ -30,11 +30,13 @@ import {
 import { useDispatch, useSelector } from 'react-redux';
 import { toggleDrawer } from '../../redux/actions/appActions';
 import { signIn, signOut } from '../../redux/actions/authActions';
+import { useHistory } from 'react-router-dom';
 
-const MobileDrawer = ({ history }) => {
+const MobileDrawer = () => {
+  const history = useHistory()
   const isDrawerOpen = useSelector(state => state.app.isDrawerOpen);
   const dispatch = useDispatch();
-  const isAuthenticated = useSelector(state => state.auth.isAuthenticated)
+  const { isAuthenticated, name, email } = useSelector(state => state.auth)
   // Toggle drawer
   const toggleHandler = React.useCallback(() => {
     dispatch(toggleDrawer());
@@ -42,7 +44,6 @@ const MobileDrawer = ({ history }) => {
 
   const handleLogout = () => {
     if (typeof window !== 'undefined') {
-      localStorage.removeItem('access_token');
       dispatch(signOut());
       history.push('/');
     }
@@ -97,8 +98,8 @@ const MobileDrawer = ({ history }) => {
                     <img src={UserImage} alt='user_avatar' />
                   </UserAvatar>
                   <UserDetails>
-                    <h3>David Kinderson</h3>
-                    <span>+990 374 987</span>
+                    <h3>{name}</h3>
+                    <span>{email}</span>
                   </UserDetails>
                 </LoginView>
               ) : (
@@ -106,7 +107,7 @@ const MobileDrawer = ({ history }) => {
                   <Button variant='primary' onClick={signInOutForm}>
                     <FormattedMessage
                       id='mobileSignInButtonText'
-                      defaultMessage='join'
+                      defaultMessage='Login'
                     />
                   </Button>
                 </LogoutView>
@@ -114,29 +115,47 @@ const MobileDrawer = ({ history }) => {
             </DrawerProfile>
 
             <DrawerMenu>
-              {MOBILE_DRAWER_MENU.map((item) => (
-                <DrawerMenuItem key={item.id}>
-                  <NavLink
-                    onClick={toggleHandler}
-                    href={item.href}
-                    label={item.defaultMessage}
-                    intlId={item.id}
-                    className='drawer_menu_item'
-                  />
-                </DrawerMenuItem>
-              ))}
+              {MOBILE_DRAWER_MENU.map((item) => {
+                if (item.isAuthorized) {
+                  return isAuthenticated && (
+
+                    <DrawerMenuItem key={item.id}>
+                      <NavLink
+                        onClick={toggleHandler}
+                        href={item.href}
+                        label={item.defaultMessage}
+                        intlId={item.id}
+                        className='drawer_menu_item'
+                      />
+                    </DrawerMenuItem>
+                  )
+                } else {
+                  return (
+                    <DrawerMenuItem key={item.id}>
+                      <NavLink
+                        onClick={toggleHandler}
+                        href={item.href}
+                        label={item.defaultMessage}
+                        intlId={item.id}
+                        className='drawer_menu_item'
+                      />
+                    </DrawerMenuItem>
+                  )
+                }
+              })}
             </DrawerMenu>
 
             {isAuthenticated && (
               <UserOptionMenu>
-                <DrawerMenuItem>
+                {/* <DrawerMenuItem>
                   <NavLink
                     href={PROFILE_PAGE}
+                    onClick={toggleHandler}
                     label='Your Account Settings'
                     className='drawer_menu_item'
                     intlId='navlinkAccountSettings'
                   />
-                </DrawerMenuItem>
+                </DrawerMenuItem> */}
                 <DrawerMenuItem>
                   <div onClick={handleLogout} className='drawer_menu_item'>
                     <span className='logoutBtn'>

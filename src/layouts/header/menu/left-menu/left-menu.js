@@ -1,10 +1,6 @@
 import React from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
-import { FormattedMessage } from 'react-intl';
 import Logo from 'layouts/logo/logo';
-import { MenuDown } from 'assets/icons/MenuDown';
-import { CATEGORY_MENU_ITEMS } from 'site-settings/site-navigation';
-import * as categoryMenuIcons from 'assets/icons/category-menu-icons';
 import {
   MainMenu,
   IconWrapper,

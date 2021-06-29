@@ -4,6 +4,17 @@ import { AddItemToCart } from 'components/add-item-to-cart';
 import styled from 'styled-components';
 import css from '@styled-system/css';
 import { Box } from 'components/box';
+import { ServerUrl } from '../../constants';
+import { useDispatch, useSelector } from 'react-redux';
+import { Modal } from '@redq/reuse-modal';
+import ProductSingleWrapper, {
+  ProductSingleContainer,
+} from 'assets/styles/product-single.style';
+import { openModal } from '@redq/reuse-modal';
+import ProductDetails from 'components/product-details/product-details-one/product-details-one'
+import { getSerivceById } from 'redux/actions/serviceActions';
+// import ProductDetailsBook from 'components/product-details/product-details-two/product-details-two'
+
 
 const Card = styled.div({
   backgroundColor: '#fff',
@@ -34,14 +45,18 @@ const ImageWrapper = styled.div({
   },
 
   '@media screen and (max-width: 560px)': {
-    height: 180,
+    height: "100%",
+    objectFit: 'cover'
+
   },
 });
 
 const Image = styled.img({
   maxWidth: '100%',
   maxHeight: '100%',
+  width: '100%',
   height: 'auto',
+  objectFit: 'cover',
 });
 const Discount = styled.div(
   css({
@@ -105,24 +120,77 @@ const SalePrice = styled.span(
   })
 );
 
-export const ProductCard = ({ data }) => {
-  const { title, image, price, salePrice, slug, discountInPercent } = data;
+export const ProductCard = ({ data, deviceType }) => {
+  const { name: title, salonId, _id, imageSrc: image, price: price, } = data;
+  const { currencySymbol } = useSelector(state => state.shop.salonData)
+  const { serviceDetails: product } = useSelector(state => state.service)
+  const dispatch = useDispatch()
+  const { mobile, tablet, desktop } = deviceType
+
+  const handleModal = () => {
+    dispatch(getSerivceById(salonId, undefined, _id)).then((res) => {
+      if (res.payload.status == 200) {
+        let width = '100%'
+        if (desktop) {
+          width = '70%'
+        }
+        const data = res.payload.data.data
+
+        openModal({
+          show: true,
+          overlayClassName: 'quick-view-overlay',
+          closeOnClickOutside: true,
+          component: data ? serviceModal : loadingModal,
+          closeComponent: '',
+          config: {
+            enableResizing: false,
+            disableDragging: true,
+            className: 'modal',
+            width: width,
+            height: 'auto',
+          },
+        });
+      }
+    })
+
+    const serviceModal = () => {
+      return (
+        <Modal>
+          <ProductSingleWrapper>
+            <ProductSingleContainer>
+              <ProductDetails product={data} deviceType={deviceType} />
+            </ProductSingleContainer>
+          </ProductSingleWrapper>
+        </Modal>
+      )
+    }
+
+
+  };
+
+  const loadingModal = () => {
+    return (
+      <div>Loading...</div>
+    )
+  }
+
+
+
+
   return (
-    // <Link to={`/products/${slug}`} as={`/products/${slug}`}>
-    <Card className="product-card">
+    <Card className="product-card" onClick={() => handleModal()}>
       <ImageWrapper>
-        <Image src={image} alt={title} className="product-image" />
-        {discountInPercent ? <Discount>{discountInPercent}%</Discount> : null}
+        <Image src={ServerUrl + image} alt={title} className="product-image" />
+        {/* {discountInPercent ? <Discount>{discountInPercent}%</Discount> : null} */}
       </ImageWrapper>
-      <Box px={20} pb={20}>
+      <Box px={15} py={15} pb={15}>
         <PriceWrapper>
-          <Price>${salePrice ? salePrice : price}</Price>
-          {discountInPercent ? <SalePrice>${price}</SalePrice> : null}
+          <Price>{currencySymbol} {price}</Price>
+          {/* {discountInPercent ? <SalePrice>${price}</SalePrice> : null} */}
         </PriceWrapper>
         <Title>{title}</Title>
         <AddItemToCart data={data} variant="full" buttonText="Add" />
       </Box>
     </Card>
-    // </Link>
   );
 };

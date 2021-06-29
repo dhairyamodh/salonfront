@@ -17,7 +17,6 @@ const Payment = ({ deviceType, increment = false }) => {
 
   const { data } = useSelector(state => state.profile);
   const { card } = data
-  console.log("card", card);
 
   // const handleOnDelete = async (item) => {
   //   dispatch({ type: 'DELETE_CARD', payload: item.id });

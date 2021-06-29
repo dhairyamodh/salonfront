@@ -113,6 +113,11 @@ export const GlobalStyle = createGlobalStyle(({ theme }) =>
       backgroundColor: 'rgba(0,0,0,.5)',
     },
 
+    '.modal': {
+      borderRadius: '6px !important',
+
+    },
+
     '.add-address-modal,.add-contact-modal': {
       boxShadow: '0 10px 40px rgba(0,0,0,0.16)',
       borderRadius: '3px !important',

@@ -1,6 +1,5 @@
 import dynamic from 'next/dynamic';
 import React, { useCallback, useState } from 'react';
-import { FormattedMessage } from 'react-intl';
 import {
   Box,
   Content,

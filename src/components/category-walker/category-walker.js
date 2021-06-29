@@ -16,15 +16,19 @@ import { useLocation } from 'react-router-dom';
 const CategoryWalker = ({
   style,
   className,
+  isModal,
+  onClose,
+  onToggle,
   children,
+  categoryName
 }) => {
   const [isOpen, setOpen] = useState(false);
   const { query } = useLocation();
   return (
     <WalkerWrapper style={style} className={className}>
       <CategoryWrapper>
-        {query ? (
-          <Category>{startCase(query)}</Category>
+        {categoryName ? (
+          <Category>{startCase(categoryName)}</Category>
         ) : (
           <NoCategory>No Category Selected</NoCategory>
         )}
@@ -34,10 +38,10 @@ const CategoryWalker = ({
         <Category>{children}</Category> */}
       </CategoryWrapper>
 
-      <Button variant='text' onClick={() => setOpen(true)}>
+      <Button variant='text' onClick={() => onToggle()}>
         Filter
       </Button>
-      <SpringModal isOpen={isOpen} onRequestClose={() => setOpen(false)}>
+      <SpringModal isOpen={isModal} onRequestClose={() => onToggle()}>
         {children}
       </SpringModal>
     </WalkerWrapper>

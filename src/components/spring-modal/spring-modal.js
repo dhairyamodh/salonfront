@@ -16,7 +16,6 @@ const SpringModal = ({
   //   enter: { transform: 'translateY(0%) translateY(0) translateX(-50%)' },
   //   leave: { transform: 'translateY(100%) translateY(55px) translateX(-50%)' },
   // });
-  console.log('children', children);
   const transitions = useTransition(isOpen, {
     from: { opacity: 0 },
     enter: { opacity: 1 },
@@ -31,7 +30,7 @@ const SpringModal = ({
   const staticStyles = {
     position: 'absolute',
     bottom: 0,
-    padding: '30px 30px 50px 30px',
+    paddingTop: '20px',
     width: 'calc(100% + 1px)',
     height: '100%',
     maxHeight: '80vh',

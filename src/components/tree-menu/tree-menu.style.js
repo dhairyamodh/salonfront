@@ -4,26 +4,25 @@ import { animated } from 'react-spring';
 export const Header = styled.header(
   (props) =>
     css({
-      fontSize: props.depth === 'parent' ? ['base'] : ['sm'],
+      fontSize: props.depth === 'parent' ? ['base'] : ['base'],
       fontWeight: 'medium',
       display: 'flex',
       alignItems: 'center',
       marginBottom: props.depth === 'parent' ? 12 : 0,
       color:
-        props.depth === 'parent'
-          ? props.open
-            ? 'primary.regular'
-            : 'text.bold'
-          : props.open
-            ? 'primary.regular'
-            : 'text.regular',
+        props.open
+          ? 'primary.regular'
+          : 'text.bold',
+
       cursor: 'pointer',
       transition: '0.15s ease-in-out',
-      padding: props.depth === 'parent' ? '5px 0' : '5px 10px',
-      marginLeft: props.depth === 'child' ? '-10px' : null,
-      borderRadius: props.depth === 'child' ? 'base' : null,
+      padding: '10px 25px',
+      marginLeft: null,
+      borderRadius: null,
       backgroundColor:
-        props.depth === 'child' ? props.open && 'gray.200' : null,
+        props.open && 'gray.700',
+      transition: 'all 0.3s ease',
+      textTransform: 'capitalize',
 
       '.toggleButton': {
         color: props.open ? 'primary.regular' : 'text.bold',
@@ -33,13 +32,21 @@ export const Header = styled.header(
         transition: 'transform 0.3s',
         transform: props.open ? 'rotate(90deg)' : '',
       },
+      '.iconImage': {
+        // border: '2px solid white',
+        transition: 'all 0.3s ease',
+        borderRadius: 200,
+      },
+
+
 
       '&:hover': {
-        color: 'primary.regular',
+        color: 'text.bold',
+        backgroundColor: 'gray.400',
+        // '.iconImage': {
+        //   borderColor: 'text.bold',
+        // },
 
-        '.toggleButton': {
-          color: 'primary.regular',
-        },
       },
     }),
   {
@@ -50,8 +57,8 @@ export const Header = styled.header(
 export const IconWrapper = styled.div(
   (props) =>
     css({
-      width: props.depth === 'child' ? 10 : 20,
-      height: 'auto',
+      // width: props.depth === 'child' ? 10 : 40,
+      // height: 40,
       marginRight: props.depth === 'child' ? '8px' : 15,
 
       svg: {
@@ -85,8 +92,14 @@ export const Content = styled(animated.div)({
 export const Frame = styled.div(
   (props) =>
     css({
-      marginBottom: props.depth === 'parent' ? 15 : 10,
-      paddingLeft: props.depth === 'child' ? 32 : 0,
+      // marginBottom: props.depth === 'parent' ? 15 : 10,
+      backgroundColor: props.open
+        ? 'primary.regular'
+        : 'white',
+      borderBottomWidth: '1px',
+      borderBottomStyle: 'solid',
+      borderBottomColor: 'gray.600',
+
     }),
   {
     position: 'relative',

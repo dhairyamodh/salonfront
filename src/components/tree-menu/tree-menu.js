@@ -4,13 +4,15 @@ import { useSpring, animated } from 'react-spring';
 import { Frame, Title, Content, Header, IconWrapper } from './tree-menu.style';
 import { Button } from 'components/button/button';
 import { ArrowNext } from 'assets/icons/ArrowNext';
-import * as icons from 'assets/icons/category-icons';
+import { ServerUrl } from '../../constants';
+import Icon from '../../layouts/icon/icon'
 
 const Tree = React.memo(
   ({
     children,
     name,
     icon,
+    activeClass,
     // isOpen,
     onClick,
     dropdown,
@@ -34,42 +36,19 @@ const Tree = React.memo(
     });
     // const Icon = icon ? Icons[icon] : depth === 'child' ? Icons['Minus'] : null;
     // const Icon = icon ? Icons[icon] : null;
-    const Icon = ({ iconName, style }) => {
-      const TagName = icons[iconName];
-      return !!TagName ? (
-        <TagName style={style} />
-      ) : (
-        <p>Invalid icon {iconName}</p>
-      );
-    };
+
     return (
-      <Frame depth={depth}>
-        <Header open={isOpen} depth={depth} className={depth}>
+      <Frame>
+        <Header open={activeClass} className={depth} onClick={onClick}>
           {icon && (
-            <IconWrapper depth={depth}>
+            <IconWrapper className="iconImage">
               <Icon iconName={icon} />
             </IconWrapper>
           )}
-          <Title onClick={onClick}>{name}</Title>
+          <Title >{name}</Title>
 
-          {dropdown === true && (
-            <Button
-              onClick={() => setOpen(!isOpen)}
-              variant="text"
-              className="toggleButton"
-            >
-              <ArrowNext width="16px" />
-            </Button>
-          )}
+
         </Header>
-        <Content
-          style={{
-            opacity,
-            height: isOpen && previous === isOpen ? 'auto' : height,
-          }}
-        >
-          <animated.div style={{ transform }} {...bind} children={children} />
-        </Content>
       </Frame>
     );
   }
@@ -79,34 +58,32 @@ export const TreeMenu = ({
   data,
   className,
   onClick,
-  active,
+  activeClass,
 }) => {
+
   const handler = (children) => {
     return children.map((subOption) => {
       if (!subOption.children) {
         return (
           <Tree
-            key={subOption.title}
-            name={subOption.title}
-            icon={subOption.icon}
+            key={subOption.categoryName}
+            name={subOption.categoryName}
+            icon={ServerUrl + subOption.categoryImage}
             depth="child"
-            onClick={() => onClick(subOption.slug)}
-            defaultOpen={active === subOption.slug}
+            onClick={() => onClick(subOption)}
+            activeClass={activeClass == subOption.id && true}
           />
         );
       }
       return (
         <Tree
-          key={subOption.title}
-          name={subOption.title}
-          icon={subOption.icon}
+          key={subOption.categoryName}
+          name={subOption.categoryName}
+          icon={ServerUrl + subOption.categoryImage}
           dropdown={!subOption.children.length ? false : true}
           depth="parent"
-          onClick={() => onClick(subOption.slug)}
-          defaultOpen={
-            active === subOption.slug ||
-            subOption.children.some((item) => item.slug === active)
-          }
+          onClick={() => onClick(subOption)}
+          activeClass={activeClass == subOption.id && true}
         >
           {handler(subOption.children)}
         </Tree>

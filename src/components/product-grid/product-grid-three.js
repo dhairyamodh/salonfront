@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { ProductCard } from 'components/product-card/product-card-seven';
 import styled from 'styled-components';
 import css from '@styled-system/css';
@@ -10,8 +10,9 @@ import { Box } from 'components/box';
 import NoResultFound from 'components/no-result/no-result';
 import { LoaderItem, LoaderWrapper } from './product-list/product-list.style';
 import Placeholder from 'components/placeholder/placeholder';
-import { useHistory } from 'react-router';
 import { useSelector } from 'react-redux';
+import { getSerivces } from '../../redux/actions/serviceActions'
+import { salonId } from 'redux/types';
 
 const Grid = styled.div(
   css({
@@ -29,7 +30,8 @@ const Grid = styled.div(
 
     '@media screen and (max-width: 768px)': {
       gridGap: '5px',
-      gridTemplateColumns: 'repeat(3, minmax(180px, 1fr))',
+      padding: '5px',
+      gridTemplateColumns: 'repeat(3, minmax(48vw, 1fr))',
     },
 
     '@media screen and (min-width: 991px)': {
@@ -51,18 +53,16 @@ const Grid = styled.div(
 );
 
 export const ProductGrid = ({
+  deviceType,
+  data,
   style,
-  type,
-  loadMore = true,
-  fetchLimit = 16,
+  totalServices,
+  loading,
+  handleLoadMore
 }) => {
-  const router = useHistory();
-  const { allProducts, allCategory: category } = useSelector(state => state.shop)
-  const { isLoading: loading, error } = useSelector(state => state.app)
-  const loadingMore = false
-  if (error) return <ErrorMessage message={error.message} />;
-  const data = allProducts.slice(0, 10)
-  if (loading && !loadingMore) {
+  const loadMore = data.length < totalServices ? true : false
+
+  if (loading && !loadMore) {
     return (
       <LoaderWrapper>
         <LoaderItem>
@@ -74,36 +74,30 @@ export const ProductGrid = ({
         <LoaderItem>
           <Placeholder uniqueKey="3" />
         </LoaderItem>
+        <LoaderItem>
+          <Placeholder uniqueKey="4" />
+        </LoaderItem>
       </LoaderWrapper>
     );
   }
   if (!data || !data || data.length === 0) {
     return <NoResultFound />;
   }
-  const handleLoadMore = () => {
-    fetchMore({
-      variables: {
-        offset: Number(data.products.items.length),
-        limit: 10,
-      },
-    });
-  };
-  const { items, hasMore } = data;
-  console.log('data', data);
+
   return (
     <section>
       <Grid style={style}>
         {data.map((product, idx) =>
         (
-          <ProductCard data={product} key={product.id} />
+          <ProductCard deviceType={deviceType} data={product} key={product.id} />
         ))}
       </Grid>
 
-      {loadMore && hasMore && (
+      {loadMore && (
         <Box style={{ textAlign: 'center' }} mt={'2rem'}>
           <Button
             onClick={handleLoadMore}
-            loading={loadingMore}
+            loading={!loadMore}
             variant="secondary"
             style={{
               fontSize: 14,

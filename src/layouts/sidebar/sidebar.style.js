@@ -63,7 +63,7 @@ export const RequestMedicine = styled.span`
 
 export const SidebarWrapper = styled.div`
   padding: 45px 0px 0px 0px;
-  padding-top: 35px;
+  padding-top: 0px;
   padding-right: 0;
 
   @media (max-width: 1199px) {
@@ -88,8 +88,8 @@ export const CategoryWrapper = styled.div`
 `;
 
 export const TreeWrapper = styled.div`
-  padding-left: 50px;
-  padding-right: 20px;
+  // padding-left: 20px;
+  // padding-right: 20px;
 `;
 
 export const PopoverHandler = styled.div`

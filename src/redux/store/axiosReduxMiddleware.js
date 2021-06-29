@@ -1,6 +1,9 @@
 import axios from "axios";
 import axiosMiddleware from "redux-axios-middleware";
 import { RootUrl } from "../../constants";
+import getToken from "../../helpers/getToken";
+
+
 const options = {
   returnRejectedPromiseOnError: true,
   interceptors: {
@@ -20,7 +23,6 @@ const options = {
           // console.log("AXIOS Response Origin :", response.request.responseURL); //contains information about request object
           // console.log("AXIOS Response TIME :", new Date());
           dispatch({ type: "SPINNER_STOP" });
-
           return response;
         },
         error: ({ getState, dispatch, getSourceAction }, error) => {
@@ -53,4 +55,20 @@ const client = axios.create({
   //   },
   // ],
 });
+
+client.interceptors.request.use(async (config) => {
+  // let domain = await getDomain().then(res => res);
+  // if (domain) {
+  //   config.baseURL = domain;
+  // }
+  config.headers["Access-Control-Allow-Origin"] = `*`;
+  let token = getToken();
+  if (token) {
+    config.headers["Authorization"] = `${token}`;
+    config.headers["Content-Type"] = `application/json`;
+  }
+
+  return config;
+});
+
 export default axiosMiddleware(client, options);

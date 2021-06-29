@@ -1,18 +1,9 @@
-import styled from 'styled-components';
-import { themeGet } from '@styled-system/theme-get';
+import styled from "styled-components";
+import { themeGet } from "@styled-system/theme-get";
 
 const ProductSingleWrapper = styled.div`
-  padding: 78px 0 60px 0;
   position: relative;
-  background-color: ${themeGet('colors.gray.200', '#f7f7f7')};
-
-  @media (min-width: 1600px) {
-    padding-top: 89px;
-  }
-
-  @media (max-width: 990px) {
-    padding-top: 60px;
-  }
+  background-color: ${themeGet("colors.gray.200", "#f7f7f7")};
 `;
 
 export const ProductSingleContainer = styled.div`
@@ -72,7 +63,7 @@ export const Loading = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: calc(${themeGet('fontSizes.base', '15px')} - 1px);
+  font-size: calc(${themeGet("fontSizes.base", "15px")} - 1px);
   color: #222222;
 `;
 

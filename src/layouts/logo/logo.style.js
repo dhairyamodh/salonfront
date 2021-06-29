@@ -10,11 +10,12 @@ export const LogoBox = styled.span(
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
+
   })
 );
 
 export const LogoImage = styled.img({
   display: 'block',
   backfaceVisibility: 'hidden',
-  maxWidth: 150,
+  maxWidth: 35,
 });

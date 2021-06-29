@@ -12,13 +12,14 @@ import {
   SearchModalClose,
 } from './header.style';
 import Search from '../../features/search/search';
-import LogoImage from 'assets/images/logo.svg';
 
 import { SearchIcon } from '../../assets/icons/SearchIcon';
 import { LongArrowLeft } from '../../assets/icons/LongArrowLeft';
 import Logo from '../../layouts/logo/logo';
 import { isCategoryPage } from '../is-home-page';
 import useDimensions from '../../utils/useComponentSize';
+import { useSelector } from 'react-redux';
+import { ServerUrl } from '../../constants';
 
 
 const SearchModal = () => {
@@ -40,7 +41,7 @@ const SearchModal = () => {
 };
 
 const MobileHeader = ({ className }) => {
-  const { pathname, query } = useLocation();
+  const { logo: LogoImage } = useSelector(state => state.salon.salonData)
 
   const [mobileHeaderRef, dimensions] = useDimensions();
 
@@ -59,9 +60,7 @@ const MobileHeader = ({ className }) => {
       closeComponent: () => <div />,
     });
   };
-  const type = pathname === '/' ? 'restaurant' : query;
 
-  const isHomePage = isCategoryPage(type);
 
   return (
     <MobileHeaderWrapper>
@@ -70,18 +69,16 @@ const MobileHeader = ({ className }) => {
           <MobileDrawer />
         </DrawerWrapper>
 
-        <LogoWrapper>
-          <Logo imageUrl={LogoImage} alt='shop logo' />
-        </LogoWrapper>
+        {LogoImage && <LogoWrapper>
+          <Logo imageUrl={ServerUrl + LogoImage} />
+        </LogoWrapper>}
 
-        {/* {isHomePage ? ( */}
         <SearchWrapper
           onClick={handleSearchModal}
           className='searchIconWrapper'
         >
           <SearchIcon />
         </SearchWrapper>
-        {/* ) : null} */}
       </MobileHeaderInnerWrapper>
     </MobileHeaderWrapper>
   );

@@ -1,11 +1,12 @@
-import styled from 'styled-components';
-import { themeGet } from '@styled-system/theme-get';
+import styled from "styled-components";
+import { themeGet } from "@styled-system/theme-get";
+import css from "@styled-system/css";
 
 export const ProductsRow = styled.div`
   display: flex;
   flex-wrap: wrap;
   margin-top: 25px;
-  background-color: ${themeGet('colors.gray.200', '#f7f7f7')};
+  background-color: ${themeGet("colors.gray.200", "#f7f7f7")};
   position: relative;
   z-index: 1;
   margin: 0 -15px;
@@ -13,7 +14,7 @@ export const ProductsRow = styled.div`
     margin-left: 0px;
     margin-right: 0px;
     margin-top: 0;
-    background-color: ${themeGet('colors.white', '#ffffff')};
+    background-color: ${themeGet("colors.white", "#ffffff")};
   }
 `;
 
@@ -29,10 +30,10 @@ export const NoResult = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  font-family: ${themeGet('fonts.body', 'Poppins')};
-  font-size: ${themeGet('fontSizes.lg', '21')}px;
-  font-weight: ${themeGet('fontWeights.bold', '700')};
-  color: ${themeGet('colors.text.bold', '#0D1136')};
+  font-family: ${themeGet("fonts.body", "Poppins")};
+  font-size: ${themeGet("fontSizes.lg", "21")}px;
+  font-weight: ${themeGet("fontWeights.bold", "700")};
+  color: ${themeGet("colors.text.bold", "#0D1136")};
 `;
 
 export const LoaderWrapper = styled.div`
@@ -42,15 +43,43 @@ export const LoaderWrapper = styled.div`
   flex-wrap: wrap;
 `;
 
-export const LoaderItem = styled.div`
-  width: 25%;
-  padding: 0 15px;
-  margin-bottom: 30px;
+export const LoaderItem = styled.div(
+  css({
+    width: "25%",
+    padding: "0 15px",
+    marginBottom: "30px",
+    svg: {
+      width: "100%",
+    },
+    "@media screen and (min-width: 630px)": {
+      width: "50%",
+    },
 
-  svg {
-    width: 100%;
-  }
-`;
+    "@media screen and (min-width: 768px)": {
+      width: "50%",
+    },
+
+    "@media screen and (max-width: 768px)": {
+      width: "50%",
+    },
+
+    "@media screen and (min-width: 991px)": {
+      width: "25%",
+    },
+
+    "@media screen and (min-width: 1200px)": {
+      width: "25%",
+    },
+
+    "@media screen and (min-width: 1700px)": {
+      width: "25%",
+    },
+
+    "@media screen and (min-width: 1900px)": {
+      width: "25%",
+    },
+  })
+);
 
 export const ProductCardWrapper = styled.div`
   height: 100%;

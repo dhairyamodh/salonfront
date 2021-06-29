@@ -134,7 +134,6 @@ export default function CustomCarousel({
   isRtl,
   ...props
 }) {
-  console.log('data', data);
 
   return (
     <div dir="ltr">

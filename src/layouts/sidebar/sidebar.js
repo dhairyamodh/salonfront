@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Sticky from 'react-stickynode';
 import { Scrollbar } from 'components/scrollbar/scrollbar';
 import {
@@ -18,36 +18,28 @@ import { TreeMenu } from 'components/tree-menu/tree-menu';
 import CategoryWalker from 'components/category-walker/category-walker';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, useLocation } from 'react-router';
-
+import { getCategory } from '../../redux/actions/categoryActions'
+import { salonId } from 'redux/types';
 
 const SidebarCategory = ({
   deviceType: { mobile, tablet, desktop },
+  setFilterService,
   type,
 }) => {
-  const router = useHistory();
-  const { allCategories: data } = useSelector(state => state.shop)
+  const dispatch = useDispatch();
+  const { allCategories: data } = useSelector(state => state.category)
   const { loading } = useSelector(state => state.app)
   const { pathname, query } = useLocation();
   const selectedQueries = query;
-  const onCategoryClick = (slug) => {
-    const { type, ...rest } = query;
-    if (type) {
-      router.push(
-        {
-          pathname,
-          query: { ...rest, category: slug },
-        },
-        {
-          pathname: `/${type}`,
-          query: { ...rest, category: slug },
-        }
-      );
-    } else {
-      router.push({
-        pathname,
-        query: { ...rest, category: slug },
-      });
-    }
+  const [categoryId, setCategoryId] = useState()
+  const [categoryName, setCategoryName] = useState()
+  const [isModal, setIsModal] = useState()
+  const onCategoryClick = ({ id, categoryName }) => {
+    setFilterService(id)
+    setCategoryId(id)
+    setCategoryName(categoryName)
+    setIsModal(false)
+    // setIsLoading(true)
   };
   const isSidebarSticky = true;
   if (!data || loading) {
@@ -56,12 +48,16 @@ const SidebarCategory = ({
     }
     return <SidebarLoader />;
   }
+  useEffect(() => {
+    dispatch(getCategory(salonId))
+  }, [])
   return (
     <CategoryWrapper>
       <PopoverWrapper>
-        <CategoryWalker>
+        <CategoryWalker isModal={isModal} onToggle={() => setIsModal(!isModal)} onClose={() => setIsModal(false)} categoryName={categoryName}>
           <TreeMenu
             data={data}
+            activeClass={categoryId}
             onClick={onCategoryClick}
             active={selectedQueries}
           />
@@ -74,6 +70,7 @@ const SidebarCategory = ({
             <TreeWrapper>
               <TreeMenu
                 data={data}
+                activeClass={categoryId}
                 onClick={onCategoryClick}
                 active={selectedQueries}
               />

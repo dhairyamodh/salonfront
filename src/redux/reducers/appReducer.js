@@ -7,11 +7,12 @@ const initState = {
     isDrawerOpen: false,
     isModalOpen: false,
     isLoading: false,
-    error: undefined
+    error: undefined,
 }
 
-const authReducer = (state = initState, action) => {
+const appReducer = (state = initState, action) => {
     switch (action.type) {
+
         case appTypes.SET_SEARCH_TERM: {
             return {
                 ...state,
@@ -63,4 +64,4 @@ const authReducer = (state = initState, action) => {
     }
 }
 
-export default authReducer
+export default appReducer

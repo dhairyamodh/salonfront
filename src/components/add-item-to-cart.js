@@ -64,6 +64,7 @@ const Button = styled.button(
 export const AddItemToCart = ({ data, variant, buttonText }) => {
   const dispatch = useDispatch()
   const cart = useSelector(state => state.cart.items)
+  console.log('cart', cart);
   const isInCart = (id) => {
     return cart?.some((item) => item.id === id);
   };

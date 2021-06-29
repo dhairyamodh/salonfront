@@ -1,4 +1,6 @@
 import { authTypes } from "../types"
+import setToken from "../../helpers/setToken";
+import removeToken from "../../helpers/removeToken";
 
 const initState = {
   isAuthenticated: false,
@@ -6,37 +8,74 @@ const initState = {
 }
 
 const authReducer = (state = initState, action) => {
+  const getData = () => action.payload.data;
   switch (action.type) {
-    case authTypes.SIGNIN: {
+    case authTypes.SIGNIN:
       return {
         ...state,
         currentForm: 'signIn',
       }
-    }
-    case authTypes.SIGNIN_SUCCESS: {
+
+    case authTypes.LOGIN_SUCCESS:
+      setToken(getData().token);
       return {
         ...state,
         isAuthenticated: true,
-      }
-    }
-    case authTypes.SIGN_OUT: {
+        name: getData().user.name,
+        token: getData().token,
+        ...getData().user,
+      };
+
+    case authTypes.LOGIN_FAIL:
+      return {
+        ...state,
+        isAuthenticated: false,
+      };
+
+    case authTypes.SIGN_OUT:
+      removeToken();
       return {
         ...state,
         isAuthenticated: false,
       }
-    }
-    case authTypes.SIGNUP: {
+
+    case authTypes.SIGNUP:
       return {
         ...state,
         currentForm: 'signUp',
       }
-    }
-    case authTypes.FORGOTPASS: {
+
+
+    case authTypes.GET_USER_DETAILS_SUCCESS:
+      return {
+        ...state,
+        isAuthenticated: true,
+        name: getData().user.name,
+        ...getData().user,
+      };
+
+    case authTypes.GET_USER_DETAILS_FAIL:
+      return {
+        ...state,
+        isAuthenticated: false,
+      };
+
+    case authTypes.REGISTER_SUCESS:
+      setToken(getData().token);
+      return {
+        ...state,
+        isAuthenticated: true,
+        name: getData().user.name,
+        token: getData().token,
+        ...getData().user,
+      };
+
+    case authTypes.FORGOTPASS:
       return {
         ...state,
         currentForm: 'forgotPass',
       }
-    }
+
 
     default:
       return state

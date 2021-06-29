@@ -3,8 +3,9 @@ import { cartTypes } from "../types"
 const initState = {
     isOpen: false,
     items: [],
-    isRestaurant: false,
+    isSalon: false,
     coupon: null,
+    retryCount: 0
 }
 
 export const cartItemsTotalPrice = (items, coupon = null) => {
@@ -26,6 +27,7 @@ export const cartItemsTotalPrice = (items, coupon = null) => {
 
 // cartItems, cartItemToAdd
 const addItemToCart = (state, action) => {
+    console.log("addItemToCart", action);
     const existingCartItemIndex = state.items.findIndex(
         (item) => item.id === action.payload.id
     );
@@ -57,15 +59,7 @@ const clearItemFromCart = (state, action) => {
 };
 
 const cartReducer = (state = initState, action) => {
-    const isInCartHandler = (id) => {
-        return state.items?.some((item) => item.id === id);
-    };
-    const getItemHandler = (id) => {
-        return state.items?.find((item) => item.id === id);
-    };
-    const getCartItemsPrice = () => cartItemsTotalPrice(state.items).toFixed(2);
-    const getCartItemsTotalPrice = () =>
-        cartItemsTotalPrice(state.items, state.coupon).toFixed(2);
+
 
     const getDiscount = () => {
         const total = cartItemsTotalPrice(state.items);
@@ -74,10 +68,6 @@ const cartReducer = (state = initState, action) => {
             : 0;
         return discount.toFixed(2);
     };
-    const getItemsCount = state.items?.reduce(
-        (acc, item) => acc + item.quantity,
-        0
-    );
     switch (action.type) {
         case cartTypes.REHYDRATE: {
             return {
@@ -93,22 +83,73 @@ const cartReducer = (state = initState, action) => {
             }
         }
 
-        case cartTypes.ADD_ITEM: {
+        case cartTypes.ADD_ITEM:
+            console.log('add action', action.payload);
+
             return {
                 ...state,
-                items: addItemToCart(state, action)
+                items: action.payload.isNetworkApi ? action.payload.request.data.items : action.payload.data.items
             }
-        }
-        case cartTypes.REMOVE_ITEM: {
+
+
+        // case cartTypes.ADD_ITEM_SUCCESS: {
+
+        //     return {
+        //         ...state,
+        //         items: action.payload.data.data.items
+        //     }
+        // }
+        // case cartTypes.ADD_ITEM_FAIL: {
+        //     console.log('action', action.payload);
+
+        //     return {
+        //         ...state,
+        //         items: action.payload.request.data.items
+        //     }
+        // }
+
+        case cartTypes.UPDATE_CART_LOCALLY:
             return {
                 ...state,
-                items: removeItemFromCart(state, action)
+                items: action.payload.items
             }
-        }
+
+
+        case cartTypes.GET_CART_SUCCESS:
+            return {
+                ...state,
+                items: action.payload.data.data
+            }
+
+
+        // case cartTypes.ADD_ITEM_SUCCESS: {
+        //     return {
+        //         ...state,
+        //         items: addItemToCart(state, action)
+        //     }
+        // }
+        case cartTypes.REMOVE_ITEM:
+            return {
+                ...state,
+                items: action.payload.isNetworkApi ? action.payload.request.data.items : action.payload.data.items
+            }
+
+        case cartTypes.TRANSFER_CART_SUCCESS:
+            return {
+                ...state,
+                items: action.payload.data.data
+            }
+
+        // case cartTypes.REMOVE_ITEM_SUCCESS: {
+        //     return {
+        //         ...state,
+        //         items: action.payload.data.data.items
+        //     }
+        // }
         case cartTypes.CLEAR_ITEM_FROM_CART: {
             return {
                 ...state,
-                items: clearItemFromCart(state, action)
+                items: action.payload.isNetworkApi ? action.payload.request.data.items : action.payload.data.items
             }
         }
         case cartTypes.CLEAR_CART: {

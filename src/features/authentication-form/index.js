@@ -1,11 +1,10 @@
 import SignInForm from './login';
-import SignOutForm from './register';
+import SignUpForm from './register';
 import ForgotPassForm from './forgot-password';
 import { useSelector } from 'react-redux';
 
 export default function AuthenticationForm() {
   const authState = useSelector(state => state.auth)
-  console.log("authState", authState);
   let RenderForm;
 
   if (authState.currentForm === 'signIn') {
@@ -13,7 +12,7 @@ export default function AuthenticationForm() {
   }
 
   if (authState.currentForm === 'signUp') {
-    RenderForm = SignOutForm;
+    RenderForm = SignUpForm;
   }
 
   if (authState.currentForm === 'forgotPass') {

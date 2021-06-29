@@ -6,9 +6,9 @@ import LanguageProvider from "./language/languageProvider";
 import { messages } from "../site-settings/site-translation/messages";
 import Layout from '../layouts/index'
 import { GlobalStyle } from "../assets/styles/global.style";
-import { ThemeProvider } from "styled-components";
-import { defaultTheme } from "../site-settings/site-theme/default";
 import { useMedia } from "../utils/use-media";
+import UtilComponent from "./UtilComponent";
+import ThemeContainer from "./themeContainer";
 
 const HomeRoutes = () => {
   const ready = checkIfAppReady();
@@ -18,15 +18,15 @@ const HomeRoutes = () => {
   const deviceType = { mobile, tablet, desktop }
   return ready ? <React.Fragment>
     <LanguageProvider messages={messages} >
-      <ThemeProvider theme={defaultTheme}>
+      <ThemeContainer>
         <React.Fragment>
           <GlobalStyle />
           <Layout deviceType={deviceType}>
             <Route path="/" component={MasterRoutes} />
           </Layout>
         </React.Fragment>
-      </ThemeProvider>
+      </ThemeContainer>
     </LanguageProvider>
-  </React.Fragment> : ''
+  </React.Fragment> : <div></div>
 };
 export default HomeRoutes;

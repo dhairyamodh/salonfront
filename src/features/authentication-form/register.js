@@ -19,15 +19,38 @@ import { Facebook } from 'assets/icons/Facebook';
 import { Google } from 'assets/icons/Google';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { useDispatch } from 'react-redux';
+import { register } from '../../redux/actions/authActions'
+import { salonId } from 'redux/types';
+import { closeModal } from '@redq/reuse-modal';
 
 export default function SignOutModal() {
   const intl = useIntl();
   const dispatch = useDispatch()
-
+  const [name, setName] = React.useState('asdsdsds');
+  const [email, setEmail] = React.useState('asdadsadas@gmail.com');
+  const [password, setPassword] = React.useState('asd@1234');
+  const role = 'customer'
   const toggleSignInForm = () => {
     dispatch({
       type: 'SIGNIN',
     });
+  };
+
+  const registerCallback = (e) => {
+    e.preventDefault()
+    if (typeof window !== 'undefined') {
+      dispatch(register({ name, email, password, salonId, role })).then((res) => {
+        if (res.payload.status == 200) {
+          dispatch(showSnackBar('Account created successfully'))
+          closeModal();
+
+        }
+      }).catch((err) => {
+        dispatch(showSnackBar('Account created successfully'))
+
+      });
+
+    }
   };
 
   return (
@@ -42,50 +65,69 @@ export default function SignOutModal() {
             defaultMessage='Every fill is required in sign up'
           />
         </SubHeading>
-        <Input
-          type='text'
-          placeholder={intl.formatMessage({
-            id: 'emailAddressPlaceholder',
-            defaultMessage: 'Email Address or Contact No.',
-          })}
-          height='48px'
-          backgroundColor='#F7F7F7'
-          mb='10px'
-        />
-        <Input
-          type='email'
-          placeholder={intl.formatMessage({
-            id: 'passwordPlaceholder',
-            defaultMessage: 'Password (min 6 characters)',
-          })}
-          height='48px'
-          backgroundColor='#F7F7F7'
-          mb='10px'
-        />
-        <HelperText style={{ padding: '20px 0 30px' }}>
-          <FormattedMessage
-            id='signUpText'
-            defaultMessage="By signing up, you agree to Pickbazar's"
+        <form onSubmit={registerCallback}>
+          <Input
+            type='text'
+            placeholder={intl.formatMessage({
+              id: 'namePlaceholder',
+              defaultMessage: 'Name',
+            })}
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            height='48px'
+            backgroundColor='#F7F7F7'
+            mb='10px'
           />
-          &nbsp;
-          <Link href='/'>
-            <a>
-              <FormattedMessage
-                id='termsConditionText'
-                defaultMessage='Terms &amp; Condition'
-              />
-            </a>
-          </Link>
-        </HelperText>
-        <Button variant='primary' size='big' width='100%' type='submit'>
-          <FormattedMessage id='continueBtn' defaultMessage='Continue' />
-        </Button>
-        <Divider>
+          <Input
+            type='email'
+            placeholder={intl.formatMessage({
+              id: 'emailAddressPlaceholder',
+              defaultMessage: 'Email Address.',
+            })}
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+            height='48px'
+            backgroundColor='#F7F7F7'
+            mb='10px'
+          />
+          <Input
+            type='password'
+            placeholder={intl.formatMessage({
+              id: 'passwordPlaceholder',
+              defaultMessage: 'Password (min 6 characters)',
+            })}
+            onChange={(e) => setPassword(e.target.value)}
+            value={password}
+            height='48px'
+            backgroundColor='#F7F7F7'
+            mb='10px'
+          />
+          <HelperText style={{ padding: '20px 0 30px' }}>
+            <FormattedMessage
+              id='signUpText'
+              defaultMessage="By signing up, you agree to Pickbazar's"
+            />
+            &nbsp;
+            <Link href='/'>
+              <a>
+                <FormattedMessage
+                  id='termsConditionText'
+                  defaultMessage='Terms &amp; Condition'
+                />
+              </a>
+            </Link>
+          </HelperText>
+          <Button variant='primary' size='big' width='100%' type='submit'>
+            <FormattedMessage id='continueBtn' defaultMessage='Continue' />
+          </Button>
+        </form>
+        {/* <Divider>
           <span>
             <FormattedMessage id='orText' defaultMessage='or' />
           </span>
-        </Divider>
-        <Button
+        </Divider> */}
+        {/* <Button
           variant='primary'
           size='big'
           style={{
@@ -101,8 +143,8 @@ export default function SignOutModal() {
             id='continueFacebookBtn'
             defaultMessage='Continue with Facebook'
           />
-        </Button>
-        <Button
+        </Button> */}
+        {/* <Button
           variant='primary'
           size='big'
           style={{ width: '100%', backgroundColor: '#4285f4' }}
@@ -114,7 +156,7 @@ export default function SignOutModal() {
             id='continueGoogleBtn'
             defaultMessage='Continue with Google'
           />
-        </Button>
+        </Button> */}
         <Offer style={{ padding: '20px 0' }}>
           <FormattedMessage
             id='alreadyHaveAccount'
