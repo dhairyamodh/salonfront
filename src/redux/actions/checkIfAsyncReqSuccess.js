@@ -2,7 +2,6 @@ import getErrorMessage from "../../helpers/getErrorMessage";
 // import { showSnackBar } from "./snackActions";
 
 const checkIfAsyncReqSuccess = (dispatch, mainReq) => {
-  console.log(mainReq);
   const { successMessage, errorMessage, cb, enableMessage } = mainReq;
 
   const succMessage = (res) =>

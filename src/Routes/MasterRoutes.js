@@ -6,6 +6,7 @@ import Profile from "../pages/profile";
 import { useMedia } from "../utils/use-media";
 import ProductDetailsPage from "../pages/products";
 import CheckoutPage from "../pages/checkout";
+import Booking from "../pages/booking";
 import UtilComponent from "./UtilComponent";
 
 
@@ -19,6 +20,7 @@ const MasterRoutes = () => {
             {/* <UtilComponent /> */}
             <Route exact path="/" component={(props) => <Home deviceType={deviceType} {...props} />} />
             <Route exact path="/profile" component={(props) => <Profile deviceType={deviceType} {...props} />} />
+            <Route exact path="/booking" component={(props) => <Booking deviceType={deviceType} {...props} />} />
             {/* <Route path="/products/:id" component={ProductDetailsPage} /> */}
             <Route exact path="/checkout" component={(props) => <CheckoutPage deviceType={deviceType} {...props} />} />
 

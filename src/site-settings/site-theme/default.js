@@ -21,6 +21,10 @@ const baseColor = {
     label: '#767676',
   },
   transparent: 'transparent',
+  danger: {
+    lighter: '#fcdbcc',
+    regular: '#cc4308'
+  },
   primary: {
     regular: '#009E7F', // primary color
     hover: '#019376',
@@ -50,12 +54,14 @@ const baseColor = {
   highlight: '',
 };
 
-export const defaultTheme = (primaryColor, secondaryColor) => {
+export const defaultTheme = (primaryColor, secondaryColor, lighterColor) => {
   const currentPrimary = primaryColor ? { ...baseColor.primary, ...primaryColor } : baseColor.primary
   const currentSecondary = secondaryColor ? { ...baseColor.secondary, ...secondaryColor } : baseColor.secondary
+  const currentLighter = lighterColor ? { ...baseColor.secondary, ...lighterColor } : baseColor.secondary
   return {
     colors: {
       ...baseColor,
+      lighter: currentLighter,
       primary: currentPrimary,
       secondary: currentSecondary,
       body: {

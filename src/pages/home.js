@@ -15,13 +15,19 @@ import {
   ContentSection,
   OfferSection,
   MobileCarouselDropdown,
+  CategoryContent,
+  HeaderTitle,
+  CategoryContainer,
+  HeaderSubTitle
 } from 'assets/styles/pages.style';
 
 import CartPopUp from '../features/carts/cart-popup'
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
-import { salonId } from 'redux/types';
 import { getCategorySerivces } from '../redux/actions/serviceActions'
+import { ServerUrl } from '../constants';
+import CategoryCarousel from '../components/carousel/CategoryCarousel';
+
 // const bannerSlides = [
 //   {
 //     img: GroceryImgOne,
@@ -42,6 +48,9 @@ export default function Home({ deviceType }) {
   const [page, setPage] = useState(1)
   const [loading, setIsLoading] = useState(true)
   const fetchLimit = 12
+  const { salonId } = useSelector(state => state.salon)
+  const { allCategories } = useSelector(state => state.category)
+
   const dispatch = useDispatch();
   const getSerivces = (filterService, page) => {
     setIsLoading(true)
@@ -57,6 +66,9 @@ export default function Home({ deviceType }) {
     setPage(page + 1)
   };
   useEffect(() => {
+    if (filterService) {
+      setPage(1)
+    }
     getSerivces(filterService, page)
   }, [filterService, page])
   const { elRef: targetRef, scroll } = useRefScroll({
@@ -64,12 +76,33 @@ export default function Home({ deviceType }) {
     percentOfContainer: 0,
     offsetPX: -110,
   });
+
+
+  // const CategoryCarousel = () => {
+  //   return (allCategories.map((category, index) =>
+  //     <CategoryCard>
+  //       <CategoryImageContainer>
+  //         <CategoryImage
+  //           key={index}
+  //           alt={category.categoryName}
+  //           src={ServerUrl + category.categoryImage}
+  //         />
+  //       </CategoryImageContainer>
+  //       <CategoryCardWrapper>
+  //         <CategoryTitle>{category.categoryName}</CategoryTitle>
+  //         <CategorySubTitle>12 Services</CategorySubTitle>
+  //       </CategoryCardWrapper>
+  //     </CategoryCard>
+  //   ))
+  // }
+
   return (
     <Modal>
       <MobileBanner intlTitleId={shop?.tagLine || 'adasd'} />
       <Banner imageUrl={Saloon} intlTitleId={shop?.tagLine || 'dasd'}
       />
       <OfferSection>
+        <HeaderTitle>Our Deals & Offers</HeaderTitle>
         <div style={{ margin: '0 -10px' }}>
           <Carousel deviceType={deviceType} data={siteOffers} />
         </div>
@@ -77,10 +110,20 @@ export default function Home({ deviceType }) {
       <MobileCarouselDropdown>
         <SidebarCategory setFilterService={setFilterService} deviceType={deviceType} />
       </MobileCarouselDropdown>
+      <CategoryContent>
+
+        <HeaderTitle>Top Categories</HeaderTitle>
+        <CategoryContainer>
+          <CategoryCarousel data={allCategories} deviceType={deviceType} />
+        </CategoryContainer>
+      </CategoryContent >
       <MainContentArea>
-        <SidebarSection>
+        <HeaderSubTitle>Our Services</HeaderSubTitle>
+        <HeaderTitle>Top Trending Services</HeaderTitle>
+
+        {/* <SidebarSection>
           <SidebarCategory setFilterService={setFilterService} deviceType={deviceType} />
-        </SidebarSection>
+        </SidebarSection> */}
         <ContentSection>
           <div ref={targetRef}>
             <ProductGrid data={data}
@@ -94,7 +137,7 @@ export default function Home({ deviceType }) {
       </MainContentArea>
 
       <CartPopUp deviceType={deviceType} />
-    </Modal>
+    </Modal >
   );
 }
 

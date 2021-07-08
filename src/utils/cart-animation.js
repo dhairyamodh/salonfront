@@ -8,7 +8,6 @@ export const cartAnimation = (event) => {
 
   // start animation block
   let imgToDrag = getClosest(event.target, '.product-card');
-  console.log('imgToDrag', imgToDrag, event.target);
 
   let viewCart = document.getElementsByClassName('product-cart')[0];
   let imgToDragImage = imgToDrag.querySelector('.product-image');

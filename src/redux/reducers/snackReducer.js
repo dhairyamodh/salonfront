@@ -20,7 +20,6 @@ const snackReducer = (state = initialstate, action) => {
       if (severnity == 'success') {
         return cogoToast.success(action.payload.data.message || "Success", option)
       } else {
-        console.log("action", action);
         return cogoToast.error(action.payload.data.error.response.data.message || 'Error', option)
 
       }

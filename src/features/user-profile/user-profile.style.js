@@ -45,4 +45,53 @@ const ContentBox = styled.div`
   }
 `;
 
-export { PageWrapper, SidebarSection, ContentBox };
+const BookingTitle = styled.h2`
+width:100%;
+padding-bottom: 30px;
+  text-align:center;
+  @media only screen and (max-width: 1199px) {
+    flex-direction: column;
+  }
+`;
+
+const BookingContent = styled.div`
+  width: 100%;
+  display:flex;
+  justify-content:space-between;
+  @media only screen and (max-width: 1199px) {
+    flex-direction: column;
+  }
+`;
+
+
+const BookingContentBox = styled.div`
+  width: 50%;
+  height: auto;
+  min-height: 200px;
+  display: flex;
+  flex-direction: column;
+  padding:0 20px;
+
+  @media only screen and (max-width: 1199px) {
+    width: 100%;
+    border: 0;
+    padding-bottom: 20px;
+  }
+`;
+
+const BookingContentTimeBox = styled.div`
+  width: 50%;
+  height: auto;
+  min-height: 200px;
+  display: flex;
+  flex-direction: column;
+  padding:0 20px;
+
+  @media only screen and (max-width: 1199px) {
+    width: 100%;
+    border: 0;
+    padding-bottom: 20px;
+  }
+`;
+
+export { PageWrapper, SidebarSection, ContentBox, BookingContentBox, BookingContentTimeBox, BookingContent, BookingTitle };

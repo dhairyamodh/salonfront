@@ -27,7 +27,6 @@ export const cartItemsTotalPrice = (items, coupon = null) => {
 
 // cartItems, cartItemToAdd
 const addItemToCart = (state, action) => {
-    console.log("addItemToCart", action);
     const existingCartItemIndex = state.items.findIndex(
         (item) => item.id === action.payload.id
     );
@@ -84,8 +83,6 @@ const cartReducer = (state = initState, action) => {
         }
 
         case cartTypes.ADD_ITEM:
-            console.log('add action', action.payload);
-
             return {
                 ...state,
                 items: action.payload.isNetworkApi ? action.payload.request.data.items : action.payload.data.items

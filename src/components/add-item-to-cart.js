@@ -7,14 +7,16 @@ import { Box } from './box';
 import { useDispatch, useSelector } from 'react-redux';
 import { addItem, removeItem, } from '../redux/actions/cartActions'
 import { cartAnimation } from '../utils/cart-animation';
+import { Remove } from './removeCart/remove';
 const Icon = styled.span(
   _variant({
     variants: {
       full: {
         px: 3,
         height: 36,
-        backgroundColor: '#e6e6e6',
+        backgroundColor: 'secondary.regular',
         display: 'flex',
+        color: 'white',
         transition: '0.35s ease-in-out',
         alignItems: 'center',
       },
@@ -26,6 +28,7 @@ const Button = styled.button(
     width: 36,
     height: 36,
     borderRadius: 6,
+    fontWeight: 'bold',
     transition: '0.35s ease-in-out',
     backgroundColor: '#fff',
     border: '1px solid',
@@ -43,17 +46,17 @@ const Button = styled.button(
         width: '100%',
         display: 'flex',
         alignItems: 'center',
-        backgroundColor: '#f3f3f3',
+        backgroundColor: 'lighter.regular',
         padding: 0,
         border: 'none',
         overflow: 'hidden',
+        color: 'primary.regular',
         ':hover': {
-          backgroundColor: 'primary.hover',
-          borderColor: 'primary.hover',
+          backgroundColor: 'secondary.regular',
           color: '#fff',
           [Icon]: {
-            backgroundColor: 'primary.regular',
-            color: '#fff',
+            backgroundColor: 'lighter.regular',
+            color: 'primary.regular',
           },
         },
       },
@@ -64,7 +67,6 @@ const Button = styled.button(
 export const AddItemToCart = ({ data, variant, buttonText }) => {
   const dispatch = useDispatch()
   const cart = useSelector(state => state.cart.items)
-  console.log('cart', cart);
   const isInCart = (id) => {
     return cart?.some((item) => item.id === id);
   };
@@ -107,12 +109,13 @@ export const AddItemToCart = ({ data, variant, buttonText }) => {
       </Icon>
     </Button>
   ) : (
-    <Counter
-      value={getItem(data.id).quantity}
-      onDecrement={handleRemoveClick}
-      onIncrement={handleAddClick}
-      className="card-counter"
-      variant={variant || 'altHorizontal'}
-    />
+    <Remove variant={variant || 'altHorizontal'} onDecrement={handleRemoveClick} className="card-counter" />
+    // <Counter
+    //   value={getItem(data.id).quantity}
+    //   onDecrement={handleRemoveClick}
+    //   onIncrement={handleAddClick}
+    //   className="card-counter"
+    //   variant={variant || 'altHorizontal'}
+    // />
   );
 };

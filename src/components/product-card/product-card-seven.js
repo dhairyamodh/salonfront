@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import { AddItemToCart } from 'components/add-item-to-cart';
 import styled from 'styled-components';
 import css from '@styled-system/css';
@@ -16,23 +15,24 @@ import { getSerivceById } from 'redux/actions/serviceActions';
 // import ProductDetailsBook from 'components/product-details/product-details-two/product-details-two'
 
 
-const Card = styled.div({
+const Card = styled.div(css({
   backgroundColor: '#fff',
   overflow: 'hidden',
-  borderRadius: 6,
+  borderRadius: 15,
   border: '1px solid #f3f3f3',
   display: 'flex',
   flexDirection: 'column',
   transition: '0.3s ease-in-out',
   cursor: 'pointer',
+  boxShadow: '0 2px 4px rgba(0, 0, 0, 0.08)',
 
   ':hover': {
-    boxShadow: '0 2px 4px rgba(0, 0, 0, 0.08)',
+    boxShadow: '0 4px 8px rgba(0, 0, 0, 0.08)',
     transform: 'translateY(-5px)',
   },
-});
+}));
 const ImageWrapper = styled.div({
-  // height: 290,
+  height: 250,
   position: 'relative',
   display: 'flex',
   alignItems: 'center',
@@ -63,7 +63,7 @@ const Discount = styled.div(
     position: 'absolute',
     top: '1rem',
     right: '1rem',
-    backgroundColor: 'primary.regular',
+    backgroundColor: '#48bd5e',
     color: '#fff',
     overflow: 'hidden',
     padding: '0.25rem 0.5rem',
@@ -72,12 +72,15 @@ const Discount = styled.div(
     pointerEvents: 'none',
   })
 );
-const Title = styled.h2({
+const Title = styled.h5(css({
   marginBottom: 10,
-  color: '#999',
-  fontSize: 14,
-  fontWeight: 'normal',
-});
+  color: 'primary.regular',
+  fontSize: 'md',
+  fontWeight: 'bold',
+  whiteSpace: 'nowrap',
+  overflow: 'hidden',
+  textOverflow: 'ellipsis'
+}));
 
 const PriceWrapper = styled.div({
   display: 'flex',
@@ -121,7 +124,7 @@ const SalePrice = styled.span(
 );
 
 export const ProductCard = ({ data, deviceType }) => {
-  const { name: title, salonId, _id, imageSrc: image, price: price, } = data;
+  const { name: title, salonId, _id, discount, imageSrc: image, price: price, salePrice } = data;
   const { currencySymbol } = useSelector(state => state.shop.salonData)
   const { serviceDetails: product } = useSelector(state => state.service)
   const dispatch = useDispatch()
@@ -181,15 +184,15 @@ export const ProductCard = ({ data, deviceType }) => {
     <Card className="product-card" onClick={() => handleModal()}>
       <ImageWrapper>
         <Image src={ServerUrl + image} alt={title} className="product-image" />
-        {/* {discountInPercent ? <Discount>{discountInPercent}%</Discount> : null} */}
+        {discount ? <Discount>{discount}%</Discount> : null}
       </ImageWrapper>
       <Box px={15} py={15} pb={15}>
-        <PriceWrapper>
-          <Price>{currencySymbol} {price}</Price>
-          {/* {discountInPercent ? <SalePrice>${price}</SalePrice> : null} */}
-        </PriceWrapper>
         <Title>{title}</Title>
-        <AddItemToCart data={data} variant="full" buttonText="Add" />
+        <PriceWrapper>
+          <Price>{currencySymbol} {salePrice}</Price>
+          {discount ? <SalePrice>${price}</SalePrice> : null}
+        </PriceWrapper>
+        <AddItemToCart data={data} variant="full" buttonText="Add Service" />
       </Box>
     </Card>
   );

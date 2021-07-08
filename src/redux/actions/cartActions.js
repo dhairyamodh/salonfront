@@ -30,10 +30,9 @@ const addItemHandler = (item, quantity = 1) => {
 const transferItemHandler = (item, quantity = 1) => {
   return (dispatch, getState) => {
     const stateItems = getState().cart.items
-    console.log('stateItems', stateItems);
     const { id: userId } = getState().auth
     const { _id: salonId } = getState().salon.salonData
-    localStorage.removeItem('localCart')
+    localStorage.setItem('localCart', JSON.stringify([]))
     return dispatch({
       type: cartTypes.TRANSFER_CART,
       payload: {
@@ -82,7 +81,6 @@ const removeItemHandler = (item, quantity = 1) => {
     const { id: userId, isAuthenticated } = getState().auth
     const { _id: salonId } = getState().salon.salonData
     const updatedItems = removeItemLocalFromCart(stateItems, { ...item, quantity: quantity }, isAuthenticated)
-    console.log('isAuthenticated', isAuthenticated);
     return dispatch({
       type: cartTypes.REMOVE_ITEM,
       payload: {
@@ -174,7 +172,7 @@ export const cartItemsTotalPrice = (items) => {
   if (items === null || items.length === 0) return 0;
   const itemCost = items.reduce((total, item) => {
 
-    return total + item.price * item.quantity;
+    return total + item.salePrice * item.quantity;
 
   }, 0);
   // const discountRate = 1 - discountInPercent;

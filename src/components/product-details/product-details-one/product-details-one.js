@@ -51,6 +51,7 @@ import { Counter } from 'components/counter/counter';
 import { useDispatch, useSelector } from 'react-redux';
 import { addItem, removeItem, } from '../../../redux/actions/cartActions'
 import { ServerUrl } from '../../../constants';
+import { Remove } from 'components/removeCart/remove';
 
 
 
@@ -66,7 +67,6 @@ const ProductDetails = ({
   const getItem = (id) => {
     return cart?.find((item) => item.id === id);
   };
-  console.log('product', product);
   const data = product;
   const { currencySymbol: CURRENCY } = useSelector(state => state.shop.salonData)
 
@@ -113,15 +113,15 @@ const ProductDetails = ({
           <ProductCartWrapper>
             <ProductPriceWrapper>
               <ProductPrice>
-                {CURRENCY} {product?.price}
+                {CURRENCY} {product?.salePrice}
               </ProductPrice>
 
-              {/* {product.discountInPercent ? (
-              <SalePrice>
-                {CURRENCY}
-                {product.price}
-              </SalePrice>
-            ) : null} */}
+              {product?.discount ? (
+                <SalePrice>
+                  {CURRENCY}
+                  {product.price}
+                </SalePrice>
+              ) : null}
             </ProductPriceWrapper>
             <ProductCartBtn>
               {!isInCart(data?._id) ? (
@@ -135,18 +135,20 @@ const ProductDetails = ({
                   <ButtonText>
                     <FormattedMessage
                       id='addToCartButton'
-                      defaultMessage='Add to cart'
+                      defaultMessage='Add Service'
                     />
                   </ButtonText>
                 </Button>
               ) : (
-                <Counter
-                  value={getItem(data?._id).quantity}
-                  onDecrement={handleRemoveClick}
-                  onIncrement={handleAddClick}
-                  className='card-counter'
-                  variant='altHorizontal'
-                />
+                <Remove onDecrement={handleRemoveClick} className='card-counter' isIcon variant='altHorizontal' base='base' />
+
+                // <Counter
+                //   value={getItem(data?._id).quantity}
+                //   onDecrement={handleRemoveClick}
+                //   onIncrement={handleAddClick}
+                //   className='card-counter'
+                //   variant='altHorizontal'
+                // />
               )}
             </ProductCartBtn>
           </ProductCartWrapper>

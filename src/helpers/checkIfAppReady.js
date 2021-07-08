@@ -1,14 +1,13 @@
 import { useState, useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { getSalonData } from '../redux/actions/salonActions'
-import { salonId } from '../redux/types'
 import getToken from "./getToken";
 import { getUserDetails } from "../redux/actions/authActions";
 import { getLocalStorageCart } from '../helpers/cartHelpers'
 import { getItemCart, updateCartLocally } from '../redux/actions/cartActions'
 
 
-function useGetAllData() {
+function useGetAllData(salonId) {
   const dispatch = useDispatch();
   const [ready, setReady] = useState(false);
   const delayReady = () => {

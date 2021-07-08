@@ -171,7 +171,7 @@ export const ProductTimeWrapper = styled.div`
 
 export const ProductTimeTitle = styled.span`
   font-family: ${themeGet("fonts.body", "sans-serif")};
-  font-size: calc(${themeGet("fontSizes.base", "15")}px + 1px);
+  font-size: calc(${themeGet("fontSizes.sm", "15")}px + 1px);
   font-weight: ${themeGet("fontWeights.regular", "400")};
   color: ${themeGet("colors.text.medium", "#424561")};
   flex-shrink: 0;
@@ -179,7 +179,7 @@ export const ProductTimeTitle = styled.span`
 
 export const ProductTime = styled.span`
   font-family: ${themeGet("fonts.body", "sans-serif")};
-  font-size: calc(${themeGet("fontSizes.base", "15")}px + 1px);
+  font-size: calc(${themeGet("fontSizes.sm", "15")}px + 1px);
   font-weight: ${themeGet("fontWeights.regular", "400")};
   color: ${themeGet("colors.text.regular", "#77798C")};
 `;
@@ -239,7 +239,7 @@ export const ProductCartWrapper = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  // margin-top: 60px;
+  margin-top: 20px;
   @media (max-width: 767px) {
     margin-top: 40px;
   }
@@ -248,7 +248,7 @@ export const ProductCartWrapper = styled.div`
 export const ProductCartBtn = styled.div`
   .card-counter {
     height: 48px;
-    width: 130px;
+    width: 100%;
 
     .control-button {
       padding: 10px 15px;

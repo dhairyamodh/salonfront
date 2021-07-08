@@ -1,6 +1,7 @@
 import { salonTypes } from '../types'
 
 const initState = {
+    salonId: '60b5fe559b440625447b7b47',
     salonData: {},
 }
 

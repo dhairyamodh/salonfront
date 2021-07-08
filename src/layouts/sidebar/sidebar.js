@@ -11,7 +11,9 @@ import {
   PopoverWrapper,
   SidebarWrapper,
   RequestMedicine,
+  SidebarTitle
 } from './sidebar.style';
+import { FormattedMessage } from 'react-intl';
 
 import { TreeMenu } from 'components/tree-menu/tree-menu';
 
@@ -19,7 +21,6 @@ import CategoryWalker from 'components/category-walker/category-walker';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, useLocation } from 'react-router';
 import { getCategory } from '../../redux/actions/categoryActions'
-import { salonId } from 'redux/types';
 
 const SidebarCategory = ({
   deviceType: { mobile, tablet, desktop },
@@ -28,6 +29,7 @@ const SidebarCategory = ({
 }) => {
   const dispatch = useDispatch();
   const { allCategories: data } = useSelector(state => state.category)
+  const { salonId } = useSelector(state => state.salon)
   const { loading } = useSelector(state => state.app)
   const { pathname, query } = useLocation();
   const selectedQueries = query;

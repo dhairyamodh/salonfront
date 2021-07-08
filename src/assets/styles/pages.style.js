@@ -1,5 +1,7 @@
 import styled from "styled-components";
 import { themeGet } from "@styled-system/theme-get";
+import { Row as Rows, Col as Cols } from 'react-styled-flexboxgrid';
+import texture from 'assets/images/texture.png';
 
 export const MobileCarouselDropdown = styled.div`
   @media (min-width: 990px) {
@@ -38,9 +40,8 @@ const HeaderSection = styled.div`
 const MainContentArea = styled.main`
   overflow: hidden;
   width: 100%;
-  display: flex;
-  flex-wrap: wrap;
-  background-color: ${themeGet("colors.gray.200", "#f7f7f7")};
+  padding: 60px ;
+  background-color: white;
   padding-right: 0;
   transition: padding-right 0.35s ease-in-out;
 
@@ -53,7 +54,6 @@ const MainContentArea = styled.main`
 const SidebarSection = styled.div`
   background-color: ${themeGet("colors.white", "#ffffff")};
   width: 280px;
-
   @media (max-width: 990px) {
     display: none;
   }
@@ -63,7 +63,7 @@ const ContentSection = styled.div`
   width: calc(100% - 280px);
   height: auto;
   min-height: 100vh;
-  padding: 10px 10px 50px;
+  padding: 20px 10px 50px;
 
   @media (max-width: 1199px) and (min-width: 991px) {
     padding: 10px 10px 50px;
@@ -180,6 +180,39 @@ const ProductsCol = styled.div`
     max-width: 100%;
   }
 `;
+
+export const CategoryContent = styled.div`
+  padding: 60px 0px 0px 60px;
+  border-bottom: 1px solid ${themeGet("colors.gray.500", "#f1f1f1")};
+  background-color:white ;
+`;
+
+export const CategoryContainer = styled.div`
+  width: 100%;
+  height: 100%;
+  display: block;
+  position:relative;
+  padding: 60px;
+  border-radius: 60px 0 0 0;
+  background-image: url(${texture}), linear-gradient(to right top, ${themeGet('colors.primary.regular')},  ${themeGet('colors.secondary.regular')});
+  background-repeat: no-repeat;
+  background-size: cover;
+  
+
+`;
+
+export const HeaderTitle = styled.h3`
+text-align:center;
+  margin-bottom: 20px;  
+`;
+export const HeaderSubTitle = styled.h5`
+text-align:center;
+  color: ${themeGet("colors.gray.950")};
+  text-transform: uppercase;
+margin-bottom: 20px;
+`;
+
+
 
 export {
   OfferPageWrapper,

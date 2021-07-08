@@ -18,17 +18,17 @@ import { Google } from 'assets/icons/Google';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { closeModal } from '@redq/reuse-modal';
 import { Input } from 'components/forms/input';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { forgotPass, login, signUp } from '../../redux/actions/authActions';
 import { showSnackBar } from '../../redux/actions/snackActions'
 import { getItemCart, transferItem } from 'redux/actions/cartActions';
-import { salonId } from 'redux/types';
 
 export default function SignInModal() {
   const intl = useIntl();
   const dispatch = useDispatch()
   const [email, setEmail] = React.useState('asdadsadas@gmail.com');
   const [password, setPassword] = React.useState('asd@1234');
+  const { salonId } = useSelector(state => state.salon)
 
   const toggleSignUpForm = () => {
     dispatch(signUp());

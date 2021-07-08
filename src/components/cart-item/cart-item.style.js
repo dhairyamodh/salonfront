@@ -23,7 +23,8 @@ export const Image = styled.img({
   width: 60,
   height: 60,
   objectFit: 'cover',
-  margin: '0 15px',
+  borderRadius: '5px',
+  // margin: '0 15px',
 });
 export const Name = styled.span(
   css({
@@ -45,6 +46,7 @@ export const Weight = styled.span(
     fontSize: 'sm',
     fontWeight: 'regular',
     color: 'text.regular',
+    mt: '10px',
     mb: '5px',
   })
 );

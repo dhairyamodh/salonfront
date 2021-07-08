@@ -10,9 +10,6 @@ import { Box } from 'components/box';
 import NoResultFound from 'components/no-result/no-result';
 import { LoaderItem, LoaderWrapper } from './product-list/product-list.style';
 import Placeholder from 'components/placeholder/placeholder';
-import { useSelector } from 'react-redux';
-import { getSerivces } from '../../redux/actions/serviceActions'
-import { salonId } from 'redux/types';
 
 const Grid = styled.div(
   css({

@@ -149,6 +149,41 @@ export const GlobalStyle = createGlobalStyle(({ theme }) =>
       padding: '0 9px!important',
       boxShadow: '0 2px 8px rgba(0,0,0,0.4)',
     },
+    '.react-calendar__viewContainer': {
+      backgroundColor: get(theme, 'colors.lighter.regular'),
+    },
+
+    '.react-calendar__tile': {
+      borderRadius: 5,
+      '&:enabled': {
+        '&:hover, &:focus': {
+          backgroundColor: get(theme, 'colors.primary.regular'),
+          color: 'white',
+        }
+      }
+    },
+
+    '.react-calendar__tile--now': {
+      backgroundColor: 'none',
+      borderRadius: 5,
+      '&:enabled': {
+        '&:hover, &:focus': {
+          backgroundColor: 'none',
+          color: 'white',
+        }
+      }
+    },
+    '.react-calendar__tile--active': {
+      backgroundColor: get(theme, 'colors.secondary.regular'),
+      borderRadius: 5,
+      color: 'white',
+      '&:enabled': {
+        '&:hover, &:focus': {
+          backgroundColor: get(theme, 'colors.primary.regular'),
+          color: 'white',
+        }
+      }
+    },
 
     '.image-item': {
       padding: '0 15px',

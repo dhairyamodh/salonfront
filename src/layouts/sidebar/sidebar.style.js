@@ -82,6 +82,27 @@ export const SidebarWrapper = styled.div`
   }
 `;
 
+export const SidebarTitle = styled.h6`
+  padding: 23px;
+  text-transform:uppercase;
+  border-bottom: 1px solid #eee;
+  @media (max-width: 1199px) {
+    padding: 40px 0px;
+    padding-right: 0;
+  }
+
+  @media (max-width: 990px) {
+    display: none;
+    padding: 0;
+  }
+
+  .sidebar-scrollbar {
+    height: 100%;
+    max-height: calc(100vh - 108px);
+  }
+`;
+
+
 export const CategoryWrapper = styled.div`
   position: relative;
   width: 100%;

@@ -67,8 +67,10 @@ export const Title = styled.h2(
     fontWeight: 'bold',
   }),
   {
-    marginBottom: 15,
-    textAlign: 'center',
+    padding: 30,
+    textTransform: 'uppercase',
+    color: "white",
+    textAlign: 'left',
   }
 );
 export const Description = styled.p(

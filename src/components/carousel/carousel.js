@@ -7,6 +7,72 @@ import { ArrowNext } from 'assets/icons/ArrowNext';
 import { ArrowPrev } from 'assets/icons/ArrowPrev';
 import { useSelector } from 'react-redux';
 
+const Item = styled('div')`
+  height: 200px;
+  width: 100%;
+  background-color: ${themeGet('colors.white', '#ffffff')};
+  color: ${themeGet('colors.primary.regular', '#009E7F')};
+  padding: 0;
+  position:relative;
+  display:inline-block;
+  box-shadow: ${themeGet('shadows.base', '0 3px 6px rgba(0, 0, 0, 0.16)')};
+  &:after {
+    content:'';
+  position:absolute;
+  border-radius: 10px;
+  left:0; top:0;
+  width:100%; 
+  height:100%;
+  display:inline-block;
+  background: -webkit-linear-gradient(left, rgba(0,0,0,0.7) 0%,rgba(0,0,0, 0) 100%);
+  background: -o-linear-gradient(left, rgba(0,0,0,0.7) 0%,rgba(0,0,0, 0) 100%);
+  background: -ms-linear-gradient(left, rgba(0,0,0,0.7) 0%,rgba(0,0,0, 0) 100%);
+  background: linear-gradient(to right, rgba(0,0,0,0.7) 0%,rgba(0,0,0, 0) 100%); 
+  }
+  @media only screen and (max-width: 990px) {
+    height: 150px;
+  }
+`;
+
+const Image = styled('img')`
+  position:absolute;
+  border-radius:10px;
+  width: 100%;
+  height: 100%;
+  object-fit:cover;
+  top:0;
+`;
+
+const CardContent = styled('div')`
+position: relative;
+padding: 20px;
+width: 100%;
+height: 100%;
+z-index: 3;
+display: flex;
+flex-direction: column;
+justify-content: center;
+align-items: flex-start;
+color: #fff;
+`;
+
+const Title = styled('h5')`
+padding: 5px;
+font-size: 23px;
+@media only screen and (max-width: 990px) {
+  font-size: 18px;
+}
+`;
+
+
+const Subtitle = styled('p')`
+padding:0 5px;
+color:${themeGet('colors.gray.200',)};
+@media only screen and (max-width: 990px) {
+  font-size: 12px;
+}
+`;
+
 const ButtonPrev = styled('button')`
   height: 40px;
   width: 40px;
@@ -135,6 +201,7 @@ export default function CustomCarousel({
   ...props
 }) {
 
+
   return (
     <div dir="ltr">
       <Carousel
@@ -156,12 +223,20 @@ export default function CustomCarousel({
         {data.map((item, index) => {
           if (component) return component(item);
           return (
-            <div style={{ padding: '0 15px', overflow: 'hidden' }} key={index}>
-              <a
-                href={item.link}
-                style={{ display: 'flex', cursor: 'pointer' }}
-              >
-                <img
+            <div style={{ borderRadius: 10, padding: '0 15px', overflow: 'hidden' }} key={index}>
+
+              <Item>
+                <CardContent>
+                  <Title>Offer {index} Title</Title>
+                  <Subtitle>Offer {index} sub title</Subtitle>
+                </CardContent>
+                <Image
+                  key={item.id}
+                  src={item.imgSrc}
+                  alt={item.alt}
+                />
+              </Item>
+              {/* <img
                   key={item.id}
                   src={item.imgSrc}
                   alt={item.alt}
@@ -171,8 +246,7 @@ export default function CustomCarousel({
                     display: 'block',
                     position: 'relative',
                   }}
-                />
-              </a>
+                /> */}
             </div>
           );
         })}

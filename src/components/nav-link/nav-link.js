@@ -27,7 +27,6 @@ const NavLink = ({
   dynamic,
 }) => {
   const router = useHistory()
-  console.log(href);
   const isCurrentPath = router.pathname === href || router.asPath === href;
   return (
     <div onClick={onClick} className={className ? className : ''}>

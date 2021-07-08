@@ -9,6 +9,7 @@ import salonReducer from './salonReducer'
 import categoryReducer from './categoryReducer'
 import serviceReducer from './serviceReducer'
 import snackReducer from './snackReducer'
+import checkoutReducer from './checkoutReducer'
 
 //decide to leave it for demostration
 const reducers = combineReducers({
@@ -21,7 +22,8 @@ const reducers = combineReducers({
   salon: salonReducer,
   category: categoryReducer,
   service: serviceReducer,
-  snack: snackReducer
+  snack: snackReducer,
+  checkout: checkoutReducer
 })
 
 export default reducers

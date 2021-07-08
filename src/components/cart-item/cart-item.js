@@ -1,7 +1,6 @@
 import React from "react";
 import { Counter } from "components/counter/counter";
 import { CloseIcon } from "assets/icons/CloseIcon";
-import { CURRENCY } from "utils/constant";
 import {
   ItemBox,
   Image,
@@ -13,6 +12,7 @@ import {
   RemoveButton,
 } from "./cart-item.style";
 import { ServerUrl } from "../../constants";
+import { useSelector } from "react-redux";
 
 
 export const CartItem = ({
@@ -21,33 +21,34 @@ export const CartItem = ({
   onIncrement,
   onRemove,
 }) => {
-  const { title, imageSrc, price, quantity } = data;
+  const { currencySymbol: CURRENCY } = useSelector(state => state.shop.salonData)
+  const { name, categoryName, imageSrc, salePrice, quantity } = data;
   return (
     <ItemBox>
-      <Counter
+      {/* <Counter
         value={quantity}
         onDecrement={onDecrement}
         onIncrement={onIncrement}
         variant="lightVertical"
-      />
+      /> */}
       <Image src={ServerUrl + imageSrc} />
       <Information>
-        <Name>{title}</Name>
-        <Price>
+        <Name>{name}</Name>
+        <Weight>{categoryName}</Weight>
+        {/* <Price>
           {CURRENCY}
-          {price}
-        </Price>
-        <Weight>
-          {quantity} X {price}
-        </Weight>
-      </Information>
+          {salePrice}
+        </Price> */}
+        {/* <Weight>
+          {quantity} X {salePrice}
+        </Weight> */}
+      </Information >
       <Total>
-        {CURRENCY}
-        {(quantity * price).toFixed(2)}
+        {CURRENCY} {(quantity * salePrice).toFixed(2)}
       </Total>
       <RemoveButton onClick={onRemove}>
         <CloseIcon />
       </RemoveButton>
-    </ItemBox>
+    </ItemBox >
   );
 };

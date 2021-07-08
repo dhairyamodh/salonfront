@@ -133,7 +133,11 @@
     "src/features/user-profile/sidebar/sidebar.js",
     "src/components/truncate/truncate.js",
     "src/components/cart-item/cart-item.style.js",
-    "src/components/cart-item/cart-item.js"
+    "src/components/cart-item/cart-item.js",
+    "src/components/removeCart/remove.style.js",
+    "src/components/removeCart/remove.js",
+    "src/assets/styles/product-single.style.js",
+    "src/assets/styles/pages.style.js"
   ],
   "exclude": ["node_modules"]
 }

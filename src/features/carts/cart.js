@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import {
   CartPopupBody,
   PopupHeader,
@@ -19,7 +19,6 @@ import {
 import { CloseIcon } from 'assets/icons/CloseIcon';
 import { ShoppingBagLarge } from 'assets/icons/ShoppingBagLarge';
 import { NoCartBag } from 'assets/icons/NoCartBag';
-import { CURRENCY } from 'utils/constant';
 import { FormattedMessage } from 'react-intl';
 
 import { Scrollbar } from 'components/scrollbar/scrollbar';
@@ -41,6 +40,8 @@ const Cart = ({
   scrollbarHeight,
 }) => {
 
+  const history = useHistory()
+  const { currencySymbol: CURRENCY } = useSelector(state => state.shop.salonData)
   const cart = useSelector(state => state.cart.items)
   const calculatePrice = () =>
     cartItemsTotalPrice(cart).toFixed(2);
@@ -99,22 +100,21 @@ const Cart = ({
 
 
         {cartItemsCount !== 0 ? (
-          <Link to='/checkout'>
+          <a onClick={() => history.push('/booking')}>
             <CheckoutButton onClick={onCloseBtnClick}>
               <>
                 <Title>
                   <FormattedMessage
                     id='nav.checkout'
-                    defaultMessage='Checkout'
+                    defaultMessage='Continue'
                   />
                 </Title>
                 <PriceBox>
-                  {CURRENCY}
-                  {calculatePrice()}
+                  {CURRENCY}&nbsp;{calculatePrice()}
                 </PriceBox>
               </>
             </CheckoutButton>
-          </Link>
+          </a>
         ) : (
           <CheckoutButton>
             <>
@@ -122,8 +122,7 @@ const Cart = ({
                 <FormattedMessage id='nav.checkout' defaultMessage='Checkout' />
               </Title>
               <PriceBox>
-                {CURRENCY}
-                {calculatePrice()}
+                {CURRENCY}&nbsp;{calculatePrice()}
               </PriceBox>
             </>
           </CheckoutButton>

@@ -20,7 +20,6 @@ import { Google } from 'assets/icons/Google';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { useDispatch } from 'react-redux';
 import { register } from '../../redux/actions/authActions'
-import { salonId } from 'redux/types';
 import { closeModal } from '@redq/reuse-modal';
 
 export default function SignOutModal() {
@@ -30,6 +29,8 @@ export default function SignOutModal() {
   const [email, setEmail] = React.useState('asdadsadas@gmail.com');
   const [password, setPassword] = React.useState('asd@1234');
   const role = 'customer'
+  const { salonId } = useSelector(state => state.salon)
+
   const toggleSignInForm = () => {
     dispatch({
       type: 'SIGNIN',
