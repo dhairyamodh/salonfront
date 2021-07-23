@@ -1,82 +1,103 @@
-import React from 'react';
-import { NextPage, GetStaticProps } from 'next';
-import { useQuery, gql } from '@apollo/client';
-import { SEO } from 'components/seo';
+import React, { useEffect, useState } from 'react';
 import CartPopUp from 'features/carts/cart-popup';
 import { Modal } from '@redq/reuse-modal';
+import { useParams } from 'react-router-dom';
 
 import {
   OfferPageWrapper,
   ProductsRow,
   MainContentArea,
   ProductsCol,
+  HeadingTitle,
+  OfferCard,
+  OfferItem,
+  OfferImage,
+  OfferTitle,
+  OfferSubtitle,
+  OfferContainer
 } from 'assets/styles/pages.style';
+import { Button } from 'components/button/button';
 import GiftCard from 'components/gift-card/gift-card';
-import Footer from 'layouts/footer';
-import { initializeApollo } from 'utils/apollo';
-import dynamic from 'next/dynamic';
-const ErrorMessage = dynamic(() =>
-  import('components/error-message/error-message')
-);
+import ErrorMessage from 'components/error-message/error-message'
+import { siteOffers } from '../site-settings/site-offers';
+import Tabs from 'components/tabs/tabs';
 
-const GET_COUPON = gql`
-  query {
-    coupons {
-      id
-      code
-      image
-      discountInPercent
-    }
+
+const OffersDeals = ({ deviceType }) => {
+  // if (error) return <ErrorMessage message={error.message} />;
+  const tabsData = [
+    { title: 'offers' },
+    { title: 'deals' },
+  ]
+  const { value } = useParams()
+  const [active, setAcive] = useState()
+  const handleClick = (title) => {
+    setAcive(title)
   }
-`;
-type GiftCardProps = {
-  deviceType: {
-    mobile: boolean;
-    tablet: boolean;
-    desktop: boolean;
-  };
-};
+  const Deals = () => {
+    return (<ProductsRow>
+      {siteOffers && siteOffers
+        ? siteOffers.map((coupon) => (
+          <ProductsCol key={coupon.id}>
+            <GiftCard discount="20" title="dkjfkdj" subtitle="skjdksj" code="dkjksjd" />
+          </ProductsCol>
+        ))
+        : null}
+    </ProductsRow>)
+  }
 
-const GiftCardPage: NextPage<GiftCardProps> = ({ deviceType }) => {
-  const { data, error } = useQuery(GET_COUPON);
-  if (error) return <ErrorMessage message={error.message} />;
+
+
+  useEffect(() => {
+    handleClick(value)
+  }, [value])
+
+  const Offers = () => {
+    return (
+      <OfferContainer style={{ paddingTop: 30 }}>
+        {siteOffers.map((item, index) => {
+          return (
+            <OfferItem>
+              <OfferCard>
+                <OfferTitle>Offer {index} Title</OfferTitle>
+                <OfferSubtitle>Offer {index} sub title</OfferSubtitle>
+                <Button variant="white" >
+                  Book Now
+                </Button>
+              </OfferCard>
+              <OfferImage
+                key={item.id}
+                src={item.imgSrc}
+                alt={item.alt}
+              />
+            </OfferItem>
+
+          );
+        })}
+      </OfferContainer>
+
+    )
+  }
 
   return (
     <Modal>
-      <SEO title="Offer - PickBazar" description="Offer Details" />
       <OfferPageWrapper>
         <MainContentArea>
+          <HeadingTitle>Offers & Deals</HeadingTitle>
+          <Tabs data={tabsData} active={active} onclick={handleClick} />
           <div style={{ width: '100%' }}>
-            <ProductsRow>
-              {data && data.coupons
-                ? data.coupons.map((coupon) => (
-                    <ProductsCol key={coupon.id}>
-                      <GiftCard image={coupon.image} code={coupon.code} />
-                    </ProductsCol>
-                  ))
-                : null}
-            </ProductsRow>
+            {
+              (active === 'deals') ? <Deals /> : <Offers />
+
+            }
+
           </div>
         </MainContentArea>
 
-        <Footer />
       </OfferPageWrapper>
       <CartPopUp deviceType={deviceType} />
     </Modal>
   );
 };
 
-export const getStaticProps: GetStaticProps = async () => {
-  const apolloClient = initializeApollo();
-
-  await apolloClient.query({
-    query: GET_COUPON,
-  });
-
-  return {
-    props: {
-      initialApolloState: apolloClient.cache.extract(),
-    },
-  };
-};
-export default GiftCardPage;
+export default OffersDeals;

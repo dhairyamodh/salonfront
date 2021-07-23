@@ -4,12 +4,14 @@ import { defaultTheme } from "../site-settings/site-theme/default";
 import { useSelector } from "react-redux";
 
 function ThemeContainer({ children }) {
-    const { primaryColor, secondaryColor, lighterColor } = useSelector(state => state.shop.salonData)
+    const { primaryColor, secondaryColor, primaryLight, primaryDark, secondaryLight } = useSelector(state => state.shop.salonData)
     const primaryData = { regular: primaryColor, hover: secondaryColor }
     const secondaryData = { regular: secondaryColor, hover: secondaryColor }
-    const lighterData = { regular: lighterColor, hover: lighterColor }
+    const lighterData = { regular: primaryLight, hover: primaryLight }
+    const darkerData = { regular: primaryDark, hover: primaryDark }
+    const secondaryLightData = { regular: secondaryLight, hover: secondaryLight }
     return (
-        <ThemeProvider theme={defaultTheme(primaryData, secondaryData, lighterData)}>
+        <ThemeProvider theme={defaultTheme(primaryData, secondaryData, lighterData, darkerData, secondaryLightData)}>
             {children}
         </ThemeProvider>
     )

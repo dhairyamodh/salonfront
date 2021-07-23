@@ -3,7 +3,7 @@ import styled, { keyframes, css } from 'styled-components';
 import systemCss from '@styled-system/css';
 import { compose, variant, border, space, layout } from 'styled-system';
 
-export const StyledButton = styled.div<any>(
+export const StyledButton = styled.div(
   (props) =>
     systemCss({
       px: '15px',
@@ -135,16 +135,8 @@ const Spinner = styled.div(
     animation: ${rotate} 1.2s infinite linear;
   `
 );
-
-type Props = {
-  children: React.ReactNode;
-  loading?: boolean;
-  disabled?: boolean;
-  type: 'submit' | 'button';
-  [key: string]: unknown;
-};
-export type Ref = HTMLDivElement;
-export const Button = React.forwardRef<Ref, Props>(
+export const Ref = HTMLDivElement;
+export const Button = React.forwardRef(
   ({ children, disabled, loading = false, ...props }, ref) => (
     <StyledButton ref={ref} {...props} disabled={disabled} role="button">
       {children}

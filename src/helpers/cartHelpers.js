@@ -5,13 +5,18 @@ export const addItemLocalToCart = (items, newitem, isAuthenticated) => {
 
   if (existingCartItemIndex > -1) {
 
-    const newState = [...items];
+    const newState = [...items, newitem];
     newState[existingCartItemIndex].quantity += newitem.quantity;
     if (!isAuthenticated) {
-
       localStorage.setItem('localCart', JSON.stringify(newState))
     }
     return newState;
+  } else {
+    const newState = [...items, newitem];
+    console.log('sdosdojkjjk', newState);
+    if (!isAuthenticated) {
+      localStorage.setItem('localCart', JSON.stringify(newState))
+    }
   }
 
   const updatedItems = [...items, newitem]

@@ -7,7 +7,6 @@ import Cart from './cart';
 import CartPopupButton, {
   BoxedCartButton,
 } from 'components/cart-popup/cart-popup-button';
-import { CURRENCY } from 'utils/constant';
 import { CartSlidePopup } from './cart.style';
 import { FormattedMessage } from 'react-intl';
 import { useDispatch, useSelector } from 'react-redux';
@@ -44,6 +43,7 @@ const CartPopUp = ({
   const { isOpen, items } = useSelector(state => state.cart)
   const cartItemsCount = items.length
   const dispatch = useDispatch()
+  const { currencySymbol: CURRENCY } = useSelector(state => state.shop.salonData)
 
   const calculatePrice = () =>
     cartItemsTotalPrice(items).toFixed(2);

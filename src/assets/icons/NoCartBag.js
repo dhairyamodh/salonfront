@@ -2,7 +2,7 @@ import React from "react";
 import { useSelector } from "react-redux";
 
 export const NoCartBag = () => {
-  const { primaryColor: a, secondaryColor: b } = useSelector(
+  const { primaryColor: a, primaryDark: b } = useSelector(
     (state) => state.shop.salonData
   );
 

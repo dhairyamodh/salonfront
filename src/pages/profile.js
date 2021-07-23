@@ -28,7 +28,6 @@ const ProfilePage = ({ deviceType }) => {
             <SettingsContent deviceType={deviceType} />
           </ContentBox>
 
-          <Footer />
         </PageWrapper>
       </Modal>
       {/* </ProfileProvider> */}

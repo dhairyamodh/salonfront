@@ -5,7 +5,7 @@ import AuthenticationForm from '../../features/authentication-form';
 import { RightMenu } from './menu/right-menu/right-menu';
 import { LeftMenu } from './menu/left-menu/left-menu';
 import HeaderWrapper from './header.style';
-import UserImage from 'assets/images/user.jpg';
+// import UserImage from 'assets/images/user.jpg';
 import Search from 'features/search/search';
 import { useDispatch, useSelector } from 'react-redux';
 import { signIn, signOut } from '../../redux/actions/authActions';
@@ -44,16 +44,19 @@ const Header = ({ className }) => {
 
   const { logo: LogoImage } = useSelector(state => state.salon.salonData)
 
+  const { name } = useSelector(state => state.auth)
+
 
   return (
     <HeaderWrapper className={className} id="layout-header">
       {LogoImage && <LeftMenu logo={ServerUrl + LogoImage} />}
-      <Search minimal={true} className="headerSearch" />
+      <Search minimal={false} className="headerSearch" />
       <RightMenu
         isAuthenticated={isAuthenticated}
         onJoin={handleJoin}
         onLogout={handleLogout}
-        avatar={UserImage}
+        userName={name}
+      // avatar={UserImage}
       />
     </HeaderWrapper>
   );

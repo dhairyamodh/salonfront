@@ -17,7 +17,7 @@ const PopoverWrapper = styled.div`
     min-width: 200px;
     padding: 15px 20px;
     position: absolute;
-    border-radius: ${themeGet('radii.base', '6px')};
+    border-radius: ${themeGet('radii.big', '6px')};
     background-color: ${themeGet('colors.white', '#ffffff')};
     box-shadow: 0 3px 20px rgba(142, 142, 142, 0.14);
     z-index: 99;

@@ -23,7 +23,7 @@ export const Image = styled.img({
   width: 60,
   height: 60,
   objectFit: 'cover',
-  borderRadius: '5px',
+  borderRadius: '20px',
   // margin: '0 15px',
 });
 export const Name = styled.span(

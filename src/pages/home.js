@@ -9,6 +9,7 @@ import Carousel from '../components/carousel/carousel';
 import { siteOffers } from '../site-settings/site-offers';
 import { MobileBanner } from '../components/banner/mobile-banner';
 import { useRefScroll } from 'utils/use-ref-scroll';
+import { Button } from 'components/button/button';
 import {
   MainContentArea,
   SidebarSection,
@@ -16,17 +17,25 @@ import {
   OfferSection,
   MobileCarouselDropdown,
   CategoryContent,
-  HeaderTitle,
   CategoryContainer,
-  HeaderSubTitle
+  HeaderSubTitle,
+  HeaderContainer,
+  HeaderWrapper,
+  OfferContainer,
+  OfferCard,
+  OfferItem,
+  OfferImage,
+  OfferTitle,
+  OfferSubtitle
 } from 'assets/styles/pages.style';
 
 import CartPopUp from '../features/carts/cart-popup'
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
-import { getCategorySerivces } from '../redux/actions/serviceActions'
+import { getCategorySerivces, getTrendingSerivces } from '../redux/actions/serviceActions'
 import { ServerUrl } from '../constants';
 import CategoryCarousel from '../components/carousel/CategoryCarousel';
+import { useHistory } from 'react-router-dom';
 
 // const bannerSlides = [
 //   {
@@ -43,18 +52,15 @@ import CategoryCarousel from '../components/carousel/CategoryCarousel';
 
 export default function Home({ deviceType }) {
   const shop = useSelector(state => state.salon.salonData)
-  const { allServices: data, totalServices } = useSelector(state => state.service)
-  const [filterService, setFilterService] = useState()
-  const [page, setPage] = useState(1)
-  const [loading, setIsLoading] = useState(true)
-  const fetchLimit = 12
+  const { allServices: data } = useSelector(state => state.service)
   const { salonId } = useSelector(state => state.salon)
   const { allCategories } = useSelector(state => state.category)
-
+  const [loading, setIsLoading] = useState(false)
   const dispatch = useDispatch();
-  const getSerivces = (filterService, page) => {
+  const history = useHistory()
+  const getSerivces = () => {
     setIsLoading(true)
-    dispatch(getCategorySerivces(salonId, undefined, filterService, true, fetchLimit, page)).then((res) => {
+    dispatch(getTrendingSerivces(salonId, undefined, true,)).then((res) => {
       if (res.payload.status === 200) {
         setIsLoading(false)
       }
@@ -62,15 +68,12 @@ export default function Home({ deviceType }) {
       setIsLoading(true)
     });
   }
-  const handleLoadMore = () => {
-    setPage(page + 1)
-  };
+  // const handleLoadMore = () => {
+  //   setPage(page + 1)
+  // };
   useEffect(() => {
-    if (filterService) {
-      setPage(1)
-    }
-    getSerivces(filterService, page)
-  }, [filterService, page])
+    getSerivces()
+  }, [])
   const { elRef: targetRef, scroll } = useRefScroll({
     percentOfElement: 0,
     percentOfContainer: 0,
@@ -101,41 +104,88 @@ export default function Home({ deviceType }) {
       <MobileBanner intlTitleId={shop?.tagLine || 'adasd'} />
       <Banner imageUrl={Saloon} intlTitleId={shop?.tagLine || 'dasd'}
       />
-      <OfferSection>
-        <HeaderTitle>Our Deals & Offers</HeaderTitle>
-        <div style={{ margin: '0 -10px' }}>
-          <Carousel deviceType={deviceType} data={siteOffers} />
-        </div>
-      </OfferSection>
-      <MobileCarouselDropdown>
-        <SidebarCategory setFilterService={setFilterService} deviceType={deviceType} />
-      </MobileCarouselDropdown>
       <CategoryContent>
 
-        <HeaderTitle>Top Categories</HeaderTitle>
+        <HeaderContainer>
+          <HeaderWrapper>
+            <h3>Categories</h3>
+          </HeaderWrapper>
+        </HeaderContainer>
         <CategoryContainer>
           <CategoryCarousel data={allCategories} deviceType={deviceType} />
         </CategoryContainer>
       </CategoryContent >
-      <MainContentArea>
-        <HeaderSubTitle>Our Services</HeaderSubTitle>
-        <HeaderTitle>Top Trending Services</HeaderTitle>
 
+      <MobileCarouselDropdown>
+        <SidebarCategory deviceType={deviceType} />
+      </MobileCarouselDropdown>
+      <OfferSection>
+        <HeaderContainer>
+          <HeaderWrapper>
+            <h3>Latest Offers</h3>
+          </HeaderWrapper>
+          <Button variant="secondary" onClick={() => history.push('/offers-deals/offers')}>
+            View All +
+          </Button>
+        </HeaderContainer>
+        <OfferContainer>
+          {siteOffers.map((item, index) => {
+            return (
+              <>
+                <OfferItem>
+                  <OfferCard>
+                    <OfferTitle>Offer {index} Title</OfferTitle>
+                    <OfferSubtitle>Offer {index} sub title</OfferSubtitle>
+                    <Button variant="white" >
+                      Book Now
+                    </Button>
+                  </OfferCard>
+                  <OfferImage
+                    key={item.id}
+                    src={item.imgSrc}
+                    alt={item.alt}
+                  />
+                </OfferItem>
+
+              </>
+            );
+          }).slice(0, 2)}
+        </OfferContainer>
+      </OfferSection>
+      <MainContentArea>
+        <HeaderContainer>
+          <HeaderWrapper>
+            <HeaderSubTitle>Our Services</HeaderSubTitle>
+            <h3>Top Trending Services</h3>
+          </HeaderWrapper>
+        </HeaderContainer>
         {/* <SidebarSection>
           <SidebarCategory setFilterService={setFilterService} deviceType={deviceType} />
         </SidebarSection> */}
-        <ContentSection>
-          <div ref={targetRef}>
-            <ProductGrid data={data}
-              totalServices={totalServices}
-              deviceType={deviceType}
-              loading={loading}
-              handleLoadMore={handleLoadMore}
-            />
-          </div>
-        </ContentSection>
+        {/* <ContentSection> */}
+        <div ref={targetRef}>
+          <ProductGrid data={data}
+            deviceType={deviceType}
+            loading={loading}
+          // handleLoadMore={handleLoadMore}
+          />
+        </div>
+        {/* </ContentSection> */}
       </MainContentArea>
 
+      <OfferSection>
+        <HeaderContainer>
+          <HeaderWrapper>
+            <h3>Limited Time Deals</h3>
+          </HeaderWrapper>
+          <Button variant="secondary" onClick={() => history.push('/offers-deals/deals')} >
+            View All +
+          </Button>
+        </HeaderContainer>
+        <div style={{ width: '100%', position: 'relative', height: '100%' }}>
+          <Carousel deviceType={deviceType} data={siteOffers} />
+        </div>
+      </OfferSection>
       <CartPopUp deviceType={deviceType} />
     </Modal >
   );

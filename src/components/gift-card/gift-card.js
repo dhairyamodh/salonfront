@@ -10,18 +10,14 @@ import {
   CopyButton,
   GiftCode,
   CopySuccess,
+  Discount,
+  Title,
+  Subtitle
 } from "./gift-card.style";
 
-type GiftCardProps = {
-  image?: any;
-  weight?: string;
-  code?: any;
-  onClick?: (e: any) => void;
-  onChange?: (e: any) => void;
-};
-
-const GiftCard: React.FC<GiftCardProps> = ({
+const GiftCard = ({
   image,
+  discount, title, subtitle,
   weight,
   onClick,
   onChange,
@@ -48,11 +44,14 @@ const GiftCard: React.FC<GiftCardProps> = ({
   return (
     <GiftCardWrapper {...props} className="product-card">
       <GiftCardImageWrapper>
-        <Img src={image} className="gift-image" alt="gift image" />
+        {/* <Img src={image} className="gift-image" alt="gift image" /> */}
+        <Discount>{discount}% OFF</Discount>
+        <Title>{title}</Title>
+        <Subtitle>{subtitle}</Subtitle>
       </GiftCardImageWrapper>
       <CardInfo>
         <CardContent>
-          <GiftCode ref={codeRef} value={copyText.value} readOnly />
+          <GiftCode ref={codeRef} value={`${copyText.value.slice(0, copyText.value.length / 2)}XXXX`} readOnly />
 
           {!copyText.copied ? (
             <CopyToClipboard

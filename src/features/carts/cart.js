@@ -105,7 +105,7 @@ const Cart = ({
               <>
                 <Title>
                   <FormattedMessage
-                    id='nav.checkout'
+                    id='nav.checkoutButton'
                     defaultMessage='Continue'
                   />
                 </Title>
@@ -119,7 +119,7 @@ const Cart = ({
           <CheckoutButton>
             <>
               <Title>
-                <FormattedMessage id='nav.checkout' defaultMessage='Checkout' />
+                <FormattedMessage id='nav.checkoutButton' defaultMessage='Checkout' />
               </Title>
               <PriceBox>
                 {CURRENCY}&nbsp;{calculatePrice()}

@@ -107,7 +107,7 @@ export const DiscountPercent = styled.span`
   font-weight: ${themeGet('fontWeights.bold', '700')};
   color: ${themeGet('colors.white', '#ffffff')};
   line-height: 24px;
-  background-color: ${themeGet('colors.secondary.regular', '#ff5b60')};
+  background-color: ${themeGet('colors.primaryDark.regular', '#ff5b60')};
   padding-left: 20px;
   padding-right: 15px;
   position: relative;
@@ -127,7 +127,7 @@ export const DiscountPercent = styled.span`
     height: 0;
     border-style: solid;
     border-width: 0 8px 12px 0;
-    border-color: transparent ${themeGet('colors.secondary.regular', '#ff5b60')}
+    border-color: transparent ${themeGet('colors.primaryDark.regular', '#ff5b60')}
       transparent transparent;
   }
 
@@ -141,7 +141,7 @@ export const DiscountPercent = styled.span`
     border-style: solid;
     border-width: 0 0 12px 8px;
     border-color: transparent transparent
-      ${themeGet('colors.secondary.regular', '#ff5b60')} transparent;
+      ${themeGet('colors.primaryDark.regular', '#ff5b60')} transparent;
   }
 `;
 

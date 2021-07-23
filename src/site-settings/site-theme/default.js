@@ -54,16 +54,21 @@ const baseColor = {
   highlight: '',
 };
 
-export const defaultTheme = (primaryColor, secondaryColor, lighterColor) => {
+export const defaultTheme = (primaryColor, secondaryColor, primaryLight, primaryDark, secondaryLight) => {
   const currentPrimary = primaryColor ? { ...baseColor.primary, ...primaryColor } : baseColor.primary
   const currentSecondary = secondaryColor ? { ...baseColor.secondary, ...secondaryColor } : baseColor.secondary
-  const currentLighter = lighterColor ? { ...baseColor.secondary, ...lighterColor } : baseColor.secondary
+  const currentLighter = primaryLight ? { ...baseColor.primaryLight, ...primaryLight } : baseColor.primaryLight
+  const currentDarker = primaryDark ? { ...baseColor.primaryDark, ...primaryDark } : baseColor.primaryDark
+  const currentSecondaryLight = secondaryLight ? { ...baseColor.secondaryLight, ...secondaryLight } : baseColor.secondaryLight
+  console.log('currentSecondaryLight', currentSecondaryLight);
   return {
     colors: {
       ...baseColor,
-      lighter: currentLighter,
+      primaryLight: currentLighter,
+      primaryDark: currentDarker,
       primary: currentPrimary,
       secondary: currentSecondary,
+      secondaryLight: currentSecondaryLight,
       body: {
         bg: '',
         text: '',
@@ -97,6 +102,7 @@ export const defaultTheme = (primaryColor, secondaryColor, lighterColor) => {
       xs: 12,
       sm: 13,
       base: 15,
+      semibase: 17,
       md: 19,
       lg: 21,
       xl: 24,
@@ -147,7 +153,8 @@ export const defaultTheme = (primaryColor, secondaryColor, lighterColor) => {
       base: '6px',
       small: '3px',
       medium: '12px',
-      big: '18px',
+      big: '20px',
+      bigger: '50px'
     },
     shadows: {
       base: '0 3px 6px rgba(0, 0, 0, 0.16)',

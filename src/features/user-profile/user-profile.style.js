@@ -8,7 +8,7 @@ const PageWrapper = styled.div`
   display: flex;
   flex-wrap: wrap;
   background-color: ${themeGet('colors.white', '#ffffff')};
-  padding: 140px 70px 40px;
+  padding: 140px 80px 40px;
 
   @media only screen and (max-width: 990px) {
     padding: 100px 0 60px;
@@ -36,6 +36,7 @@ const ContentBox = styled.div`
   display: flex;
   flex-direction: column;
   padding: 60px 50px 20px;
+  border-radius: ${themeGet('radii.big')};
   border: 1px solid ${themeGet('colors.gray.700', '#e6e6e6')};
 
   @media only screen and (max-width: 1199px) {
@@ -48,7 +49,6 @@ const ContentBox = styled.div`
 const BookingTitle = styled.h2`
 width:100%;
 padding-bottom: 30px;
-  text-align:center;
   @media only screen and (max-width: 1199px) {
     flex-direction: column;
   }

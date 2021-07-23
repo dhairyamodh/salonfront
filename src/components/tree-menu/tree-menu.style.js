@@ -16,11 +16,17 @@ export const Header = styled.header(
 
       cursor: 'pointer',
       transition: '0.15s ease-in-out',
-      padding: '10px 25px',
+      padding: '10px 10px',
       marginLeft: null,
-      borderRadius: null,
-      backgroundColor:
-        props.open && 'gray.700',
+      borderRadius: 50,
+      border: '1px solid',
+      borderColor: 'transparent',
+      ...props.open && {
+        color: 'text.bold',
+        backgroundColor: 'secondaryLight.regular',
+        border: '1px solid',
+        borderColor: 'secondary.regular',
+      },
       transition: 'all 0.3s ease',
       textTransform: 'capitalize',
 
@@ -42,11 +48,12 @@ export const Header = styled.header(
 
       '&:hover': {
         color: 'text.bold',
-        backgroundColor: 'gray.400',
+        backgroundColor: 'secondaryLight.regular',
+        border: '1px solid',
+        borderColor: 'secondary.regular',
         // '.iconImage': {
         //   borderColor: 'text.bold',
         // },
-
       },
     }),
   {
@@ -96,9 +103,9 @@ export const Frame = styled.div(
       backgroundColor: props.open
         ? 'primary.regular'
         : 'white',
-      borderBottomWidth: '1px',
-      borderBottomStyle: 'solid',
-      borderBottomColor: 'gray.600',
+      // borderBottomWidth: '1px',
+      // borderBottomStyle: 'solid',
+      // borderBottomColor: 'gray.600',
 
     }),
   {

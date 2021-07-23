@@ -65,10 +65,10 @@ const TimeSelectorLabel = styled.div`
   display:flex;
   justify-content:space-evenly;
   align-items:center;
-  border-radius: 5px;
+  border-radius: 50px;
   cursor:pointer;
   font-weight: 600;
-  background-color:${themeGet('colors.lighter.regular')};
+  background-color: #f5f5f5;
   transition: 0.2s all ease-in-out;
   &:hover {
     background: ${themeGet('colors.primary.regular')};

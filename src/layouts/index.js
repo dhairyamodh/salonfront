@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Sticky from 'react-stickynode';
 import Header from './header/header';
 import { LayoutWrapper } from './layout.style';
@@ -13,8 +13,16 @@ const Layout = ({
   deviceType: { mobile, tablet, desktop },
   token,
 }) => {
-  const isSticky = true
+  const [isSticky, setSticky] = useState(true)
   const { pathname, query } = useLocation();
+
+  // window.addEventListener('scroll', () => {
+  //   if (window.scrollY > 800) {
+  //     setSticky(true);
+  //   } else {
+  //     setSticky(false);
+  //   }
+  // });
 
   const isHomePage = isCategoryPage(query) || pathname === '/bakery';
   return (

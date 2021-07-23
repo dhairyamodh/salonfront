@@ -46,17 +46,17 @@ export const RemoveBox = styled.div(
       altHorizontal: {
         width: 104,
         height: 36,
-        borderRadius: '6px',
+        borderRadius: '50px',
       },
       altVertical: {
         width: 30,
         height: 90,
-        borderRadius: '6px',
+        borderRadius: '50px',
       },
       full: {
         width: '100%',
         height: 36,
-        borderRadius: '6px',
+        borderRadius: '50px',
       },
     },
   })

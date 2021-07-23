@@ -14,7 +14,7 @@ import Placeholder from 'components/placeholder/placeholder';
 const Grid = styled.div(
   css({
     display: 'grid',
-    gridGap: '10px',
+    gridGap: '30px',
     gridTemplateColumns: 'repeat(2, minmax(180px, 1fr))',
 
     '@media screen and (min-width: 630px)': {
@@ -36,7 +36,7 @@ const Grid = styled.div(
     },
 
     '@media screen and (min-width: 1200px)': {
-      gridTemplateColumns: 'repeat(4, minmax(180px, 1fr))',
+      gridTemplateColumns: 'repeat(5, minmax(180px, 1fr))',
     },
 
     '@media screen and (min-width: 1700px)': {

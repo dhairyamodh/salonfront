@@ -40,7 +40,7 @@ export const SearchWrapper = styled.div`
 
 const HeaderWrapper = styled.header`
   /* padding: 30px 60px; */
-  padding: 20px 30px;
+  padding: 20px 80px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -137,10 +137,10 @@ const HeaderWrapper = styled.header`
             border-bottom: 0;
           }
           &:hover {
-            color: ${themeGet('colors.primary.regular', '#009e7f')};
+            color: ${themeGet('colors.secondary.regular', '#009e7f')};
           }
           &.current-page {
-            color: ${themeGet('colors.primary.regular', '#009e7f')};
+            color: ${themeGet('colors.secondary.regular', '#009e7f')};
           }
 
           .menu-item-icon {
@@ -215,9 +215,9 @@ export const HeaderRightSide = styled.div`
 
   .user-pages-dropdown {
     .popover-handler {
-      width: 38px;
-      height: 38px;
-      border-radius: 50%;
+      // width: 38px;
+      // height: 38px;
+      // border-radius: 50%;
       display: block;
       overflow: hidden;
       img {

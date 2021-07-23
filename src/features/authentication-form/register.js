@@ -18,7 +18,7 @@ import {
 import { Facebook } from 'assets/icons/Facebook';
 import { Google } from 'assets/icons/Google';
 import { FormattedMessage, useIntl } from 'react-intl';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { register } from '../../redux/actions/authActions'
 import { closeModal } from '@redq/reuse-modal';
 

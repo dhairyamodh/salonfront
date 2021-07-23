@@ -19,7 +19,7 @@ const addItemHandler = (item, quantity = 1) => {
             data: { items: updatedItems, userId: userId, salonId: salonId }
           },
         } : {
-          data: { items: updatedItems, }
+          data: { items: updatedItems, message: `${item.name} added into cart` }
         }),
         isNetworkApi: isAuthenticated ? true : false,
       },
@@ -91,7 +91,7 @@ const removeItemHandler = (item, quantity = 1) => {
             data: { items: updatedItems, userId: userId, salonId: salonId }
           },
         } : {
-          data: { items: updatedItems, }
+          data: { items: updatedItems, message: `${item.name} removed` }
         }),
         isNetworkApi: isAuthenticated ? true : false,
 
@@ -118,7 +118,7 @@ const clearItemFromCartHandler = (item) => {
             data: { items: updatedItems, userId: userId, salonId: salonId }
           },
         } : {
-          data: { items: updatedItems, }
+          data: { items: updatedItems, message: `${item.name} removed` }
         }),
         isNetworkApi: isAuthenticated ? true : false,
       },

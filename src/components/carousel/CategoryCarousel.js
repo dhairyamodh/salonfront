@@ -7,17 +7,25 @@ import { ArrowNext } from 'assets/icons/ArrowNext';
 import { ArrowPrev } from 'assets/icons/ArrowPrev';
 import { useSelector } from 'react-redux';
 import { ServerUrl } from '../../constants';
+import { useHistory } from 'react-router-dom';
 
 const CategoryTitle = styled.h5`
   text-transform: capitalize;
-  color: white;
+  color: #444;
+  white-space: nowrap; 
+  width: 140px; 
+  overflow: hidden;
+  text-overflow: ellipsis; 
+  transition: 0.25s all ease-in-out;
   @media (max-width: 768px) {
    
   }
 `;
 
 const CategorySubTitle = styled.p`
-  color: white;
+color: ${themeGet('colors.gray.950')};;
+transition: 0.25s all ease-in-out;
+
   @media (max-width: 768px) {
    
   }
@@ -26,17 +34,19 @@ const CategorySubTitle = styled.p`
 const CategoryCard = styled.div`
   margin: 10px;
   width: auto;
-  border-radius: 10px;
   height: auto;
   display:flex;
-background: rgba( 255, 255, 255, 0.4 );
-    
+  border-radius: 100px;
+//   margin-bottom: 20px;
+background: white;
+border: 1px solid #eee;
   transition: 0.25s all ease-in-out;
   cursor:pointer;
   &:hover {
-    background-color:white;
-    transform: scale(1.05);
-  box-shadow: ${themeGet('shadows.base', '0 8px 35px rgba(0, 0, 0, 0.5)')};
+    background-color:${themeGet('colors.secondaryLight.regular')};
+    transform: translateY(-5px);
+//   box-shadow: ${themeGet('shadows.base', '0 8px 35px rgba(0, 0, 0, 0.5)')};
+border-color:${themeGet('colors.secondary.regular')};
     ${CategoryTitle} {
       color:#000;
     }
@@ -59,9 +69,9 @@ const CategoryImageContainer = styled.div`
 `;
 
 const CategoryImage = styled.img`
-  width: 100px;
-  height: 100px;
-  border-radius: 10px;
+  width: 80px;
+  height: 80px;
+  border-radius: 100%;
   background-color: white;
   object-fit:cover;
   margin: 5px;
@@ -71,7 +81,7 @@ const CategoryImage = styled.img`
 `;
 
 const CategoryCardWrapper = styled.div`
-  padding: 20px;
+  padding:20px 10px;
   display:flex;
   justify-content:space-around;
   align-items:flex-start;
@@ -97,7 +107,7 @@ const ButtonPrev = styled('button')`
   cursor: pointer;
   position: absolute;
   top: 50%;
-  left: 40px;
+  left: 0;
   margin-top: -20px;
   z-index: 99;
 `;
@@ -118,7 +128,7 @@ const ButtonNext = styled('button')`
   cursor: pointer;
   position: absolute;
   top: 50%;
-  right: 40px;
+  right: 0px;
   margin-top: -20px;
   z-index: 99;
 `;
@@ -185,7 +195,7 @@ const ButtonGroup = ({ next, previous }) => {
 const responsive = {
     desktop: {
         breakpoint: { max: 3000, min: 1024 },
-        items: 4,
+        items: 5,
     },
     tablet: {
         breakpoint: { max: 1024, min: 464 },
@@ -198,17 +208,15 @@ const responsive = {
 };
 export default function CategoryCarousel({
     data,
-    deviceType: { mobile, tablet, desktop },
-    component,
+    deviceType,
     autoPlay = false,
     infinite = true,
-    customLeftArrow,
-    customRightArrow,
     itemClass,
-    isRtl,
-    categoryImage, categoryName
 }) {
-
+    const history = useHistory()
+    const handleNavigate = (link) => {
+        history.push(link)
+    }
 
     return (
         <div dir="ltr">
@@ -225,10 +233,11 @@ export default function CategoryCarousel({
                 renderButtonGroupOutside={true}
                 additionalTransfrom={0}
                 customButtonGroup={<ButtonGroup />}
+                deviceType={deviceType}
             >
                 {data.map((item, index) => {
                     return (
-                        <CategoryCard>
+                        <CategoryCard onClick={() => handleNavigate(`/services/${item._id}`)}>
                             <CategoryImageContainer>
                                 <CategoryImage
                                     alt={item.categoryName}
@@ -236,8 +245,8 @@ export default function CategoryCarousel({
                                 />
                             </CategoryImageContainer>
                             <CategoryCardWrapper>
-                                <CategoryTitle>{item.categoryName}</CategoryTitle>
-                                <CategorySubTitle>12 Services</CategorySubTitle>
+                                <CategoryTitle>{item.categoryName} </CategoryTitle>
+                                <CategorySubTitle>{item.totalServices} Services</CategorySubTitle>
                             </CategoryCardWrapper>
                         </CategoryCard>
                     );

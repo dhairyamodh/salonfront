@@ -9,6 +9,7 @@ import {
   TotalItems,
 } from './cart-popup.style';
 import { ShoppingBag } from 'assets/icons/ShoppingBag';
+import { useSelector } from 'react-redux';
 
 
 const CartPopupButton = ({
@@ -35,11 +36,13 @@ const CartPopupButton = ({
   </CartPopupButtonStyled>
 );
 
+
+
 export const BoxedCartButton = ({
   itemCount,
   itemPostfix = 'items',
   price,
-  pricePrefix = '$',
+  pricePrefix,
   style,
   onClick,
   className,
@@ -50,8 +53,7 @@ export const BoxedCartButton = ({
       {itemCount} {itemPostfix}
     </TotalItems>
     <PriceBoxAlt>
-      {pricePrefix}
-      {parseFloat(`${price}`).toFixed(2)}
+      {pricePrefix} {parseFloat(`${price}`).toFixed(2)}
     </PriceBoxAlt>
   </CartPopupBoxButton>
 );

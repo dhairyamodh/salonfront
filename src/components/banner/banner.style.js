@@ -1,4 +1,6 @@
 import styled from 'styled-components';
+import { Row as Rows, Col as Cols } from 'react-styled-flexboxgrid';
+
 import {
   background,
   compose,
@@ -69,7 +71,21 @@ export const Title = styled.h2(
   {
     padding: 30,
     textTransform: 'uppercase',
-    color: "white",
+    color: "primary.regular",
+    textAlign: 'left',
+  }
+);
+
+export const subTitle = styled.h2(
+  css({
+    fontSize: 20,
+    color: 'text.bold',
+    fontWeight: 'bold',
+  }),
+  {
+    padding: 30,
+    textTransform: 'uppercase',
+    color: "primary.regular",
     textAlign: 'left',
   }
 );
@@ -157,3 +173,39 @@ export const SliderNav = styled.button(
     },
   })
 );
+
+export const Row = styled(Rows)`
+  margin-bottom: 0px;
+
+  @media only screen and (min-width: 0em) and (max-width: 47.99em) {
+    margin-bottom: 30px;
+  }
+`;
+
+export const Col = styled(Cols)`
+  @media only screen and (min-width: 0em) and (max-width: 47.99em) {
+    margin-bottom: 0px;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+`;
+
+export const SearchContainer = styled.div(
+  css({
+    position: 'absolute',
+    bottom: '5%',
+    width: 'auto',
+    height: 'auto',
+    background: 'rgba( 255, 255, 255, 0.5 )',
+    backdropFilter: 'blur(4px)',
+    padding: 20,
+    borderRadius: '20px',
+
+    h5: {
+      color: '#000',
+      paddingBottom: 10,
+    }
+  })
+)

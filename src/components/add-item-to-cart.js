@@ -8,13 +8,16 @@ import { useDispatch, useSelector } from 'react-redux';
 import { addItem, removeItem, } from '../redux/actions/cartActions'
 import { cartAnimation } from '../utils/cart-animation';
 import { Remove } from './removeCart/remove';
+import { showSnackBar } from '../redux/actions/snackActions'
+
+
 const Icon = styled.span(
   _variant({
     variants: {
       full: {
         px: 3,
         height: 36,
-        backgroundColor: 'secondary.regular',
+        backgroundColor: 'primary.regular',
         display: 'flex',
         color: 'white',
         transition: '0.35s ease-in-out',
@@ -27,7 +30,7 @@ const Button = styled.button(
   css({
     width: 36,
     height: 36,
-    borderRadius: 6,
+    borderRadius: 50,
     fontWeight: 'bold',
     transition: '0.35s ease-in-out',
     backgroundColor: '#fff',
@@ -46,18 +49,18 @@ const Button = styled.button(
         width: '100%',
         display: 'flex',
         alignItems: 'center',
-        backgroundColor: 'lighter.regular',
+        backgroundColor: 'primaryLight.regular',
         padding: 0,
         border: 'none',
         overflow: 'hidden',
         color: 'primary.regular',
         ':hover': {
-          backgroundColor: 'secondary.regular',
+          backgroundColor: 'primary.regular',
           color: '#fff',
-          [Icon]: {
-            backgroundColor: 'lighter.regular',
-            color: 'primary.regular',
-          },
+          // [Icon]: {
+          //   backgroundColor: 'primaryLight.regular',
+          //   color: 'primary.regular',
+          // },
         },
       },
     },
@@ -77,12 +80,15 @@ export const AddItemToCart = ({ data, variant, buttonText }) => {
     e.stopPropagation();
     dispatch(addItem(data))
     if (!isInCart(data.id)) {
-      cartAnimation(e);
+      // dispatch(showSnackBar(`${data.name} successfully added`))
+      // cartAnimation(e);
     }
   };
   const handleRemoveClick = (e) => {
     e.stopPropagation();
     dispatch(removeItem(data))
+    // dispatch(showSnackBar(`${data.name} successfully removed`))
+
 
   };
   return !isInCart(data.id) ? (

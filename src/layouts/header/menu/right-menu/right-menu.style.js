@@ -38,9 +38,13 @@ export const RightMenuBox = styled.div`
 
   .user-pages-dropdown {
     .popover-handler {
-      width: 38px;
-      height: 38px;
-      border-radius: 50%;
+      // width: 38px;
+      // height: 38px;
+      // border-radius: 50%;
+      -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
       display: block;
       overflow: hidden;
       img {

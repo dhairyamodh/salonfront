@@ -9,7 +9,10 @@ const SidebarWrapper = styled.div`
   flex-direction: column;
   flex-shrink: 0;
   background-color: ${themeGet('colors.white', '#ffffff')};
-  box-shadow: 0 0 6px rgba(0, 0, 0, 0.16);
+  // box-shadow: 0 0 6px rgba(0, 0, 0, 0.16);
+  border: 1px solid ${themeGet('colors.gray.700', '#e6e6e6')};
+  border-radius : ${themeGet('radii.big')};
+
 `;
 
 const SidebarTop = styled.div`
@@ -17,9 +20,12 @@ const SidebarTop = styled.div`
   flex-direction: column;
   width: 100%;
   padding: 40px 0;
+  border-radius : ${themeGet('radii.big')};
+
 `;
 
 const SidebarBottom = styled.div`
+border-radius :0 0 ${themeGet('radii.big')} ${themeGet('radii.big')};
   display: flex;
   flex-direction: column;
   width: 100%;

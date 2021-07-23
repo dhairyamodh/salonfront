@@ -5,10 +5,14 @@ import {
   Image,
   Content,
   Title,
+  subTitle,
   Description,
   SearchWrapper,
+  SearchContainer,
+  Row,
+  Col
 } from './banner.style';
-
+import { Input, Textarea } from "components/forms/input";
 import { Waypoint } from 'react-waypoint';
 import Search from 'features/search/search';
 import { useDispatch } from 'react-redux';
@@ -49,6 +53,7 @@ export const Banner = ({
           </Description>
         }
 
+
         {/* <SearchWrapper>
           <Search
             className="banner-search"
@@ -61,6 +66,15 @@ export const Banner = ({
           onPositionChange={onWaypointPositionChange}
         />
       </Content>
+      {/* <SearchContainer>
+        <h5>Search Sevices</h5>
+        <SearchWrapper>
+          <Search minimal={false}
+            className="banner-search"
+            shadow="0 21px 36px rgba(0,0,0,0.05)"
+          />
+        </SearchWrapper>
+      </SearchContainer> */}
     </Box>
   );
 };

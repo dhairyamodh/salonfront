@@ -10,6 +10,7 @@ import { useMedia } from "../utils/use-media";
 import UtilComponent from "./UtilComponent";
 import ThemeContainer from "./themeContainer";
 import { useSelector } from "react-redux";
+import Footer from 'layouts/footer';
 
 const HomeRoutes = () => {
   const { salonId } = useSelector(state => state.salon)
@@ -26,6 +27,8 @@ const HomeRoutes = () => {
           <GlobalStyle />
           <Layout deviceType={deviceType}>
             <Route path="/" component={MasterRoutes} />
+            <Footer />
+
           </Layout>
         </React.Fragment>
       </ThemeContainer>

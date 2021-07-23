@@ -114,7 +114,7 @@ export const GlobalStyle = createGlobalStyle(({ theme }) =>
     },
 
     '.modal': {
-      borderRadius: '6px !important',
+      borderRadius: '20px !important',
 
     },
 
@@ -150,11 +150,11 @@ export const GlobalStyle = createGlobalStyle(({ theme }) =>
       boxShadow: '0 2px 8px rgba(0,0,0,0.4)',
     },
     '.react-calendar__viewContainer': {
-      backgroundColor: get(theme, 'colors.lighter.regular'),
+      backgroundColor: '#f5f5f5',
     },
 
     '.react-calendar__tile': {
-      borderRadius: 5,
+      borderRadius: 20,
       '&:enabled': {
         '&:hover, &:focus': {
           backgroundColor: get(theme, 'colors.primary.regular'),
@@ -165,7 +165,7 @@ export const GlobalStyle = createGlobalStyle(({ theme }) =>
 
     '.react-calendar__tile--now': {
       backgroundColor: 'none',
-      borderRadius: 5,
+      borderRadius: 20,
       '&:enabled': {
         '&:hover, &:focus': {
           backgroundColor: 'none',
@@ -175,13 +175,63 @@ export const GlobalStyle = createGlobalStyle(({ theme }) =>
     },
     '.react-calendar__tile--active': {
       backgroundColor: get(theme, 'colors.secondary.regular'),
-      borderRadius: 5,
+      borderRadius: 20,
       color: 'white',
       '&:enabled': {
         '&:hover, &:focus': {
-          backgroundColor: get(theme, 'colors.primary.regular'),
+          backgroundColor: get(theme, 'colors.secondary.regular'),
           color: 'white',
         }
+      }
+    },
+
+    // pagination classes
+
+    '.rc-pagination-item': {
+      minWidth: 35,
+      height: 35,
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
+      borderRadius: get(theme, 'radii.bigger'),
+      'a': {
+        fontSize: 'base',
+      },
+      '&:hover, &:focus': {
+        border: `1px solid ${get(theme, 'colors.secondary.regular')}`,
+        backgroundColor: get(theme, 'colors.secondary.regular'),
+        'a': {
+          color: 'white',
+
+        },
+      }
+    },
+
+    '.rc-pagination-item-active': {
+      border: `1px solid ${get(theme, 'colors.secondary.regular')}`,
+      backgroundColor: get(theme, 'colors.secondaryLight.regular'),
+      'a': {
+        color: get(theme, 'colors.secondary.regular'),
+      },
+
+    },
+
+    '.rc-pagination-prev, .rc-pagination-next': {
+      minWidth: 35,
+      height: 35,
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
+      '.rc-pagination-item-link': {
+        borderRadius: get(theme, 'radii.bigger'),
+        fontSize: 'semibase',
+      },
+      '&:hover, &:focus': {
+        '.rc-pagination-item-link': {
+          border: `1px solid ${get(theme, 'colors.secondary.regular')}`,
+          backgroundColor: get(theme, 'colors.secondary.regular'),
+          color: 'white',
+        },
       }
     },
 

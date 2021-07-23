@@ -6,15 +6,15 @@ import { compose, variant, border, space, layout } from "styled-system";
 export const StyledButton = styled.button(
   (props) =>
     systemCss({
-      px: "15px",
-      py: 0,
+      px: "20px",
+      py: "20px",
       fontSize: ["base"],
-      fontWeight: "bold",
+      fontWeight: "semiBold",
       cursor: props.disabled ? "not-allowed" : "pointer",
       color: props.disabled ? "text.light" : "white",
       bg: props.disabled ? "gray.500" : "primary.regular",
       transition: "all 0.3s ease",
-      borderRadius: "base",
+      borderRadius: 50,
 
       "&:hover": {
         color: props.disabled ? "text.light" : "white",
@@ -51,21 +51,34 @@ export const StyledButton = styled.button(
         },
       },
       primary: {
-        color: "secondary.regular",
-        bg: "lighter.regular",
+        color: "primaryDark.regular",
+        bg: "primaryLight.regular",
+        border: "1px solid",
+        borderColor: "primaryLight.regular",
         "&:hover": {
-          bg: "secondary.regular",
+          bg: "primaryDark.regular",
         },
       },
       secondary: {
-        color: "primary.regular",
+        color: "primaryDark.regular",
         bg: "white",
-        border: "2px solid",
-        borderColor: "gray.500",
+        border: "1px solid",
+        borderColor: "primary.regular",
         "&:hover": {
           color: "white",
           bg: "primary.regular",
           borderColor: "primary.regular",
+        },
+      },
+      white: {
+        color: "primaryDark.regular",
+        bg: "white",
+        border: "1px solid",
+        borderColor: "white",
+        "&:hover": {
+          color: "primaryDark.regular",
+          bg: "white",
+          boxShadow: '0 3px 6px rgba(0, 0, 0, 0.12)',
         },
       },
       text: {
@@ -136,15 +149,8 @@ const Spinner = styled.div(
   `
 );
 
-type Props = {
-  children: React.ReactNode;
-  loading?: boolean;
-  disabled?: boolean;
-  type: "submit" | "button";
-  [key: string]: unknown;
-};
-export type Ref = HTMLButtonElement;
-export const Button = React.forwardRef<Ref, Props>(
+export const buttonRef = HTMLButtonElement;
+export const Button = React.forwardRef(
   ({ children, disabled, loading = false, ...props }, ref) => (
     <StyledButton ref={ref} {...props} disabled={disabled}>
       {children}

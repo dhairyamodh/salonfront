@@ -24,7 +24,7 @@
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
-  border-radius: 5px;
+  border-radius: 20px;
 }
 .react-calendar button {
   margin: 0;
@@ -124,7 +124,7 @@
 .react-calendar__tile:enabled:hover,
 .react-calendar__tile:enabled:focus {
   background-color: #fff;
-  border-radius: 5px;
+  border-radius: 20px;
 }
 /* .react-calendar__tile--now {
   background: #ffff76;

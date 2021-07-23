@@ -1,5 +1,5 @@
-import styled from 'styled-components';
-import { themeGet } from '@styled-system/theme-get';
+import styled from "styled-components";
+import { themeGet } from "@styled-system/theme-get";
 
 export const Display = styled.div`
   width: 100%;
@@ -10,21 +10,21 @@ export const Display = styled.div`
 `;
 
 export const CouponCode = styled.span`
-  font-size: calc(${themeGet('fontSizes.base', '15')}px - 1px);
-  color: ${themeGet('colors.primary.regular', '#009E7F')};
-  font-weight: ${themeGet('fontWeights.bold', '700')};
+  font-size: calc(${themeGet("fontSizes.base", "15")}px - 1px);
+  color: ${themeGet("colors.primary.regular", "#009E7F")};
+  font-weight: ${themeGet("fontWeights.bold", "700")};
   text-transform: uppercase;
 `;
 
 export const DiscountPrice = styled.span`
-  font-size: calc(${themeGet('fontSizes.base', '15')}px - 1px);
-  color: ${themeGet('colors.primary.regular', '#009E7F')};
-  font-weight: ${themeGet('fontWeights.bold', '700')};
+  font-size: calc(${themeGet("fontSizes.base", "15")}px - 1px);
+  color: ${themeGet("colors.primary.regular", "#009E7F")};
+  font-weight: ${themeGet("fontWeights.bold", "700")};
   margin-left: auto;
 `;
 
 export const CancelBtn = styled.button`
-  color: ${themeGet('colors.secondary.regular', '#ff5b60')};
+  color: ${themeGet("colors.primaryDark.regular", "#ff5b60")};
   width: 20px;
   height: 20px;
   display: flex;

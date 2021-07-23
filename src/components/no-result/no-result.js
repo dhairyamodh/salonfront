@@ -39,13 +39,13 @@ const NoResultFound = ({ id }) => {
         <img src={NoResultSvg} alt="No Result" />
       </ImageWrapper>
 
-      <ButtonWrapper>
+      {/* <ButtonWrapper>
         <div onClick={onClickButton}>
           <Button>
             <ArrowPrev /> Go Back
           </Button>
         </div>
-      </ButtonWrapper>
+      </ButtonWrapper> */}
     </NoResultWrapper>
   );
 };

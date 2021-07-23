@@ -10,7 +10,7 @@ import {
   Arrow,
   LeftMenuBox,
 } from './left-menu.style';
-
+import NavLink from 'components/nav-link/nav-link';
 // const CategoryIcon = ({ name }) => {
 //   const TagName = categoryMenuIcons[name];
 //   return !!TagName ? <TagName /> : <p>Invalid icon {name}</p>;
@@ -57,6 +57,30 @@ export const LeftMenu = ({ logo }) => {
         imageUrl={logo}
         alt={'Shop Logo'}
         onClick={() => router.push('/')}
+      />
+      <NavLink
+        className="menu-item"
+        href="/"
+        label="Home"
+        intlId="Home"
+      />
+      <NavLink
+        className="menu-item"
+        href="/"
+        label="About"
+        intlId="About"
+      />
+      <NavLink
+        className="menu-item"
+        href="/services/all"
+        label="Services"
+        intlId="Services"
+      />
+      <NavLink
+        className="menu-item"
+        href="/offers-deals/offers"
+        label="Offers & Deals"
+        intlId="offers-deals"
       />
 
       <MainMenu>

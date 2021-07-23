@@ -51,7 +51,7 @@ const SettingsContent = ({ deviceType }) => {
             />
           </Title>
         </HeadingSection>
-        <Row style={{ alignItems: "flex-end", marginBottom: "50px" }}>
+        <Row >
           <Col xs={12} sm={4} md={4} lg={4}>
             <Label>
               <FormattedMessage
@@ -143,13 +143,13 @@ const SettingsContent = ({ deviceType }) => {
           </Col>
         </Row> */}
 
-        <Row>
+        {/* <Row>
           <Col xs={12} sm={12} md={12} lg={12}>
             <SettingsFormContent>
               <Payment deviceType={deviceType} />
             </SettingsFormContent>
           </Col>
-        </Row>
+        </Row> */}
       </SettingsFormContent>
     </SettingsForm>
   );

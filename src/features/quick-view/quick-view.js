@@ -35,13 +35,8 @@ import { useCart } from 'contexts/cart/use-cart';
 import { Counter } from 'components/counter/counter';
 import { FormattedMessage } from 'react-intl';
 
-type QuickViewProps = {
-  modalProps: any;
-  deviceType: any;
-  onModalClose: any;
-};
 
-const QuickView: React.FunctionComponent<QuickViewProps> = ({
+const QuickView = ({
   modalProps,
   deviceType,
   onModalClose,
@@ -62,12 +57,12 @@ const QuickView: React.FunctionComponent<QuickViewProps> = ({
 
   const { isRtl } = useLocale();
 
-  const handleAddClick = (e: any) => {
+  const handleAddClick = (e) => {
     e.stopPropagation();
     addItem(modalProps);
   };
 
-  const handleRemoveClick = (e: any) => {
+  const handleRemoveClick = (e) => {
     e.stopPropagation();
     removeItem(modalProps);
   };
@@ -152,14 +147,14 @@ const QuickView: React.FunctionComponent<QuickViewProps> = ({
               <ProductMeta>
                 <MetaSingle>
                   {categories
-                    ? categories.map((item: any) => (
-                        <MetaItem
-                          onClick={() => onCategoryClick(item.slug)}
-                          key={item.id}
-                        >
-                          {item.title}
-                        </MetaItem>
-                      ))
+                    ? categories.map((item) => (
+                      <MetaItem
+                        onClick={() => onCategoryClick(item.slug)}
+                        key={item.id}
+                      >
+                        {item.title}
+                      </MetaItem>
+                    ))
                     : ''}
                 </MetaSingle>
               </ProductMeta>

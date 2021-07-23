@@ -8,6 +8,8 @@ import ProductDetailsPage from "../pages/products";
 import CheckoutPage from "../pages/checkout";
 import Booking from "../pages/booking";
 import UtilComponent from "./UtilComponent";
+import Services from "../pages/services";
+import OffersDeals from '../pages/offer'
 
 
 const MasterRoutes = () => {
@@ -15,12 +17,19 @@ const MasterRoutes = () => {
     const tablet = useMedia("(max-width: 991px)");
     const desktop = useMedia("(min-width: 992px)");
     const deviceType = { mobile, tablet, desktop }
+    const ScrollToTop = () => {
+        window.scrollTo(0, 0);
+        return null;
+    };
     return (
         <div class="page-wrapper">
             {/* <UtilComponent /> */}
+            <Route component={ScrollToTop} />
             <Route exact path="/" component={(props) => <Home deviceType={deviceType} {...props} />} />
+            <Route exact path="/services/:id" component={(props) => <Services deviceType={deviceType} {...props} />} />
             <Route exact path="/profile" component={(props) => <Profile deviceType={deviceType} {...props} />} />
             <Route exact path="/booking" component={(props) => <Booking deviceType={deviceType} {...props} />} />
+            <Route exact path="/offers-deals/:value" component={(props) => <OffersDeals deviceType={deviceType} {...props} />} />
             {/* <Route path="/products/:id" component={ProductDetailsPage} /> */}
             <Route exact path="/checkout" component={(props) => <CheckoutPage deviceType={deviceType} {...props} />} />
 

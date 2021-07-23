@@ -24,23 +24,22 @@ import { getCategory } from '../../redux/actions/categoryActions'
 
 const SidebarCategory = ({
   deviceType: { mobile, tablet, desktop },
-  setFilterService,
+  newcategoryId,
   type,
 }) => {
   const dispatch = useDispatch();
   const { allCategories: data } = useSelector(state => state.category)
   const { salonId } = useSelector(state => state.salon)
   const { loading } = useSelector(state => state.app)
-  const { pathname, query } = useLocation();
-  const selectedQueries = query;
-  const [categoryId, setCategoryId] = useState()
+  const [categoryId, setCategoryId] = useState(newcategoryId)
   const [categoryName, setCategoryName] = useState()
   const [isModal, setIsModal] = useState()
-  const onCategoryClick = ({ id, categoryName }) => {
-    setFilterService(id)
-    setCategoryId(id)
+  const history = useHistory()
+  const onCategoryClick = ({ _id, categoryName }) => {
+    setCategoryId(_id)
     setCategoryName(categoryName)
     setIsModal(false)
+    history.push(`/services/${_id}`)
     // setIsLoading(true)
   };
   const isSidebarSticky = true;
@@ -51,7 +50,7 @@ const SidebarCategory = ({
     return <SidebarLoader />;
   }
   useEffect(() => {
-    dispatch(getCategory(salonId))
+    dispatch(getCategory(salonId, undefined, newcategoryId))
   }, [])
   return (
     <CategoryWrapper>
@@ -61,7 +60,6 @@ const SidebarCategory = ({
             data={data}
             activeClass={categoryId}
             onClick={onCategoryClick}
-            active={selectedQueries}
           />
         </CategoryWalker>
       </PopoverWrapper>
@@ -74,7 +72,6 @@ const SidebarCategory = ({
                 data={data}
                 activeClass={categoryId}
                 onClick={onCategoryClick}
-                active={selectedQueries}
               />
             </TreeWrapper>
           </Scrollbar>
