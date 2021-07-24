@@ -10,7 +10,6 @@ import { Button } from 'components/button/button';
 import SpringModal from 'components/spring-modal/spring-modal';
 // import { TreeMenu } from 'components/tree-menu/tree-menu';
 import startCase from 'lodash/startCase';
-import { useLocation } from 'react-router-dom';
 
 
 const CategoryWalker = ({
@@ -22,8 +21,6 @@ const CategoryWalker = ({
   children,
   categoryName
 }) => {
-  const [isOpen, setOpen] = useState(false);
-  const { query } = useLocation();
   return (
     <WalkerWrapper style={style} className={className}>
       <CategoryWrapper>

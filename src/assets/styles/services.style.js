@@ -5,6 +5,8 @@ import css from '@styled-system/css';
 
 
 export const MobileCarouselDropdown = styled.div`
+width: 100%;
+display:flex;
   @media (min-width: 990px) {
     display: none;
   }
@@ -29,7 +31,7 @@ const MainContentArea = styled.main`
   border-bottom: 1px solid #f1f1f1;
   @media (max-width: 990px) {
     background-color: ${themeGet("colors.white", "#ffffff")};
-    background-color: #f9f9f9;
+    padding: 70px 0px;
   }
 `;
 

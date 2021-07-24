@@ -445,7 +445,7 @@ export const DrawerClose = styled.div`
 `;
 
 export const DrawerProfile = styled.div`
-  background-color: ${themeGet('colors.gray.200', '#F7F7F7')};
+  background-color: ${themeGet('colors.secondaryLight.regular')};
   padding: 45px;
 `;
 
@@ -490,15 +490,16 @@ export const UserAvatar = styled.div`
 
 export const UserDetails = styled.div`
   h3 {
-    font-size: calc(${themeGet('fontSizes.base' + 'px', '15px')} - 1px);
+    font-size: ${themeGet('fontSizes.md')}px;
     font-weight: ${themeGet('fontWeights.bold', '700')};
-    color: ${themeGet('colors.text.bold', '#0D1136')};
+    color: ${themeGet('colors.secondary.regular', '#0D1136')};
     margin-bottom: 10px;
+    text-transform:capitalize;
     line-height: 1.2;
   }
   span {
     display: block;
-    font-size: ${themeGet('fontSizes.xs', '12')}px;
+    font-size: ${themeGet('fontSizes.base')}px;
     font-weight: ${themeGet('fontWeights.regular', '400')};
     color: ${themeGet('colors.text.bold', '#0D1136')};
   }

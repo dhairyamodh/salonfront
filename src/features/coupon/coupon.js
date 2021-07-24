@@ -3,18 +3,11 @@ import { FormattedMessage, useIntl } from 'react-intl';
 import { CouponBoxWrapper, Error } from './coupon.style';
 import { Input } from 'components/forms/input';
 import { Button } from 'components/button/button';
-import { useCart } from 'contexts/cart/use-cart';
-import { useMutation } from '@apollo/client';
-import { APPLY_COUPON } from 'graphql/mutation/coupon';
+import {
+  applyCoupon,
+} from 'redux/actions/cartActions'
 
-type CouponProps = {
-  disabled?: any;
-  className?: string;
-  style?: any;
-  errorMsgFixed?: boolean;
-};
-
-const Coupon: React.FC<CouponProps> = ({
+const Coupon = ({
   disabled,
   className,
   style,
@@ -22,24 +15,23 @@ const Coupon: React.FC<CouponProps> = ({
   ...props
 }) => {
   const intl = useIntl();
-  const { applyCoupon } = useCart();
   const [code, setCode] = useState('');
   const [error, setError] = useState(null);
-  const [appliedCoupon] = useMutation(APPLY_COUPON);
+  // const [appliedCoupon] = useMutation(APPLY_COUPON);
 
   const handleApplyCoupon = async () => {
-    const { data }: any = await appliedCoupon({
-      variables: { code },
-    });
-    if (data.applyCoupon && data.applyCoupon.discountInPercent) {
-      setError('');
-      applyCoupon(data.applyCoupon);
-      setCode('');
-    } else {
-      setError('Invalid Coupon');
-    }
+    // const { data } = await appliedCoupon({
+    //   variables: { code },
+    // });
+    // if (data.applyCoupon && data.applyCoupon.discountInPercent) {
+    //   setError('');
+    //   applyCoupon(data.applyCoupon);
+    //   setCode('');
+    // } else {
+    //   setError('Invalid Coupon');
+    // }
   };
-  const handleOnChange: React.ChangeEventHandler<HTMLInputElement> = (e) => {
+  const handleOnChange = (e) => {
     setCode(e.currentTarget.value);
   };
   return (

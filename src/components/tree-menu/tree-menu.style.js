@@ -55,6 +55,17 @@ export const Header = styled.header(
         //   borderColor: 'text.bold',
         // },
       },
+      '@media screen and (max-width: 990px)': {
+        ...props.open && {
+          color: 'text.bold',
+          backgroundColor: 'secondaryLight.regular',
+          border: '1px solid',
+          borderColor: 'transparent',
+          borderRadius: 0,
+        },
+        // gridTemplateColumns: 'repeat(1, minmax(48vw, 1fr))',
+      },
+
     }),
   {
     outline: 0,

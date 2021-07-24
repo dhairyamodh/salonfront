@@ -10,7 +10,7 @@ import {
   ProductsCol,
   HeadingTitle,
   OfferCard,
-  OfferItem,
+  OfferItemNormal,
   OfferImage,
   OfferTitle,
   OfferSubtitle,
@@ -54,10 +54,10 @@ const OffersDeals = ({ deviceType }) => {
 
   const Offers = () => {
     return (
-      <OfferContainer style={{ paddingTop: 30 }}>
+      <OfferContainer normal={true} >
         {siteOffers.map((item, index) => {
           return (
-            <OfferItem>
+            <OfferItemNormal>
               <OfferCard>
                 <OfferTitle>Offer {index} Title</OfferTitle>
                 <OfferSubtitle>Offer {index} sub title</OfferSubtitle>
@@ -70,7 +70,7 @@ const OffersDeals = ({ deviceType }) => {
                 src={item.imgSrc}
                 alt={item.alt}
               />
-            </OfferItem>
+            </OfferItemNormal>
 
           );
         })}
@@ -85,12 +85,10 @@ const OffersDeals = ({ deviceType }) => {
         <MainContentArea>
           <HeadingTitle>Offers & Deals</HeadingTitle>
           <Tabs data={tabsData} active={active} onclick={handleClick} />
-          <div style={{ width: '100%' }}>
+          <div style={{ width: '100%', padding: 20 }}>
             {
               (active === 'deals') ? <Deals /> : <Offers />
-
             }
-
           </div>
         </MainContentArea>
 

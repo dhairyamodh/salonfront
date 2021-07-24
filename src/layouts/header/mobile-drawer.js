@@ -94,9 +94,9 @@ const MobileDrawer = () => {
             <DrawerProfile>
               {isAuthenticated ? (
                 <LoginView>
-                  <UserAvatar>
+                  {/* <UserAvatar>
                     <img src={UserImage} alt='user_avatar' />
-                  </UserAvatar>
+                  </UserAvatar> */}
                   <UserDetails>
                     <h3>{name}</h3>
                     <span>{email}</span>

@@ -9,7 +9,7 @@ export const CouponBoxWrapper = styled.div`
     width: 100%;
     height: 50px;
     padding-right: 5px;
-    border-radius: ${themeGet('radii.base', '6px')};
+    border-radius: ${themeGet('radii.bigger')};
     background-color: ${themeGet('colors.white', '#ffffff')};
     overflow: hidden;
     border: 1px solid ${themeGet('colors.gray.600', '#ededed')};
@@ -22,14 +22,12 @@ export const CouponBoxWrapper = styled.div`
     color: ${themeGet('colors.text.regular', '#77798C')};
     border: none;
     border-radius: 0;
-    padding: 0 20px;
+    padding: 20px 20px;
     background-color: transparent;
     margin-right: 0;
-
     &:focus {
       outline: 0;
     }
-
     &::-webkit-input-placeholder {
       font-size: calc(${themeGet('fontSizes.base', '15')}px - 1px);
       color: ${themeGet('colors.text.label', '#767676')};
@@ -75,11 +73,7 @@ export const CouponBoxWrapper = styled.div`
   }
 `;
 
-type ErrorMsgProps = {
-  errorMsgFixed?: boolean;
-};
-
-export const Error = styled('span')<ErrorMsgProps>`
+export const Error = styled('span')`
   font-family: ${themeGet('fonts.body', 'Poppins')};
   font-size: ${themeGet('fontSizes.base', '15')}px;
   font-weight: ${themeGet('fontWeights.regular', '400')};

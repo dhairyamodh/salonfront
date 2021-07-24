@@ -20,6 +20,7 @@ import { CloseIcon } from 'assets/icons/CloseIcon';
 import { ShoppingBagLarge } from 'assets/icons/ShoppingBagLarge';
 import { NoCartBag } from 'assets/icons/NoCartBag';
 import { FormattedMessage } from 'react-intl';
+import Coupon from 'features/coupon/coupon';
 
 import { Scrollbar } from 'components/scrollbar/scrollbar';
 import {
@@ -47,6 +48,9 @@ const Cart = ({
     cartItemsTotalPrice(cart).toFixed(2);
   const dispatch = useDispatch()
   const cartItemsCount = cart.length
+  const { coupon } = useSelector(state => state.cart)
+  console.log(coupon);
+  const [hasCoupon, setCoupon] = useState(false);
   return (
     <CartPopupBody className={className} style={style}>
       <PopupHeader>
@@ -97,7 +101,37 @@ const Cart = ({
       </Scrollbar>
 
       <CheckoutButtonWrapper>
-
+        <PromoCode>
+          {!coupon?.discountInPercent ? (
+            <>
+              {!hasCoupon ? (
+                <button onClick={() => setCoupon((prev) => !prev)}>
+                  <FormattedMessage
+                    id='specialCode'
+                    defaultMessage='Have a special code?'
+                  />
+                </button>
+              ) : (
+                <CouponBoxWrapper>
+                  <Coupon
+                    disabled={!cart.length}
+                    style={{
+                      boxShadow: '0 3px 6px rgba(0, 0, 0, 0.06)',
+                    }}
+                  />
+                </CouponBoxWrapper>
+              )}
+            </>
+          ) : (
+            <CouponCode>
+              <FormattedMessage
+                id='couponApplied'
+                defaultMessage='Coupon Applied'
+              />
+              <span>{coupon.code}</span>
+            </CouponCode>
+          )}
+        </PromoCode>
 
         {cartItemsCount !== 0 ? (
           <a onClick={() => history.push('/booking')}>

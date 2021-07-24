@@ -165,7 +165,13 @@ const getDiscount = () => {
 //   (acc, item) => acc + item.quantity,
 //   0
 // );
+export const selectAppointmentTime = (data) => {
+  return { type: cartTypes.SELECT_APPOINTMENT_TIME, payload: data }
+}
 
+export const selectAppointmentDate = (data) => {
+  return { type: cartTypes.SELECT_APPOINTMENT_DATE, payload: data }
+}
 
 
 export const cartItemsTotalPrice = (items) => {
@@ -184,8 +190,6 @@ export const cartItemsTotalPrice = (items) => {
   // return itemCost * discountRate;
   return itemCost - discount;
 };
-
-
 
 export const addItem = addItemHandler
 export const transferItem = transferItemHandler

@@ -114,6 +114,7 @@ export const GlobalStyle = createGlobalStyle(({ theme }) =>
     },
 
     '.modal': {
+      maxWidth: 'calc(100% - 30px)',
       borderRadius: '20px !important',
 
     },
@@ -199,9 +200,9 @@ export const GlobalStyle = createGlobalStyle(({ theme }) =>
       },
       '&:hover, &:focus': {
         border: `1px solid ${get(theme, 'colors.secondary.regular')}`,
-        backgroundColor: get(theme, 'colors.secondary.regular'),
+        backgroundColor: get(theme, 'colors.secondaryLight.regular'),
         'a': {
-          color: 'white',
+          color: get(theme, 'colors.secondary.regular'),
 
         },
       }
@@ -229,8 +230,10 @@ export const GlobalStyle = createGlobalStyle(({ theme }) =>
       '&:hover, &:focus': {
         '.rc-pagination-item-link': {
           border: `1px solid ${get(theme, 'colors.secondary.regular')}`,
-          backgroundColor: get(theme, 'colors.secondary.regular'),
-          color: 'white',
+          backgroundColor: get(theme, 'colors.secondaryLight.regular'),
+
+          color: get(theme, 'colors.secondary.regular'),
+
         },
       }
     },

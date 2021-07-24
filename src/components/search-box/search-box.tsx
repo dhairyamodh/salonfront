@@ -1,11 +1,11 @@
-import React from 'react';
+import React from "react";
 import {
   StyledForm,
   StyledInput,
   StyledCategoryName,
   StyledSearchButton,
-} from './search-box.style';
-import { SearchIcon } from 'assets/icons/SearchIcon';
+} from "./search-box.style";
+import { SearchIcon } from "assets/icons/SearchIcon";
 
 interface Props {
   onEnter: (e: React.SyntheticEvent) => void;
@@ -42,10 +42,10 @@ export const SearchBox: React.FC<Props> = ({
       {minimal ? (
         <>
           <SearchIcon
-            style={{ marginLeft: 16, marginRight: 16, color: '#212121' }}
+            style={{ marginLeft: 16, marginRight: 16, color: "#212121" }}
           />
           <StyledInput
-            type='search'
+            type="search"
             onChange={onChange}
             value={value}
             name={name}
@@ -56,7 +56,7 @@ export const SearchBox: React.FC<Props> = ({
         <>
           {/* <StyledCategoryName>{categoryType}</StyledCategoryName> */}
           <StyledInput
-            type='search'
+            type="search"
             onChange={onChange}
             value={value}
             name={name}

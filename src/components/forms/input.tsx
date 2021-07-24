@@ -17,7 +17,7 @@ export const Input = styled.input<any>(
     color: "text.bold",
     height: "48px",
     transition: "all 0.25s ease",
-    marginBottom: 20,
+    // marginBottom: 20,
     // mb: 3,
     "&:focus": {
       borderColor: "primary.regular",

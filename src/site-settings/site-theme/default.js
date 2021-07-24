@@ -25,6 +25,10 @@ const baseColor = {
     lighter: '#fcdbcc',
     regular: '#cc4308'
   },
+  success: {
+    lighter: '#c5ffab',
+    regular: '#2c750d'
+  },
   primary: {
     regular: '#009E7F', // primary color
     hover: '#019376',
@@ -48,7 +52,6 @@ const baseColor = {
     link: '#4285f4',
   },
   red: '#ea4d4a',
-  success: '',
   warning: '',
   muted: '',
   highlight: '',

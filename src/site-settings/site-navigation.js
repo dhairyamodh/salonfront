@@ -11,12 +11,12 @@ export const FURNITURE_PAGE_TWO = "/furniture-two";
 export const MEDICINE_PAGE = "/medicine";
 // export const RESTAURANT_PAGE = '/restaurant';
 export const REQUEST_MEDICINE_PAGE = "/request-medicine";
-export const CHECKOUT_PAGE = "/checkout";
+export const CHECKOUT_PAGE = "/booking";
 export const CHECKOUT_PAGE_TWO = "/checkout-alternative";
 export const PROFILE_PAGE = "/profile";
 export const YOUR_ORDER_PAGE = "/order";
 export const ORDER_RECEIVED_PAGE = "/order-received";
-export const OFFER_PAGE = "/offer";
+export const OFFER_PAGE = "/offers-deals/offers";
 export const HELP_PAGE = "/help";
 export const TERMS_AND_SERVICES_PAGE = "/terms";
 export const PRIVACY_POLICY_PAGE = "/privacy";
@@ -153,7 +153,7 @@ export const CATEGORY_MENU_ITEMS = [
 export const MOBILE_DRAWER_MENU = [
   HOME_MENU_ITEM,
   ...AUTHORIZED_MENU_ITEMS,
-  HELP_MENU_ITEM,
+  // HELP_MENU_ITEM,
   OFFER_MENU_ITEM,
 ];
 

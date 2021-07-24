@@ -27,7 +27,7 @@ export const Box = styled.div(
     // backgroundColor: #f7f7f7;
 
     '@media (max-width: 990px)': {
-      padding: '80px 0 25px',
+      padding: '80px 0 10px',
     },
   },
   compose(space, color, layout, position, flexbox, border)
@@ -54,7 +54,8 @@ export const Image = styled.div(
 export const Content = styled.div(
   css({
     px: ['20px', '20px', '15px'],
-    pt: [0],
+    pt: ['20px'],
+    pb: ['10px'],
   }),
   {
     position: 'relative',

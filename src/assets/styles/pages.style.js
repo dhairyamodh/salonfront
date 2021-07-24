@@ -14,6 +14,10 @@ width:100%;
 padding: 30px 0;
 border-bottom: 1px solid #f1f1f1;
 margin-bottom: 10px;
+@media only screen and (max-width: 990px) {
+  padding:20px;
+
+}
   @media only screen and (max-width: 1199px) {
     flex-direction: column;
   }
@@ -29,13 +33,10 @@ const OfferPageWrapper = styled.div`
   position: relative;
   justify-content: space-between;
 
-  @media (max-width: 768px) {
-    padding: 100px 30px 80px;
+  @media (max-width: 990px) {
+    padding: 50px 0px 80px;
   }
 
-  @media (max-width: 1199px) {
-    padding: 100px 30px 80px;
-  }
 `;
 
 
@@ -50,13 +51,13 @@ const HeaderSection = styled.div`
 const MainContentArea = styled.main`
   overflow: hidden;
   width: 100%;
-  padding: 80px;
+  padding: 40px 80px;
   background-color: white;
   transition: padding-right 0.35s ease-in-out;
   border-bottom: 1px solid #f1f1f1;
   @media (max-width: 990px) {
     background-color: ${themeGet("colors.white", "#ffffff")};
-    background-color: #f9f9f9;
+    padding: 20px 0 20px 0px;
   }
 `;
 
@@ -99,7 +100,7 @@ const ContentSection = styled.div`
 const OfferSection = styled.div`
   width: 100%;
   display: block;
-  padding: 80px;
+  padding: 40px 80px;
   background-color: ${themeGet("colors.white", "#ffffff")};
   position: relative;
   border-bottom: 1px solid ${themeGet("colors.gray.500", "#f1f1f1")};
@@ -115,8 +116,7 @@ const OfferSection = styled.div`
     }
   }
   @media (max-width: 990px) {
-    padding: 15px;
-    border-bottom: 0;
+    padding: 20px 0 20px 0px;
 
     .prevButton {
       left: 5px;
@@ -190,9 +190,14 @@ const ProductsCol = styled.div`
 `;
 
 export const CategoryContent = styled.div`
-  padding: 50px 80px;
+  padding: 40px 80px;
   border-bottom: 1px solid ${themeGet("colors.gray.500", "#f1f1f1")};
   background-color:white ;
+  
+
+  @media screen and (max-width: 768px) {
+    padding: 0;
+  }
 `;
 
 export const CategoryContainer = styled.div`
@@ -214,7 +219,9 @@ const HeaderContainer = styled.div`
   justify-content: space-between;
   align-items:center;
 margin-bottom: 30px;
-
+@media only screen and (max-width: 990px) {
+  margin-bottom: 10px;
+}
 `;
 
 const HeaderWrapper = styled.div`
@@ -231,24 +238,22 @@ margin-bottom: 10px;
 `;
 
 
-const OfferContainer = styled.div(
+const OfferContainer = styled.div((props) =>
   css({
     display: 'grid',
     gridGap: '30px',
     gridTemplateColumns: 'repeat(1, minmax(180px, 1fr))',
+    overflowX: 'auto',
+    ...props.normal && { paddingTop: 30, },
 
-    '@media screen and (min-width: 630px)': {
-      gridTemplateColumns: 'repeat(, minmax(180px, 1fr))',
-    },
+    '@media screen and (max-width: 990px)': {
+      ...!props.normal ? { display: 'flex', gridGap: '20px', } : {
+        gridGap: '10px',
+        gridTemplateColumns: 'repeat(1, minmax(48vw, 1fr))',
+        paddingTop: 0,
+      },
 
-    '@media screen and (min-width: 768px)': {
-      gridTemplateColumns: 'repeat(1, minmax(180px, 1fr))',
-    },
-
-    '@media screen and (max-width: 768px)': {
-      gridGap: '5px',
-      padding: '5px',
-      gridTemplateColumns: 'repeat(1, minmax(48vw, 1fr))',
+      // gridTemplateColumns: 'repeat(1, minmax(48vw, 1fr))',
     },
 
     '@media screen and (min-width: 991px)': {
@@ -276,6 +281,42 @@ const OfferItem = styled('div')`
   background-color: ${themeGet('colors.white', '#ffffff')};
   color: ${themeGet('colors.primary.regular', '#009E7F')};
   padding: 0;
+  position:relative;
+  margin: 10px 0;
+  display:inline-block;
+  border-radius: 20px;
+
+  // box-shadow: ${themeGet('shadows.base', '0 3px 6px rgba(0, 0, 0, 0.16)')};
+  &:after {
+    content:'';
+  position:absolute;
+  border-radius: 20px;
+  left:0; top:0;
+  width:100%; 
+  height:100%;
+  display:inline-block;
+  background: -webkit-linear-gradient(left, rgba(0,0,0,0.7) 0%,rgba(0,0,0, 0) 100%);
+  background: -o-linear-gradient(left, rgba(0,0,0,0.7) 0%,rgba(0,0,0, 0) 100%);
+  background: -ms-linear-gradient(left, rgba(0,0,0,0.7) 0%,rgba(0,0,0, 0) 100%);
+  background: linear-gradient(to right, rgba(0,0,0,0.7) 0%,rgba(0,0,0, 0) 100%); 
+  }
+  @media only screen and (max-width: 990px) {
+    height: 150px;
+    &:last-child {
+      margin-right: 20px;
+    }
+    &:first-child {
+      margin-left: 20px;
+    }
+  }
+`;
+
+const OfferItemNormal = styled('div')`
+  height: 250px;
+  width: 100%;
+  background-color: ${themeGet('colors.white', '#ffffff')};
+  color: ${themeGet('colors.primary.regular', '#009E7F')};
+  padding: 0;
   margin: 10px 0;
   position:relative;
   display:inline-block;
@@ -297,6 +338,7 @@ const OfferItem = styled('div')`
   }
   @media only screen and (max-width: 990px) {
     height: 150px;
+    
   }
 `;
 
@@ -324,6 +366,10 @@ color: #fff;
 transition: 0.25s all ease-in-out;
 &:hover{
   background: ${themeGet('colors.primary.regular')}80;
+}
+@media only screen and (max-width: 990px) {
+  width: 300px;
+  
 }
 `;
 
@@ -363,5 +409,6 @@ export {
   OfferImage,
   OfferTitle,
   OfferSubtitle,
-  OfferContainer
+  OfferContainer,
+  OfferItemNormal
 };

@@ -261,7 +261,7 @@ export default function CustomCarousel({
         {data.map((item, index) => {
           if (component) return component(item);
           return (
-            <div style={{ borderRadius: 10, padding: '0 15px', overflow: 'hidden' }} key={index}>
+            <div style={{ borderRadius: 10, padding: '10px 20px', overflow: 'hidden' }} key={index}>
               <GiftCard discount="20" title="dkjfkdj" subtitle="skjdksj" image={couponImg} code="dkjksjd" />
               {/* <Item>
                 <CardContent>

@@ -36,6 +36,7 @@ const Tree = React.memo(
     });
     // const Icon = icon ? Icons[icon] : depth === 'child' ? Icons['Minus'] : null;
     // const Icon = icon ? Icons[icon] : null;
+    // console.log('activeClass', activeClass);
     return (
       <Frame>
         <Header open={activeClass} className={depth} onClick={onClick}>
@@ -44,7 +45,7 @@ const Tree = React.memo(
               <Icon iconName={icon} />
             </IconWrapper>
           )}
-          <Title >{name}</Title>
+          <Title>{name}</Title>
 
 
         </Header>
@@ -63,6 +64,7 @@ export const TreeMenu = ({
   const handler = (children) => {
     return children.map((subOption) => {
       if (!subOption.children) {
+        console.log('activeClass == subOption._id', activeClass == subOption._id, activeClass, subOption._id);
         return (
           <Tree
             key={subOption.categoryName}

@@ -32,7 +32,8 @@ const SidebarCategory = ({
   const { salonId } = useSelector(state => state.salon)
   const { loading } = useSelector(state => state.app)
   const [categoryId, setCategoryId] = useState(newcategoryId)
-  const [categoryName, setCategoryName] = useState()
+
+  const [newcategoryName, setCategoryName] = useState()
   const [isModal, setIsModal] = useState()
   const history = useHistory()
   const onCategoryClick = ({ _id, categoryName }) => {
@@ -40,7 +41,6 @@ const SidebarCategory = ({
     setCategoryName(categoryName)
     setIsModal(false)
     history.push(`/services/${_id}`)
-    // setIsLoading(true)
   };
   const isSidebarSticky = true;
   if (!data || loading) {
@@ -50,12 +50,19 @@ const SidebarCategory = ({
     return <SidebarLoader />;
   }
   useEffect(() => {
-    dispatch(getCategory(salonId, undefined, newcategoryId))
+    dispatch(getCategory(salonId, undefined, newcategoryId)).then((res) => {
+      if (res.payload.status === 200) {
+        const getCate = res.payload.data.data?.find((value) => value._id == newcategoryId)
+        console.log('getCate', getCate);
+        setCategoryName(getCate?.categoryName)
+      }
+
+    })
   }, [])
   return (
     <CategoryWrapper>
       <PopoverWrapper>
-        <CategoryWalker isModal={isModal} onToggle={() => setIsModal(!isModal)} onClose={() => setIsModal(false)} categoryName={categoryName}>
+        <CategoryWalker isModal={isModal} onToggle={() => setIsModal(!isModal)} onClose={() => setIsModal(false)} categoryName={newcategoryName}>
           <TreeMenu
             data={data}
             activeClass={categoryId}

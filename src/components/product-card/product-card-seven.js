@@ -21,9 +21,9 @@ const Icon = styled.p(
     paddingTop: 2,
   }
 );
-const Card = styled.div(css({
+const Card = styled.div((props) => css({
   backgroundColor: '#fff',
-  overflow: 'hidden',
+  // overflow: 'hidden',
   // borderRadius: 15,
   // border: '1px solid #f3f3f3',
   display: 'flex',
@@ -36,27 +36,45 @@ const Card = styled.div(css({
     // boxShadow: '0 4px 8px rgba(0, 0, 0, 0.08)',
     transform: 'translateY(-5px)',
   },
+  '@media screen and (max-width: 768px)': {
+    MozUserSelect: "none",
+    WebkitUserSelect: "none",
+    msUserSelect: "none",
+    ...!props.normal && {
+      '&:last-child': {
+        paddingRight: 20,
+      },
+      '&:first-child': {
+        paddingLeft: 20,
+      }
+    },
+
+    // overflow: 'auto',
+  },
+
 }));
-const ImageWrapper = styled.div({
-  height: 150,
-  position: 'relative',
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-  flexGrow: 1,
-  overflow: 'hidden',
+const ImageWrapper = styled.div((props) =>
+  css({
+    height: 150,
+    position: 'relative',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    flexGrow: 1,
+    overflow: 'hidden',
 
 
-  '@media screen and (max-width: 1280px)': {
-    height: 250,
-  },
+    '@media screen and (max-width: 1280px)': {
+      height: 250,
+    },
 
-  '@media screen and (max-width: 560px)': {
-    height: "100%",
-    objectFit: 'cover'
+    '@media screen and (max-width: 990px)': {
+      width: props.normal ? '100%' : 250,
+      height: 150,
+      objectFit: 'cover'
 
-  },
-});
+    },
+  }));
 
 const Image = styled.img({
   maxWidth: '100%',
@@ -154,7 +172,7 @@ const SalePrice = styled.span(
   })
 );
 
-export const ProductCard = ({ data, deviceType }) => {
+export const ProductCard = ({ data, deviceType, normal }) => {
   const { name: title, salonId, _id, discount, imageSrc: image, price: price, salePrice, estimatedTime } = data;
   const { currencySymbol } = useSelector(state => state.shop.salonData)
   const { serviceDetails: product } = useSelector(state => state.service)
@@ -212,8 +230,8 @@ export const ProductCard = ({ data, deviceType }) => {
 
 
   return (
-    <Card className="product-card" onClick={() => handleModal()}>
-      <ImageWrapper>
+    <Card normal={normal} className="product-card" onClick={() => handleModal()}>
+      <ImageWrapper normal={normal}>
         <Image src={ServerUrl + image} alt={title} className="product-image" />
         {discount ? <Discount>{discount}%</Discount> : null}
       </ImageWrapper>

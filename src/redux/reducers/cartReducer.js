@@ -5,6 +5,8 @@ const initState = {
     items: [],
     isSalon: false,
     coupon: null,
+    selectedTime: undefined,
+    selectedDate: new Date(),
     retryCount: 0
 }
 
@@ -86,6 +88,18 @@ const cartReducer = (state = initState, action) => {
             return {
                 ...state,
                 items: action.payload.isNetworkApi ? action.payload.request.data.items : action.payload.data.items
+            }
+
+        case cartTypes.SELECT_APPOINTMENT_TIME:
+            return {
+                ...state,
+                selectedTime: action.payload
+            }
+
+        case cartTypes.SELECT_APPOINTMENT_DATE:
+            return {
+                ...state,
+                selectedDate: action.payload
             }
 
 

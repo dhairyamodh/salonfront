@@ -141,7 +141,9 @@
     "src/features/quick-view/quick-view.js",
     "src/components/button/loadmore-button.js",
     "src/components/gift-card/gift-card.style.js",
-    "src/components/gift-card/gift-card.js"
+    "src/components/gift-card/gift-card.js",
+    "src/features/coupon/coupon.style.js",
+    "src/features/coupon/coupon.js"
   ],
   "exclude": ["node_modules"]
 }

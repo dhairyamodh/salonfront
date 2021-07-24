@@ -49,6 +49,9 @@ const ContentBox = styled.div`
 const BookingTitle = styled.h2`
 width:100%;
 padding-bottom: 30px;
+@media only screen and (max-width: 990px) {
+  padding: 20px;
+}
   @media only screen and (max-width: 1199px) {
     flex-direction: column;
   }

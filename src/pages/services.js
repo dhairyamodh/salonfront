@@ -94,7 +94,7 @@ export default function Services({ deviceType }) {
         <HeadingTitle>Services</HeadingTitle>
 
         <MobileCarouselDropdown>
-          <SidebarCategory deviceType={deviceType} />
+          <SidebarCategory newcategoryId={id} deviceType={deviceType} />
         </MobileCarouselDropdown>
         <SidebarSection>
           <SidebarCategory newcategoryId={id} deviceType={deviceType} />

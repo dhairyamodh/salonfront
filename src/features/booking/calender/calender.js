@@ -20,20 +20,18 @@ import { getAvailableTime } from '../../../redux/actions/checkoutActions'
 import { openModal, Modal } from '@redq/reuse-modal';
 import { Input } from "components/forms/input";
 import { CloseIcon } from 'assets/icons/CloseIcon';
+import { selectAppointmentDate } from '../../../redux/actions/cartActions'
 
 const CalenderContent = ({ deviceType }) => {
 
   const dispatch = useDispatch()
-  const history = useHistory()
-  const [date, onDateChange] = useState(new Date());
-  const { salonId } = useSelector(state => state.salon)
-  const [active, setActive] = useState()
-  const [isOpen, setIsOpen] = useState(false)
-
-  const handleRadioChange = (index) => {
-    setActive(index)
+  const { selectedDate: date } = useSelector(state => state.cart)
+  // const handleRadioChange = (index) => {
+  //   setActive(index)
+  // }
+  const onDateChange = (date) => {
+    dispatch(selectAppointmentDate(date))
   }
-
 
   const handleChange = (date) => {
     onDateChange(date)

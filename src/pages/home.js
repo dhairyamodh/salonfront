@@ -18,9 +18,9 @@ import {
   MobileCarouselDropdown,
   CategoryContent,
   CategoryContainer,
-  HeaderSubTitle,
-  HeaderContainer,
-  HeaderWrapper,
+  // HeaderSubTitle,
+  // HeaderContainer,
+  // HeaderWrapper,
   OfferContainer,
   OfferCard,
   OfferItem,
@@ -36,6 +36,8 @@ import { getCategorySerivces, getTrendingSerivces } from '../redux/actions/servi
 import { ServerUrl } from '../constants';
 import CategoryCarousel from '../components/carousel/CategoryCarousel';
 import { useHistory } from 'react-router-dom';
+import HeadingTitle from '../components/heading/headingTitle';
+import { getCategory } from '../redux/actions/categoryActions';
 
 // const bannerSlides = [
 //   {
@@ -58,8 +60,10 @@ export default function Home({ deviceType }) {
   const [loading, setIsLoading] = useState(false)
   const dispatch = useDispatch();
   const history = useHistory()
+  const { desktop, tablet, mobile } = deviceType;
   const getSerivces = () => {
     setIsLoading(true)
+    dispatch(getCategory(salonId, undefined, true,))
     dispatch(getTrendingSerivces(salonId, undefined, true,)).then((res) => {
       if (res.payload.status === 200) {
         setIsLoading(false)
@@ -105,29 +109,33 @@ export default function Home({ deviceType }) {
       <Banner imageUrl={Saloon} intlTitleId={shop?.tagLine || 'dasd'}
       />
       <CategoryContent>
-
-        <HeaderContainer>
+        <HeadingTitle title="Categories" deviceType={deviceType} />
+        {/* {!mobile && <HeaderContainer>
           <HeaderWrapper>
             <h3>Categories</h3>
           </HeaderWrapper>
         </HeaderContainer>
+
+        } */}
         <CategoryContainer>
+
           <CategoryCarousel data={allCategories} deviceType={deviceType} />
         </CategoryContainer>
       </CategoryContent >
 
-      <MobileCarouselDropdown>
+      {/* <MobileCarouselDropdown>
         <SidebarCategory deviceType={deviceType} />
-      </MobileCarouselDropdown>
+      </MobileCarouselDropdown> */}
       <OfferSection>
-        <HeaderContainer>
+        <HeadingTitle title="Latest Offers" deviceType={deviceType} buttonText="View All" buttonOnClick={() => history.push('/offers-deals/offers')} />
+        {/* <HeaderContainer>
           <HeaderWrapper>
-            <h3>Latest Offers</h3>
+            {mobile ? <h5>Latest Offers</h5> : <h3>Latest Offers</h3>}
           </HeaderWrapper>
           <Button variant="secondary" onClick={() => history.push('/offers-deals/offers')}>
             View All +
           </Button>
-        </HeaderContainer>
+        </HeaderContainer> */}
         <OfferContainer>
           {siteOffers.map((item, index) => {
             return (
@@ -149,16 +157,11 @@ export default function Home({ deviceType }) {
 
               </>
             );
-          }).slice(0, 2)}
+          }).slice(0, mobile ? 5 : 2)}
         </OfferContainer>
       </OfferSection>
       <MainContentArea>
-        <HeaderContainer>
-          <HeaderWrapper>
-            <HeaderSubTitle>Our Services</HeaderSubTitle>
-            <h3>Top Trending Services</h3>
-          </HeaderWrapper>
-        </HeaderContainer>
+        <HeadingTitle title="Top Trending Services" subTitle="Our Services" deviceType={deviceType} />
         {/* <SidebarSection>
           <SidebarCategory setFilterService={setFilterService} deviceType={deviceType} />
         </SidebarSection> */}
@@ -174,14 +177,15 @@ export default function Home({ deviceType }) {
       </MainContentArea>
 
       <OfferSection>
-        <HeaderContainer>
+        <HeadingTitle title="Limited Time Deals" deviceType={deviceType} buttonText="View All" buttonOnClick={() => history.push('/offers-deals/deals')} />
+        {/* <HeaderContainer>
           <HeaderWrapper>
             <h3>Limited Time Deals</h3>
           </HeaderWrapper>
           <Button variant="secondary" onClick={() => history.push('/offers-deals/deals')} >
             View All +
           </Button>
-        </HeaderContainer>
+        </HeaderContainer> */}
         <div style={{ width: '100%', position: 'relative', height: '100%' }}>
           <Carousel deviceType={deviceType} data={siteOffers} />
         </div>

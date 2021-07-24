@@ -70,6 +70,28 @@ export const StyledButton = styled.button(
           borderColor: "primary.regular",
         },
       },
+      success: {
+        color: "success.regular",
+        bg: "success.lighter",
+        border: "1px solid",
+        borderColor: "success.lighter",
+        "&:hover": {
+          color: "white",
+          bg: "success.regular",
+          borderColor: "success.regular",
+        },
+      },
+      danger: {
+        color: "danger.regular",
+        bg: "danger.lighter",
+        border: "1px solid",
+        borderColor: "danger.lighter",
+        "&:hover": {
+          color: "white",
+          bg: "danger.regular",
+          borderColor: "danger.regular",
+        },
+      },
       white: {
         color: "primaryDark.regular",
         bg: "white",

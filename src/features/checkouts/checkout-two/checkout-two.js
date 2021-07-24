@@ -35,7 +35,7 @@ import CheckoutWrapper, {
 } from './checkout-two.style';
 
 import { NoCartBag } from 'assets/icons/NoCartBag';
-
+import ModalContainer from 'components/modal/modalContainer'
 import Sticky from 'react-stickynode';
 import { FormattedMessage } from 'react-intl';
 import { useWindowSize } from 'utils/useWindowSize';
@@ -46,7 +46,15 @@ import { clearCart, cartItemsTotalPrice } from '../../../redux/actions/cartActio
 // import Contact from 'features/contact/contact';
 import Payment from 'features/payment/payment';
 import { useDispatch, useSelector } from 'react-redux';
+import {
+  // Title,
+  Col,
+  Row,
+} from "../../../features/user-profile/settings/settings.style";
 
+import { Input, Textarea } from "components/forms/input";
+// import { UPDATE_ME } from 'graphql/mutation/me';
+import { Label } from "components/forms/label";
 
 const OrderItem = ({ product }) => {
   const Router = useHistory()
@@ -72,6 +80,8 @@ const CheckoutWithSidebar = ({ token, deviceType }) => {
   const { data } = useSelector(state => state.profile);
   const { isRtl } = useSelector(state => state.app);
   const cart = useSelector(state => state.cart.items)
+  const { id, name, email, mobile } = useSelector(state => state.auth)
+  const { selectedTime, selectedDate, items } = useSelector(state => state.cart)
   const calculatePrice = () =>
     cartItemsTotalPrice(cart).toFixed(2);
 
@@ -88,15 +98,30 @@ const CheckoutWithSidebar = ({ token, deviceType }) => {
   const [isValid, setIsValid] = useState(false);
   const { contact, card } = data;
   const size = useWindowSize();
-
+  const [open, setOpen] = useState(false)
+  const [state, setState] = useState({ name, email, mobile })
+  const handleChange = (e) => {
+    const { name, value } = e.target
+    setState({ ...state, [name]: value })
+  }
   const handleSubmit = async () => {
     setLoading(true);
-    if (isValid) {
-      clearCart();
-      Router.push('/order-received');
-    }
+    setOpen(true)
+    // if (isValid) {
+    //   clearCart();
+    //   Router.push('/order-received');
+    // }
     setLoading(false);
   };
+
+  const handleCheckout = () => {
+    let orderData = {
+      ...state,
+      selectedDate,
+      selectedTime, cartItems: items, userId: id,
+    }
+    console.log(orderData);
+  }
 
   useEffect(() => {
     if (
@@ -156,7 +181,7 @@ const CheckoutWithSidebar = ({ token, deviceType }) => {
               className='paymentBox'
               style={{ paddingBottom: 30 }}
             >
-              <Payment increment={true} deviceType={deviceType} />
+              {/* <Payment increment={true} deviceType={deviceType} /> */}
 
               {/* Coupon start */}
               {/* {coupon ? (
@@ -192,7 +217,59 @@ const CheckoutWithSidebar = ({ token, deviceType }) => {
                   )}
                 </CouponBoxWrapper>
               )} */}
+              <Row >
+                <Col xs={12} sm={6} md={6} lg={6}>
+                  <Label>
+                    <FormattedMessage
+                      id="profileNameField"
+                      defaultMessage="Your Name"
+                    />
+                  </Label>
+                  <Input
+                    type="text"
+                    label="Name"
+                    name="name"
+                    value={state.name}
+                    onChange={handleChange}
+                    backgroundColor="#F7F7F7"
+                  // intlInputLabelId="profileNameField"
+                  />
+                </Col>
 
+                <Col xs={12} sm={6} md={6} lg={6}>
+                  <Label>
+                    <FormattedMessage
+                      id="profileEmailField"
+                      defaultMessage="Your Email"
+                    />
+                  </Label>
+                  <Input
+                    type="email"
+                    name="email"
+                    label="Email Address"
+                    value={state.email}
+                    onChange={handleChange}
+                    backgroundColor="#F7F7F7"
+                  />
+                </Col>
+
+                <Col xs={12} sm={6} md={6} lg={6}>
+                  <Label>
+                    <FormattedMessage
+                      id="profileMobileField"
+                      defaultMessage="Mobile Number"
+                    />
+                  </Label>
+                  <Input
+                    type="text"
+                    name="mobile"
+                    label="Mobile Number"
+                    value={state.mobile != 'null' ? state.mobile : ''}
+                    onChange={handleChange}
+                    backgroundColor="#F7F7F7"
+                  />
+                </Col>
+              </Row>
               <TermConditionText>
                 <FormattedMessage
                   id='termAndConditionHelper'
@@ -207,13 +284,13 @@ const CheckoutWithSidebar = ({ token, deviceType }) => {
                   </TermConditionLink>
                 </Link>
               </TermConditionText>
-
+              <ModalContainer title="Are you sure want to place the order?" onSuccess={() => handleCheckout()} isOpen={open} isClose={() => setOpen(false)} />
               {/* CheckoutSubmit */}
               <CheckoutSubmit>
                 <Button
                   type='button'
-                  onClick={handleSubmit}
-                  disabled={!isValid}
+                  onClick={() => handleSubmit()}
+                  // disabled={!isValid}
                   size='big'
                   loading={loading}
                   style={{ width: '100%' }}

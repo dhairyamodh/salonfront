@@ -17,18 +17,21 @@ const Grid = styled.div(
     gridGap: '30px',
     gridTemplateColumns: 'repeat(2, minmax(180px, 1fr))',
 
-    '@media screen and (min-width: 630px)': {
-      gridTemplateColumns: 'repeat(3, minmax(180px, 1fr))',
-    },
+    // '@media screen and (min-width: 630px)': {
+    //   gridTemplateColumns: 'repeat(3, minmax(180px, 1fr))',
+    // },
 
-    '@media screen and (min-width: 768px)': {
-      gridTemplateColumns: 'repeat(3, minmax(180px, 1fr))',
-    },
+    // '@media screen and (min-width: 768px)': {
+    //   gridTemplateColumns: 'repeat(3, minmax(180px, 1fr))',
+    // },
 
     '@media screen and (max-width: 768px)': {
-      gridGap: '5px',
-      padding: '5px',
-      gridTemplateColumns: 'repeat(3, minmax(48vw, 1fr))',
+      display: 'flex',
+      width: '100%',
+      gridGap: '20px',
+      overflowX: 'auto',
+      paddingTop: 10,
+      // gridTemplateColumns: 'repeat(3, minmax(48vw, 1fr))',
     },
 
     '@media screen and (min-width: 991px)': {

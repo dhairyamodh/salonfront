@@ -5,6 +5,9 @@ import { themeGet } from '@styled-system/theme-get';
 const TabContainer = styled.ul`
 margin: 0; 
 padding: 0;
+@media only screen and (max-width: 990px) {
+    padding:0 20px;
+  }
 li {
     display: inline-block;
     padding: 0.5em 1em;
@@ -17,6 +20,10 @@ li {
       border-radius:${themeGet('radii.bigger')};
       color:${themeGet('colors.secondary.regular')};
       background:${themeGet('colors.secondaryLight.regular')};
+  }
+  @media only screen and (max-width: 990px) {
+    margin: 1em 1em 0 0;
+    
   }
 }
 `;
