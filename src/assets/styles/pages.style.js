@@ -16,7 +16,7 @@ border-bottom: 1px solid #f1f1f1;
 margin-bottom: 10px;
 @media only screen and (max-width: 990px) {
   padding:20px;
-
+  font-size:${themeGet("fontSizes.xxl")}px;
 }
   @media only screen and (max-width: 1199px) {
     flex-direction: column;
@@ -57,7 +57,7 @@ const MainContentArea = styled.main`
   border-bottom: 1px solid #f1f1f1;
   @media (max-width: 990px) {
     background-color: ${themeGet("colors.white", "#ffffff")};
-    padding: 20px 0 20px 0px;
+    padding: 20px 0 0px 0px;
   }
 `;
 
@@ -116,7 +116,7 @@ const OfferSection = styled.div`
     }
   }
   @media (max-width: 990px) {
-    padding: 20px 0 20px 0px;
+    padding: 20px 0 0px 0px;
 
     .prevButton {
       left: 5px;
@@ -205,6 +205,7 @@ export const CategoryContainer = styled.div`
   height: 100%;
   display: block;
   position:relative;
+  overflow: hidden;
   // border-radius: 80px 0 0 0;
   // background-image: url(${texture}), linear-gradient(to right top, ${themeGet('colors.primary.regular')},  ${themeGet('colors.primary.regular')});
   background-repeat: no-repeat;
@@ -247,7 +248,7 @@ const OfferContainer = styled.div((props) =>
     ...props.normal && { paddingTop: 30, },
 
     '@media screen and (max-width: 990px)': {
-      ...!props.normal ? { display: 'flex', gridGap: '20px', } : {
+      ...!props.normal ? { display: 'flex', gridGap: '20px', paddingBottom: 20 } : {
         gridGap: '10px',
         gridTemplateColumns: 'repeat(1, minmax(48vw, 1fr))',
         paddingTop: 0,
@@ -302,6 +303,7 @@ const OfferItem = styled('div')`
   }
   @media only screen and (max-width: 990px) {
     height: 150px;
+  width: 300px;
     &:last-child {
       margin-right: 20px;
     }
@@ -390,7 +392,71 @@ color:${themeGet('colors.gray.200',)};
 }
 `;
 
+const ModalHeader = styled.div(css({
+  width: '100%',
+  padding: 20,
+  position: 'relative',
+  'p': {
+    color: 'gray.950',
+    fontSize: 'base',
+    fontWeight: 'semiBold',
 
+  }
+}))
+
+const ModalTitle = styled.h5(css({
+  color: 'secondary.regular',
+  paddingBottom: 10,
+  fontSize: 'xxl',
+
+  fontWeight: 'bold',
+  '@media screen and (max-width: 990px)': {
+    fontSize: 'lg',
+
+  },
+}))
+
+const ModalBody = styled.div(css({
+  width: '100%',
+  marginTop: '20px',
+  padding: '0 20px 20px 20px',
+  display: 'flex',
+  justifyContent: 'space-between',
+  gridGap: 20,
+  '@media screen and (max-width: 990px)': {
+    display: 'block',
+
+
+  },
+}))
+
+const Image = styled('img')`
+  position:absolute;
+  border-radius:100px;
+  width: 120px;
+  height: 120px;
+  object-fit:cover;
+  top:-20px;
+  @media screen and (max-width: 990px) {
+    display:none;
+  }
+`;
+
+const ModalHeaderContent = styled.h5(css({
+  width: '100%',
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'flex-end',
+  alignItems: 'flex-end',
+}))
+
+const ModalWarpper = styled.h5(css({
+  width: '70%',
+  '@media screen and (max-width: 990px)': {
+    width: '100%',
+
+  },
+}))
 
 export {
   HeadingTitle,
@@ -410,5 +476,11 @@ export {
   OfferTitle,
   OfferSubtitle,
   OfferContainer,
-  OfferItemNormal
+  OfferItemNormal,
+  ModalHeader,
+  ModalBody,
+  ModalTitle,
+  Image,
+  ModalHeaderContent,
+  ModalWarpper
 };

@@ -6,9 +6,7 @@ import { themeGet } from '@styled-system/theme-get';
 import { ArrowNext } from 'assets/icons/ArrowNext';
 import { ArrowPrev } from 'assets/icons/ArrowPrev';
 import { useSelector } from 'react-redux';
-import { Button } from 'components/button/button';
 import GiftCard from 'components/gift-card/gift-card';
-import couponImg from 'assets/images/coupon.png'
 // const Item = styled('div')`
 //   height: 200px;
 //   width: 100%;
@@ -214,7 +212,7 @@ const responsive = {
   desktop: {
     breakpoint: { max: 3000, min: 1024 },
     items: 4,
-    slidesToSlide: 3
+    slidesToSlide: 1,
   },
   tablet: {
     breakpoint: { max: 1024, min: 464 },
@@ -227,7 +225,7 @@ const responsive = {
 };
 export default function CustomCarousel({
   data,
-  deviceType,
+  deviceType: { mobile, tablet, desktop },
   component,
   autoPlay = false,
   infinite = true,
@@ -238,7 +236,13 @@ export default function CustomCarousel({
   ...props
 }) {
 
-
+  let deviceType = 'desktop';
+  if (mobile) {
+    deviceType = 'mobile';
+  }
+  if (tablet) {
+    deviceType = 'tablet';
+  }
   return (
     <div dir="ltr">
       <Carousel
@@ -246,7 +250,7 @@ export default function CustomCarousel({
         responsive={responsive}
         showDots={false}
         slidesToSlide={1}
-        infinite={infinite}
+        // infinite={infinite}
         containerClass="container-with-dots"
         itemClass={itemClass}
         autoPlay={autoPlay}
@@ -262,7 +266,7 @@ export default function CustomCarousel({
           if (component) return component(item);
           return (
             <div style={{ borderRadius: 10, padding: '10px 20px', overflow: 'hidden' }} key={index}>
-              <GiftCard discount="20" title="dkjfkdj" subtitle="skjdksj" image={couponImg} code="dkjksjd" />
+              <GiftCard discount={item.dealDiscount} title={item.dealTitle} subtitle={item.dealSubTitle} code={item.dealCode} />
               {/* <Item>
                 <CardContent>
                   <Discount>20% Off</Discount>

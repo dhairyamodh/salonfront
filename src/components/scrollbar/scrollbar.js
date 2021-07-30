@@ -2,9 +2,8 @@
 // import { Scrollbars } from 'react-custom-scrollbars';
 
 // export const Scrollbar = ({ children, }, props) => {
-//   console.log(window.innerHeight);
 //   return (
-//     <Scrollbars style={{ width: '100%', }} autoHide autoHeight autoHeightMin={`calc(100vh - 120px)`}>
+//     <Scrollbars style={{ width: '100%', }} autoHide autoHeight>
 //       {children}
 //     </Scrollbars>
 //   )

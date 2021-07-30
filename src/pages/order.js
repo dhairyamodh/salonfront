@@ -1,6 +1,4 @@
 import React from 'react';
-import { NextPage } from 'next';
-import { SEO } from 'components/seo';
 import Order from 'features/user-profile/order/order';
 import {
   PageWrapper,
@@ -12,7 +10,6 @@ import { Modal } from '@redq/reuse-modal';
 const OrderPage = () => {
   return (
     <>
-      <SEO title="Order - PickBazar" description="Order Details" />
       <Modal>
         <PageWrapper>
           <SidebarSection>

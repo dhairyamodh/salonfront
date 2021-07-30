@@ -2,9 +2,8 @@ export const addItemLocalToCart = (items, newitem, isAuthenticated) => {
   const existingCartItemIndex = items.findIndex(
     (item) => item.id === newitem.id
   );
-
   if (existingCartItemIndex > -1) {
-
+    newitem.itemTotal = newitem.quantity * newitem.salePrice
     const newState = [...items, newitem];
     newState[existingCartItemIndex].quantity += newitem.quantity;
     if (!isAuthenticated) {
@@ -12,8 +11,8 @@ export const addItemLocalToCart = (items, newitem, isAuthenticated) => {
     }
     return newState;
   } else {
+    newitem.itemTotal = newitem.quantity * newitem.salePrice
     const newState = [...items, newitem];
-    console.log('sdosdojkjjk', newState);
     if (!isAuthenticated) {
       localStorage.setItem('localCart', JSON.stringify(newState))
     }
@@ -37,12 +36,11 @@ export const removeItemLocalFromCart = (items, currentItems, isAuthenticated) =>
   let updatedItems = items.reduce((acc, item) => {
     if (item.id === currentItems.id) {
       const newQuantity = item.quantity - currentItems.quantity;
-
+      const itemTotal = item.quantity * item.salePrice;
       return newQuantity > 0
         ? [...acc, { ...item, quantity: newQuantity }]
         : [...acc];
     }
-
     return [...acc, item];
   }, []);
   if (!isAuthenticated) {

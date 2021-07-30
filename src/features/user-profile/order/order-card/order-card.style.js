@@ -109,7 +109,7 @@ export const CardWrapper = styled.div`
 
 export const SingleOrderList = styled.div`
   background-color: ${themeGet('colors.gray.200', '#f7f7f7')};
-  border-radius: ${themeGet('radii.base', '6px')};
+  border-radius: ${themeGet('radii.big', '6px')};
   overflow: hidden;
   margin-bottom: 15px;
   display: flex;

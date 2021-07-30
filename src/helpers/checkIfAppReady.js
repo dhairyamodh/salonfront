@@ -5,10 +5,15 @@ import getToken from "./getToken";
 import { getUserDetails } from "../redux/actions/authActions";
 import { getLocalStorageCart } from '../helpers/cartHelpers'
 import { getItemCart, updateCartLocally } from '../redux/actions/cartActions'
+import { useHistory } from "react-router-dom";
 
 
-function useGetAllData(salonId) {
+function useGetAllData() {
+  const history = useHistory()
   const dispatch = useDispatch();
+  const domainName = window.location.host;
+  const { salonId } = useSelector(state => state.salon)
+
   const [ready, setReady] = useState(false);
   const delayReady = () => {
     setReady(true);
@@ -24,7 +29,7 @@ function useGetAllData(salonId) {
   function handleCheckToken() {
     const tkn = getToken();
     if (tkn) {
-      dispatch(getUserDetails(salonId))
+      dispatch(getUserDetails())
         .then((res) => {
           if (res.payload.status == 200) {
             dispatch(getItemCart(salonId))
@@ -35,20 +40,22 @@ function useGetAllData(salonId) {
         });
     } else {
       updateCart()
+      history.push('/')
     }
   }
 
   const checkIfSalonData = () => {
-    dispatch(getSalonData(salonId)).then((res) => {
+    dispatch(getSalonData(domainName)).then((res) => {
       delayReady(true)
     }).catch((err) => {
       delayReady(true)
 
     })
   }
+
   useEffect(() => {
-    handleCheckToken()
     checkIfSalonData()
+    handleCheckToken()
 
   }, []);
 

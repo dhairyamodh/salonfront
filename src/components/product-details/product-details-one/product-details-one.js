@@ -57,7 +57,7 @@ import { Remove } from 'components/removeCart/remove';
 
 const ProductDetails = ({
   product,
-  deviceType,
+  deviceType: { mobile, tablet, desktop },
 }) => {
   const dispatch = useDispatch()
   const cart = useSelector(state => state.cart.items)
@@ -81,7 +81,13 @@ const ProductDetails = ({
   };
 
   const isRtl = false
-
+  let deviceType = 'desktop';
+  if (mobile) {
+    deviceType = 'mobile';
+  }
+  if (tablet) {
+    deviceType = 'tablet';
+  }
 
   return (
     <>

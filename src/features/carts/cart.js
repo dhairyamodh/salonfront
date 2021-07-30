@@ -43,13 +43,12 @@ const Cart = ({
 
   const history = useHistory()
   const { currencySymbol: CURRENCY } = useSelector(state => state.shop.salonData)
-  const cart = useSelector(state => state.cart.items)
+  const { items: cart, coupon } = useSelector(state => state.cart)
   const calculatePrice = () =>
-    cartItemsTotalPrice(cart).toFixed(2);
+    cartItemsTotalPrice(cart, coupon).toFixed(2);
   const dispatch = useDispatch()
   const cartItemsCount = cart.length
-  const { coupon } = useSelector(state => state.cart)
-  console.log(coupon);
+  console.log("cartItemsCount", cartItemsCount);
   const [hasCoupon, setCoupon] = useState(false);
   return (
     <CartPopupBody className={className} style={style}>
@@ -102,7 +101,7 @@ const Cart = ({
 
       <CheckoutButtonWrapper>
         <PromoCode>
-          {!coupon?.discountInPercent ? (
+          {!coupon?.dealDiscount ? (
             <>
               {!hasCoupon ? (
                 <button onClick={() => setCoupon((prev) => !prev)}>
@@ -128,7 +127,7 @@ const Cart = ({
                 id='couponApplied'
                 defaultMessage='Coupon Applied'
               />
-              <span>{coupon.code}</span>
+              <span>{coupon.dealCode}</span>
             </CouponCode>
           )}
         </PromoCode>

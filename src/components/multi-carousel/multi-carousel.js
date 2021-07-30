@@ -102,7 +102,7 @@ const CarouselWithCustomDots = ({
     <Carousel
       showDots={false}
       ssr
-      infinite={true}
+      // infinite={true}
       slidesToSlide={1}
       // containerClass="carousel-with-custom-dots"
       responsive={responsive}

@@ -1,9 +1,6 @@
 import styled from 'styled-components';
 import { themeGet } from '@styled-system/theme-get';
 
-type TextProps = {
-  bold?: any;
-};
 
 const OrderReceivedWrapper = styled.div`
   background-color: ${themeGet('colors.gray.200', '#f7f7f7')};
@@ -80,7 +77,7 @@ export const TotalAmount = styled.div``;
 
 export const BlockTitle = styled.h2`
   font-family: ${themeGet('fonts.heading', 'sans-serif')};
-  font-size: ${themeGet('fontSizes.lg', '21')}px;
+  font-size: ${themeGet('fontSizes.xl', '21')}px;
   font-weight: ${themeGet('fontWeights.semiBold', '600')};
   color: ${themeGet('colors.text.bold', '#0D1136')};
   line-height: 1;
@@ -90,8 +87,21 @@ export const BlockTitle = styled.h2`
     margin-bottom: 25px;
   }
 `;
-
-export const Text = styled.p<TextProps>`
+export const SubBlockTitle = styled.h1`
+  font-family: ${themeGet('fonts.heading', 'sans-serif')};
+  font-size: ${themeGet('fontSizes.xl', '21')}px;
+  font-weight: ${themeGet('fontWeights.semiBold', '600')};
+  color: ${themeGet('colors.success.regular', '#0D1136')};
+  line-height: 1.5;
+  text-transform:capitalize;
+  margin: 40px 0;
+  text-align:center;
+  @media (max-width: 767px) {
+    font-size: calc(${themeGet('fontSizes.md', '15')}px + 1px);
+    margin-bottom: 25px;
+  }
+`;
+export const Text = styled.p`
   font-family: ${themeGet('fonts.body', 'Poppins')};
   font-size: ${themeGet('fontSizes.base', '15')}px;
   color: ${themeGet('colors.text.bold', '#0D1136')};

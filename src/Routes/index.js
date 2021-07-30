@@ -13,9 +13,8 @@ import { useSelector } from "react-redux";
 import Footer from 'layouts/footer';
 
 const HomeRoutes = () => {
-  const { salonId } = useSelector(state => state.salon)
 
-  const ready = checkIfAppReady(salonId);
+  const ready = checkIfAppReady();
   const mobile = useMedia("(max-width: 580px)");
   const tablet = useMedia("(max-width: 991px)");
   const desktop = useMedia("(min-width: 992px)");

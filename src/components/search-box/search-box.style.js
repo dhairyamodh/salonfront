@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import css from "@styled-system/css";
 import { shadow } from "styled-system";
-export const StyledForm = styled.form<any>(
+export const StyledForm = styled.form(
   (props) =>
     css({
       display: "flex",
@@ -39,12 +39,12 @@ export const StyledInput = styled.input(
     },
 
     "&::-webkit-input-placeholder, &::-moz-placeholder, &::-moz-placeholder, &::-ms-input-placeholder":
-      {
-        fontSize: "base",
-        color: "text.regular",
-        whiteSpace: "nowrap",
-        textOverflow: "ellipsis",
-      },
+    {
+      fontSize: "base",
+      color: "text.regular",
+      whiteSpace: "nowrap",
+      textOverflow: "ellipsis",
+    },
   }
 );
 

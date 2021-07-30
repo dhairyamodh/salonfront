@@ -1,15 +1,14 @@
 import { Banner } from '../components/banner/banner';
 import { ProductGrid } from '../components/product-grid/product-grid-three';
 import { Modal } from '@redq/reuse-modal';
-import styled from 'styled-components';
-import css from '@styled-system/css';
-import SidebarCategory from '../layouts/sidebar/sidebar';
 import Saloon from '../assets/images/banner/saloon.jpg';
 import Carousel from '../components/carousel/carousel';
-import { siteOffers } from '../site-settings/site-offers';
 import { MobileBanner } from '../components/banner/mobile-banner';
-import { useRefScroll } from 'utils/use-ref-scroll';
 import { Button } from 'components/button/button';
+import { Input, Textarea } from "components/forms/input";
+// import { UPDATE_ME } from 'graphql/mutation/me';
+import { FormattedMessage } from "react-intl";
+import { Label } from "components/forms/label";
 import {
   MainContentArea,
   SidebarSection,
@@ -18,26 +17,32 @@ import {
   MobileCarouselDropdown,
   CategoryContent,
   CategoryContainer,
-  // HeaderSubTitle,
-  // HeaderContainer,
-  // HeaderWrapper,
+  ModalHeader,
+  ModalBody,
+  ModalTitle,
   OfferContainer,
   OfferCard,
   OfferItem,
   OfferImage,
   OfferTitle,
-  OfferSubtitle
+  OfferSubtitle,
+  Image,
+  ModalHeaderContent,
+  ModalWarpper
 } from 'assets/styles/pages.style';
 
 import CartPopUp from '../features/carts/cart-popup'
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
-import { getCategorySerivces, getTrendingSerivces } from '../redux/actions/serviceActions'
+import { getTrendingSerivces } from '../redux/actions/serviceActions'
 import { ServerUrl } from '../constants';
 import CategoryCarousel from '../components/carousel/CategoryCarousel';
 import { useHistory } from 'react-router-dom';
 import HeadingTitle from '../components/heading/headingTitle';
 import { getCategory } from '../redux/actions/categoryActions';
+import { getDeals, getOffers } from '../redux/actions/offerDealActions';
+import CustomModal from '../components/modal/customModal';
+import { toggleModal } from '../redux/actions/appActions';
 
 // const bannerSlides = [
 //   {
@@ -57,10 +62,13 @@ export default function Home({ deviceType }) {
   const { allServices: data } = useSelector(state => state.service)
   const { salonId } = useSelector(state => state.salon)
   const { allCategories } = useSelector(state => state.category)
+  const { deals, offers } = useSelector(state => state.offerDeal)
   const [loading, setIsLoading] = useState(false)
   const dispatch = useDispatch();
   const history = useHistory()
   const { desktop, tablet, mobile } = deviceType;
+  const isOpen = useSelector(state => state.app.isModalOpen)
+
   const getSerivces = () => {
     setIsLoading(true)
     dispatch(getCategory(salonId, undefined, true,))
@@ -72,17 +80,17 @@ export default function Home({ deviceType }) {
       setIsLoading(true)
     });
   }
+  const getOffersDeals = () => {
+    dispatch(getDeals(salonId, undefined, true))
+    dispatch(getOffers(salonId, undefined, true))
+  }
   // const handleLoadMore = () => {
   //   setPage(page + 1)
   // };
   useEffect(() => {
     getSerivces()
+    getOffersDeals()
   }, [])
-  const { elRef: targetRef, scroll } = useRefScroll({
-    percentOfElement: 0,
-    percentOfContainer: 0,
-    offsetPX: -110,
-  });
 
 
   // const CategoryCarousel = () => {
@@ -103,11 +111,47 @@ export default function Home({ deviceType }) {
   //   ))
   // }
 
+  const NewsLetter = () => {
+    return (
+      <Modal>
+        <ModalHeader>
+          <Image src={Saloon} />
+          <ModalHeaderContent>
+            <ModalWarpper>
+              <ModalTitle>Dont miss out.</ModalTitle>
+              <p>Sign up for our newsletter to stay in the loop.</p>
+            </ModalWarpper>
+          </ModalHeaderContent>
+        </ModalHeader>
+
+        <ModalBody>
+
+          <Input
+            type="text"
+            label="Name"
+            name="name"
+            placeholder="Email Address"
+            value=""
+            onChange={() => { }}
+            backgroundColor="#F7F7F7"
+            height="48px"
+            required
+          // intlInputLabelId="profileNameField"
+          />
+          <Button size="big" style={{ width: "auto" }} onClick={() => { }}>
+            Subscribe
+          </Button>
+        </ModalBody>
+      </Modal>
+    )
+  }
+
   return (
     <Modal>
-      <MobileBanner intlTitleId={shop?.tagLine || 'adasd'} />
+      <MobileBanner imageUrl={Saloon} intlTitleId={shop?.tagLine || 'adasd'} />
       <Banner imageUrl={Saloon} intlTitleId={shop?.tagLine || 'dasd'}
       />
+
       <CategoryContent>
         <HeadingTitle title="Categories" deviceType={deviceType} />
         {/* {!mobile && <HeaderContainer>
@@ -122,13 +166,14 @@ export default function Home({ deviceType }) {
           <CategoryCarousel data={allCategories} deviceType={deviceType} />
         </CategoryContainer>
       </CategoryContent >
-
       {/* <MobileCarouselDropdown>
         <SidebarCategory deviceType={deviceType} />
       </MobileCarouselDropdown> */}
-      <OfferSection>
-        <HeadingTitle title="Latest Offers" deviceType={deviceType} buttonText="View All" buttonOnClick={() => history.push('/offers-deals/offers')} />
-        {/* <HeaderContainer>
+      {offers?.length > 0 && (
+
+        <OfferSection>
+          <HeadingTitle title="Latest Offers" deviceType={deviceType} buttonText="View All" buttonOnClick={() => history.push('/offers-deals/offers')} />
+          {/* <HeaderContainer>
           <HeaderWrapper>
             {mobile ? <h5>Latest Offers</h5> : <h3>Latest Offers</h3>}
           </HeaderWrapper>
@@ -136,49 +181,47 @@ export default function Home({ deviceType }) {
             View All +
           </Button>
         </HeaderContainer> */}
-        <OfferContainer>
-          {siteOffers.map((item, index) => {
-            return (
-              <>
-                <OfferItem>
-                  <OfferCard>
-                    <OfferTitle>Offer {index} Title</OfferTitle>
-                    <OfferSubtitle>Offer {index} sub title</OfferSubtitle>
-                    <Button variant="white" >
-                      Book Now
-                    </Button>
-                  </OfferCard>
-                  <OfferImage
-                    key={item.id}
-                    src={item.imgSrc}
-                    alt={item.alt}
-                  />
-                </OfferItem>
+          <OfferContainer>
+            {offers?.map((offer, index) => {
+              return (
+                <>
+                  <OfferItem>
+                    <OfferCard>
+                      <OfferTitle>{offer.offerTitle}</OfferTitle>
+                      <OfferSubtitle>{offer.offerSubTitle}</OfferSubtitle>
+                      <Button variant="white" >
+                        Book Now
+                      </Button>
+                    </OfferCard>
+                    <OfferImage
+                      key={offer.id}
+                      src={ServerUrl + offer.offerImage}
+                    />
+                  </OfferItem>
 
-              </>
-            );
-          }).slice(0, mobile ? 5 : 2)}
-        </OfferContainer>
-      </OfferSection>
+                </>
+              );
+            }).slice(0, mobile ? 5 : 2)}
+          </OfferContainer>
+        </OfferSection>
+      )}
       <MainContentArea>
         <HeadingTitle title="Top Trending Services" subTitle="Our Services" deviceType={deviceType} />
         {/* <SidebarSection>
           <SidebarCategory setFilterService={setFilterService} deviceType={deviceType} />
         </SidebarSection> */}
         {/* <ContentSection> */}
-        <div ref={targetRef}>
-          <ProductGrid data={data}
-            deviceType={deviceType}
-            loading={loading}
-          // handleLoadMore={handleLoadMore}
-          />
-        </div>
+        <ProductGrid data={data}
+          deviceType={deviceType}
+          loading={loading}
+        // handleLoadMore={handleLoadMore}
+        />
         {/* </ContentSection> */}
       </MainContentArea>
-
-      <OfferSection>
-        <HeadingTitle title="Limited Time Deals" deviceType={deviceType} buttonText="View All" buttonOnClick={() => history.push('/offers-deals/deals')} />
-        {/* <HeaderContainer>
+      {deals?.length > 0 && (
+        <OfferSection>
+          <HeadingTitle title="Limited Time Deals" deviceType={deviceType} buttonText="View All" buttonOnClick={() => history.push('/offers-deals/deals')} />
+          {/* <HeaderContainer>
           <HeaderWrapper>
             <h3>Limited Time Deals</h3>
           </HeaderWrapper>
@@ -186,29 +229,14 @@ export default function Home({ deviceType }) {
             View All +
           </Button>
         </HeaderContainer> */}
-        <div style={{ width: '100%', position: 'relative', height: '100%' }}>
-          <Carousel deviceType={deviceType} data={siteOffers} />
-        </div>
-      </OfferSection>
+          <div style={{ width: '100%', position: 'relative', height: '100%' }}>
+            <Carousel deviceType={deviceType} data={deals} />
+          </div>
+        </OfferSection>
+      )}
       <CartPopUp deviceType={deviceType} />
+      <CustomModal component={NewsLetter} isOpen={isOpen} isClose={() => dispatch(toggleModal())} />
     </Modal >
   );
 }
 
-const ContentArea = styled.div(
-  css({
-    overflow: 'hidden',
-    // padding: ['68px 0 100px', '68px 0 50px', '110px 2rem 50px'],
-    // padding: ['0px 0 100px', '68px 0 0px',],
-    display: 'grid',
-    minHeight: '100vh',
-    gridColumnGap: '10px',
-    gridRowGap: ['15px', '20px', '0'],
-    gridTemplateColumns: [
-      'minmax(0, 1fr)',
-      'minmax(0, 1fr)',
-      '300px minmax(0, 1fr)',
-    ],
-    backgroundColor: '#f9f9f9',
-  })
-);

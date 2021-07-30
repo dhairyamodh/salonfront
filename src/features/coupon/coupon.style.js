@@ -54,13 +54,13 @@ export const CouponBoxWrapper = styled.div`
     align-items: center;
 
     input {
-      width: 50%;
+      width: 70%;
       height: 48px;
       margin-right: 20px;
       border: 1px solid ${themeGet('colors.lightDarkColor', '#e6e6e6')} !important;
       background-color: ${themeGet('colors.lightColor', '#f7f7f7')};
       flex-grow: unset;
-      border-radius: ${themeGet('radii.base', '6px')};
+      border-radius: ${themeGet('radii.bigger', '6px')};
 
       @media (max-width: 600px) {
         width: 100%;

@@ -109,10 +109,13 @@ export const defaultTheme = (primaryColor, secondaryColor, primaryLight, primary
       md: 19,
       lg: 21,
       xl: 24,
+      xxl: 30,
       '2xl': 30,
       '3xl': 36,
       '4xl': 42,
       '5xl': 48,
+      '6xl': 54,
+      '7xl': 60,
     },
     // fontWeights: [100, 200, 300, 400, 500, 600, 700, 800, 900],
     fontWeights: {

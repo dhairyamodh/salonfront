@@ -26,8 +26,8 @@ import { getItemCart, transferItem } from 'redux/actions/cartActions';
 export default function SignInModal() {
   const intl = useIntl();
   const dispatch = useDispatch()
-  const [email, setEmail] = React.useState('asdadsadas@gmail.com');
-  const [password, setPassword] = React.useState('asd@1234');
+  const [email, setEmail] = React.useState('test@gmail.com');
+  const [password, setPassword] = React.useState('test');
   const { salonId } = useSelector(state => state.salon)
 
   const toggleSignUpForm = () => {

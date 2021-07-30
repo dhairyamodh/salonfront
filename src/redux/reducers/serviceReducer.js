@@ -27,6 +27,12 @@ const serviceReducer = (state = initState, action) => {
                 ...state,
                 serviceDetails: action.payload.data.data,
             };
+
+        case serviceTypes.SEARCH_SERVICE_SUCCESS:
+            return {
+                ...state,
+                serviceDetails: action.payload.data.data,
+            };
         default:
             return state
     }

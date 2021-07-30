@@ -2,7 +2,6 @@ import cartApi from '../api/cartApi'
 import { addItemLocalToCart, removeItemLocalFromCart, clearItemLocalFromCart } from '../../helpers/cartHelpers'
 import { cartTypes } from "../types"
 
-
 const addItemHandler = (item, quantity = 1) => {
   return (dispatch, getState) => {
     const stateItems = getState().cart.items
@@ -126,6 +125,23 @@ const clearItemFromCartHandler = (item) => {
   }
 };
 
+const applyCouponHandler = (coupon) => {
+  return (dispatch, getState) => {
+    const stateItems = getState().cart.items
+    const { _id: salonId } = getState().salon.salonData
+    return dispatch({
+      type: cartTypes.APPLY_COUPON,
+      payload: {
+        request: {
+          url: cartApi.APPLY_COUPON,
+          method: "post",
+          data: { coupon: coupon, salonId: salonId }
+        },
+      },
+    })
+  }
+}
+
 const clearCartHandler = () => {
   return { type: 'CLEAR_CART' }
 };
@@ -133,10 +149,10 @@ const toggleCartHandler = () => {
   return { type: 'TOGGLE_CART' }
 };
 const couponHandler = (coupon) => {
-  return { type: 'APPLY_COUPON', payload: coupon }
+  return { type: cartTypes.APPLY_COUPON, payload: coupon }
 };
 const removeCouponHandler = () => {
-  return { type: 'REMOVE_COUPON' }
+  return { type: cartTypes.REMOVE_COUPON }
 };
 const rehydrateLocalState = (payload) => {
   return { type: 'REHYDRATE', payload }
@@ -166,15 +182,18 @@ const getDiscount = () => {
 //   0
 // );
 export const selectAppointmentTime = (data) => {
+  localStorage.setItem('selectedTime', data)
   return { type: cartTypes.SELECT_APPOINTMENT_TIME, payload: data }
 }
 
 export const selectAppointmentDate = (data) => {
+  localStorage.setItem('selectedDate', data)
+
   return { type: cartTypes.SELECT_APPOINTMENT_DATE, payload: data }
 }
 
 
-export const cartItemsTotalPrice = (items) => {
+export const cartItemsTotalPrice = (items, coupon) => {
   if (items === null || items.length === 0) return 0;
   const itemCost = items.reduce((total, item) => {
 
@@ -182,13 +201,14 @@ export const cartItemsTotalPrice = (items) => {
 
   }, 0);
   // const discountRate = 1 - discountInPercent;
-  const discount = 0
-  // const discount = coupon
-  //   ? (itemCost * Number(coupon.discountInPercent)) / 100
-  //   : 0;
+  // const discount = 0
+  const discount = coupon != null
+    ? (itemCost * Number(coupon.dealDiscount)) / 100
+    : 0;
   // itemCost * discountRate * TAX_RATE + shipping;
   // return itemCost * discountRate;
   return itemCost - discount;
+
 };
 
 export const addItem = addItemHandler
@@ -201,7 +221,7 @@ export const getItem = getItemHandler
 export const toggleCart = toggleCartHandler
 export const calculatePrice = getCartItemsTotalPrice
 export const calculateSubTotalPrice = getCartItemsPrice
-export const applyCoupon = couponHandler
+export const applyCoupon = applyCouponHandler
 export const removeCoupon = removeCouponHandler
 export const calculateDiscount = getDiscount
 // export default getItemsCount

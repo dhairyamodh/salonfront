@@ -5,8 +5,8 @@ const initState = {
     items: [],
     isSalon: false,
     coupon: null,
-    selectedTime: undefined,
-    selectedDate: new Date(),
+    selectedTime: localStorage.getItem('selectedTime'),
+    selectedDate: new Date() || localStorage.getItem('selectedDate'),
     retryCount: 0
 }
 
@@ -169,18 +169,25 @@ const cartReducer = (state = initState, action) => {
                 items: []
             }
         }
-        case cartTypes.APPLY_COUPON: {
+        // case cartTypes.APPLY_COUPON: {
+        //     return {
+        //         ...state,
+        //         coupon: action.payload
+        //     }
+        // }
+        case cartTypes.APPLY_COUPON_SUCCESS:
             return {
                 ...state,
-                coupon: action.payload
+                coupon: action.payload.data.data
             }
-        }
-        case cartTypes.REMOVE_COUPON: {
+
+        case cartTypes.REMOVE_COUPON:
+            console.log('sas');
             return {
                 ...state,
                 coupon: null
             }
-        }
+
         case cartTypes.TOGGLE_RESTAURANT: {
             return {
                 ...state,

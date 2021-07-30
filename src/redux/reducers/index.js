@@ -10,6 +10,7 @@ import categoryReducer from './categoryReducer'
 import serviceReducer from './serviceReducer'
 import snackReducer from './snackReducer'
 import checkoutReducer from './checkoutReducer'
+import offerDealReducer from './offerDealReducer'
 
 //decide to leave it for demostration
 const reducers = combineReducers({
@@ -23,7 +24,8 @@ const reducers = combineReducers({
   category: categoryReducer,
   service: serviceReducer,
   snack: snackReducer,
-  checkout: checkoutReducer
+  checkout: checkoutReducer,
+  offerDeal: offerDealReducer,
 })
 
 export default reducers

@@ -16,6 +16,7 @@ export const GlobalStyle = createGlobalStyle(({ theme }) =>
       boxSizing: 'border-box',
       margin: 0,
       padding: 0,
+
     },
     body: {
       margin: 0,

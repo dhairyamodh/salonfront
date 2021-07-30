@@ -22,75 +22,56 @@ import {
   OrderTableMobile,
 } from './order-card.style';
 
-import { CURRENCY } from 'utils/constant';
+import moment from 'moment';
 
-type MobileOrderCardProps = {
-  orderId?: any;
-  onClick?: (e: any) => void;
-  className?: any;
-  status?: any;
-  date?: any;
-  deliveryTime?: any;
-  amount?: number;
-  tableData?: any;
-  columns?: any;
-  progressData?: any;
-  progressStatus?: any;
-  address?: string;
-  subtotal?: number;
-  discount?: number;
-  deliveryFee?: number;
-  grandTotal?: number;
-  orders?: any;
-};
 
 const components = {
   table: OrderTable,
 };
 
-const OrderCard: React.FC<MobileOrderCardProps> = ({
+const OrderCard = ({
   onClick,
   className,
   columns,
   progressData,
   orders,
+  CURRENCY
 }) => {
   //   const displayDetail = className === 'active' ? '100%' : '0';
-  const addAllClasses: string[] = ['accordion'];
+  const addAllClasse = ['accordion'];
 
   if (className) {
-    addAllClasses.push(className);
+    addAllClasse.push(className);
   }
   return (
     <>
       <Collapse
         accordion={true}
-        className={addAllClasses.join(' ')}
+        className={addAllClasse.join(' ')}
         defaultActiveKey="active"
       >
-        {orders.map((order: any) => (
+        {orders?.map((order) => (
           <Panel
             header={
               <CardWrapper onClick={onClick}>
                 <OrderListHeader>
                   <TrackID>
-                    Order <span>#{order.id}</span>
+                    Booking <span>#{order.orderNumber}</span>
                   </TrackID>
-                  <Status>{progressData[order.status - 1]}</Status>
+                  <Status>At Srore</Status>
                 </OrderListHeader>
 
                 <OrderMeta>
                   <Meta>
-                    Order Date: <span>{order.date}</span>
+                    Booking Date: <span>{moment(order.createdAt).format('dddd, MMMM Do YYYY')}</span>
                   </Meta>
                   <Meta>
-                    Delivery Time: <span>{order.deliveryTime}</span>
+                    Booking Time: <span>{moment(order.startTime, ["HH:mm"]).format("h:mm A")}</span>
                   </Meta>
                   <Meta className="price">
                     Total Price:
                     <span>
-                      {CURRENCY}
-                      {order.amount}
+                      {CURRENCY} {order.grandTotal}
                     </span>
                   </Meta>
                 </OrderMeta>
@@ -101,55 +82,51 @@ const OrderCard: React.FC<MobileOrderCardProps> = ({
           >
             <OrderDetail>
               <DeliveryInfo>
-                <DeliveryAddress>
+                {/* <DeliveryAddress>
                   <h3>Delivery Address</h3>
                   <Address>{order.deliveryAddress}</Address>
-                </DeliveryAddress>
+                </DeliveryAddress> */}
 
                 <CostCalculation>
                   <PriceRow>
                     Subtotal
                     <Price>
-                      {CURRENCY}
-                      {order.subtotal}
+                      {CURRENCY} {order.itemsTotal}
                     </Price>
                   </PriceRow>
-                  <PriceRow>
+                  {/* <PriceRow>
                     Discount
                     <Price>
-                      {CURRENCY}
-                      {order.discount}
+                      {CURRENCY} {order.discount}
                     </Price>
-                  </PriceRow>
+                  </PriceRow> */}
                   <PriceRow>
-                    Delivery Fee
+                    Tax
                     <Price>
-                      {CURRENCY}
-                      {order.deliveryFee}
+                      {CURRENCY} {order.taxCharges}
                     </Price>
                   </PriceRow>
                   <PriceRow className="grandTotal">
                     Total
                     <Price>
-                      {CURRENCY}
-                      {order.amount}
+                      {CURRENCY} {order.grandTotal}
                     </Price>
                   </PriceRow>
                 </CostCalculation>
               </DeliveryInfo>
 
-              <ProgressWrapper>
+              {/* <ProgressWrapper>
                 <Progress data={progressData} status={order.status} />
-              </ProgressWrapper>
+              </ProgressWrapper> */}
 
               <OrderTableMobile>
                 <Table
                   columns={columns}
-                  data={order.products}
+                  data={order.orderItems}
                   rowKey={(record) => record.id}
                   components={components}
                   scroll={{ x: 450 }}
-                  // scroll={{ y: 250 }}
+                // scroll={{ y: 250 }}
                 />
               </OrderTableMobile>
             </OrderDetail>

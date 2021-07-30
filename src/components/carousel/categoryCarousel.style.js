@@ -66,7 +66,6 @@ border-color:${themeGet('colors.secondary.regular')};
 
 export const MobileCategoryCard = styled.div`
   // margin:0 15px;
-  width: 100%;
   height: auto;
   display:flex;
   flex-direction:column;

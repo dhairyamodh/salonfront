@@ -1,7 +1,7 @@
 import { salonTypes } from '../types'
 
 const initState = {
-    salonId: '60b5fe559b440625447b7b47',
+    salonId: undefined,
     salonData: {},
 }
 
@@ -10,7 +10,8 @@ const shopReducer = (state = initState, action) => {
         case salonTypes.GET_SALON_DATA_SUCCESS:
             return {
                 ...state,
-                salonData: action.payload.data.data
+                salonData: action.payload.data.data,
+                salonId: action.payload.data.data._id
             }
         default:
             return state

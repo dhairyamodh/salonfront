@@ -66,10 +66,16 @@ export const LeftMenu = ({ logo }) => {
       />
       <NavLink
         className="menu-item"
-        href="/"
+        href="/about"
         label="About"
         intlId="About"
       />
+      {/* <NavLink
+        className="menu-item"
+        href="/"
+        label="About"
+        intlId="About"
+      /> */}
       <NavLink
         className="menu-item"
         href="/services/all"
@@ -82,7 +88,12 @@ export const LeftMenu = ({ logo }) => {
         label="Offers & Deals"
         intlId="offers-deals"
       />
-
+      <NavLink
+        className="menu-item"
+        href="/contact"
+        label="Contact"
+        intlId="Contact"
+      />
       <MainMenu>
         {/* <Popover
           className="right"

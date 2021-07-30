@@ -112,7 +112,6 @@ const BookinPage = ({ deviceType }) => {
           <Button size="big" style={{ width: "auto", margin: '0 auto' }} disabled={!(active && selectedDate)} onClick={() => handleChangeCheckout()}>
             <FormattedMessage id="bookingSaveBtn" defaultMessage="Proceed To Checkout" />
           </Button>
-          <Footer />
         </PageWrapper>
         {/* </ProfileProvider> */}
       </Modal>

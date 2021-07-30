@@ -1,4 +1,6 @@
 export const HOME_PAGE = "/";
+export const ABOUT_PAGE = "/about";
+export const CONTACT_PAGE = "/contact";
 export const GROCERY_PAGE = "/grocery";
 export const GROCERY_PAGE_TWO = "/grocery-two";
 export const BAKERY_PAGE = "/bakery";
@@ -14,7 +16,7 @@ export const REQUEST_MEDICINE_PAGE = "/request-medicine";
 export const CHECKOUT_PAGE = "/booking";
 export const CHECKOUT_PAGE_TWO = "/checkout-alternative";
 export const PROFILE_PAGE = "/profile";
-export const YOUR_ORDER_PAGE = "/order";
+export const YOUR_ORDER_PAGE = "/my-bookings";
 export const ORDER_RECEIVED_PAGE = "/order-received";
 export const OFFER_PAGE = "/offers-deals/offers";
 export const HELP_PAGE = "/help";
@@ -22,12 +24,32 @@ export const TERMS_AND_SERVICES_PAGE = "/terms";
 export const PRIVACY_POLICY_PAGE = "/privacy";
 // Mobile Drawer Menus
 
-export const HOME_MENU_ITEM = {
+export const HOME_MENU_ITEM = [{
   id: "nav.home",
   defaultMessage: "Home",
   href: HOME_PAGE,
   isAuthorized: false
-};
+},
+{
+  id: "nav.about",
+  defaultMessage: "About",
+  href: ABOUT_PAGE,
+  isAuthorized: false
+},
+{
+  id: "nav.services",
+  defaultMessage: "Services",
+  href: '/services/all',
+  isAuthorized: false
+},
+{
+  id: "nav.contact",
+  defaultMessage: "Contact",
+  href: CONTACT_PAGE,
+  isAuthorized: false
+},
+];
+
 
 export const HELP_MENU_ITEM = {
   id: "nav.help",
@@ -45,7 +67,7 @@ export const OFFER_MENU_ITEM = {
 export const ORDER_MENU_ITEM = {
   id: "nav.order",
   href: YOUR_ORDER_PAGE,
-  defaultMessage: "Order",
+  defaultMessage: "Bookings",
   isAuthorized: true
 };
 export const REQUEST_MEDICINE_MENU_ITEM = {
@@ -151,13 +173,13 @@ export const CATEGORY_MENU_ITEMS = [
 ];
 
 export const MOBILE_DRAWER_MENU = [
-  HOME_MENU_ITEM,
+  ...HOME_MENU_ITEM,
   ...AUTHORIZED_MENU_ITEMS,
   // HELP_MENU_ITEM,
   OFFER_MENU_ITEM,
 ];
 
-export const PROFILE_SIDEBAR_TOP_MENU = [ORDER_MENU_ITEM, HELP_MENU_ITEM];
+export const PROFILE_SIDEBAR_TOP_MENU = [ORDER_MENU_ITEM];
 export const PROFILE_SIDEBAR_BOTTOM_MENU = [PROFILE_MENU_ITEM];
 
 export const LANGUAGE_MENU = [

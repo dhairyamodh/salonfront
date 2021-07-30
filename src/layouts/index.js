@@ -10,7 +10,7 @@ import { useLocation } from 'react-router';
 const Layout = ({
   className,
   children,
-  deviceType: { mobile, tablet, desktop },
+  deviceType,
   token,
 }) => {
   const [isSticky, setSticky] = useState(true)
@@ -30,6 +30,7 @@ const Layout = ({
       <Sticky enabled={isSticky} innerZ={1001}>
         <MobileHeader
           className={`${isSticky ? 'sticky' : 'unSticky'} home desktop`}
+          deviceType={deviceType}
         />
 
         <Header

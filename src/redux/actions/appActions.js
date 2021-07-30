@@ -36,3 +36,9 @@ export const toggleModal = () => {
     type: appTypes.TOGGLE_MODAL,
   }
 };
+
+export const newsletterModal = () => {
+  return {
+    type: appTypes.NEWSLETTER_MODAL,
+  }
+};

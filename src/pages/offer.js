@@ -21,6 +21,9 @@ import GiftCard from 'components/gift-card/gift-card';
 import ErrorMessage from 'components/error-message/error-message'
 import { siteOffers } from '../site-settings/site-offers';
 import Tabs from 'components/tabs/tabs';
+import { useDispatch, useSelector } from 'react-redux';
+import { getDeals, getOffers } from '../redux/actions/offerDealActions';
+import { ServerUrl } from '../constants';
 
 
 const OffersDeals = ({ deviceType }) => {
@@ -29,46 +32,55 @@ const OffersDeals = ({ deviceType }) => {
     { title: 'offers' },
     { title: 'deals' },
   ]
+  const { salonId } = useSelector(state => state.salon)
+  const { deals, offers } = useSelector(state => state.offerDeal)
+
   const { value } = useParams()
   const [active, setAcive] = useState()
   const handleClick = (title) => {
     setAcive(title)
   }
+  const dispatch = useDispatch()
+
   const Deals = () => {
     return (<ProductsRow>
-      {siteOffers && siteOffers
-        ? siteOffers.map((coupon) => (
+      {deals && deals
+        ? deals.map((coupon) => (
           <ProductsCol key={coupon.id}>
-            <GiftCard discount="20" title="dkjfkdj" subtitle="skjdksj" code="dkjksjd" />
+            <GiftCard discount={coupon.dealDiscount} title={coupon.dealTitle} subtitle={coupon.dealSubTitle} code={coupon.dealCode} />
           </ProductsCol>
         ))
         : null}
     </ProductsRow>)
   }
 
+  const getOfferDeal = () => {
+    dispatch(getOffers(salonId, undefined, true))
+    dispatch(getDeals(salonId, undefined, true))
+  }
 
 
   useEffect(() => {
     handleClick(value)
+    getOfferDeal()
   }, [value])
 
   const Offers = () => {
     return (
       <OfferContainer normal={true} >
-        {siteOffers.map((item, index) => {
+        {offers?.map((offer, index) => {
           return (
             <OfferItemNormal>
               <OfferCard>
-                <OfferTitle>Offer {index} Title</OfferTitle>
-                <OfferSubtitle>Offer {index} sub title</OfferSubtitle>
+                <OfferTitle>{offer.offerTitle}</OfferTitle>
+                <OfferSubtitle>{offer.offerSubTitle}</OfferSubtitle>
                 <Button variant="white" >
                   Book Now
                 </Button>
               </OfferCard>
               <OfferImage
-                key={item.id}
-                src={item.imgSrc}
-                alt={item.alt}
+                key={offer.id}
+                src={ServerUrl + offer.offerImage}
               />
             </OfferItemNormal>
 

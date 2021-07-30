@@ -54,3 +54,20 @@ export const getSerivceById = (salonId, branchId, id) => {
         },
     };
 };
+
+export const searchService = (salonId, branchId, term) => {
+    return {
+        type: serviceTypes.SEARCH_SERVICE,
+        payload: {
+            request: {
+                url: serviceApi.SEARCH_SERVICE,
+                method: "get",
+                params: {
+                    salonId: salonId,
+                    branchId: branchId,
+                    data: term,
+                },
+            },
+        },
+    };
+};

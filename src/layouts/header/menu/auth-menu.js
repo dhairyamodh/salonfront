@@ -5,6 +5,8 @@ import Popover from 'components/popover/popover';
 import { AuthorizedMenu } from './authorized-menu';
 import styled from 'styled-components';
 import css from '@styled-system/css';
+import { useDispatch } from 'react-redux';
+import { showSnackBar } from '../../../redux/actions/snackActions';
 
 const UserName = styled.h6(
   css({
@@ -14,7 +16,7 @@ const UserName = styled.h6(
 )
 
 const AuthMenu = ({ isAuthenticated, onJoin, onLogout, avatar, userName }) => {
-
+  const dispatch = useDispatch()
   return !isAuthenticated ? (
     <Button variant="secondary" onClick={onJoin}>
       <FormattedMessage id="loginButton" defaultMessage="join" />

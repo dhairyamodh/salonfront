@@ -62,7 +62,8 @@ const SidebarCategory = ({
   return (
     <CategoryWrapper>
       <PopoverWrapper>
-        <CategoryWalker isModal={isModal} onToggle={() => setIsModal(!isModal)} onClose={() => setIsModal(false)} categoryName={newcategoryName}>
+
+        <CategoryWalker isModal={isModal} title="Service Filter" onToggle={() => setIsModal(!isModal)} onClose={() => setIsModal(false)} categoryName={newcategoryName}>
           <TreeMenu
             data={data}
             activeClass={categoryId}
@@ -72,6 +73,7 @@ const SidebarCategory = ({
       </PopoverWrapper>
 
       <SidebarWrapper >
+
         <Sticky enabled={isSidebarSticky} top={110}>
           <Scrollbar className="sidebar-scrollbar">
             <TreeWrapper>

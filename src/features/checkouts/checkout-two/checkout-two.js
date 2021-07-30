@@ -1,7 +1,6 @@
 import React, { useContext, useState, useEffect } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import { Button } from 'components/button/button';
-import { CURRENCY } from 'utils/constant';
 import { Scrollbar } from 'components/scrollbar/scrollbar';
 import CheckoutWrapper, {
   CheckoutContainer,
@@ -29,6 +28,7 @@ import CheckoutWrapper, {
   TextWrapper,
   Text,
   Bold,
+  SemiBold,
   Small,
   NoProductMsg,
   NoProductImg,
@@ -42,7 +42,7 @@ import { useWindowSize } from 'utils/useWindowSize';
 // import Coupon from 'features/coupon/coupon';
 // import Address from 'features/address/address';
 // import Schedules from 'features/schedule/schedule';
-import { clearCart, cartItemsTotalPrice } from '../../../redux/actions/cartActions';
+import { clearCart, cartItemsTotalPrice, removeCoupon } from '../../../redux/actions/cartActions';
 // import Contact from 'features/contact/contact';
 import Payment from 'features/payment/payment';
 import { useDispatch, useSelector } from 'react-redux';
@@ -53,23 +53,29 @@ import {
 } from "../../../features/user-profile/settings/settings.style";
 
 import { Input, Textarea } from "components/forms/input";
+import moment from 'moment';
 // import { UPDATE_ME } from 'graphql/mutation/me';
 import { Label } from "components/forms/label";
+import { createOrder } from '../../../redux/actions/checkoutActions'
+import { showSnackBar } from 'redux/actions/snackActions';
+import { selectAppointmentTime, selectAppointmentDate } from '../../../redux/actions/cartActions';
+import Coupon from 'features/coupon/coupon';
 
-const OrderItem = ({ product }) => {
-  const Router = useHistory()
+
+const OrderItem = ({ product, CURRENCY }) => {
+
   const { id, quantity, title, name, unit, price, salePrice } = product;
   const displayPrice = salePrice ? salePrice : price;
   return (
     <Items key={id}>
-      <Quantity>{quantity}</Quantity>
-      <Multiplier>x</Multiplier>
+      {/* <Quantity>{quantity}</Quantity>
+      <Multiplier>x</Multiplier> */}
       <ItemInfo>
-        {name ? name : title} {unit ? `| ${unit}` : ''}
+        {name ? name : title}
+        {unit ? `| ${unit}` : ''}
       </ItemInfo>
       <Price>
-        {CURRENCY}
-        {(displayPrice * quantity).toFixed(2)}
+        {CURRENCY} {(displayPrice * quantity).toFixed(2)}
       </Price>
     </Items>
   );
@@ -78,25 +84,37 @@ const OrderItem = ({ product }) => {
 const CheckoutWithSidebar = ({ token, deviceType }) => {
   const [hasCoupon, setHasCoupon] = useState(false);
   const { data } = useSelector(state => state.profile);
-  const { isRtl } = useSelector(state => state.app);
-  const cart = useSelector(state => state.cart.items)
+  const { items: cart, coupon } = useSelector(state => state.cart)
+  const { salonId } = useSelector(state => state.salon)
   const { id, name, email, mobile } = useSelector(state => state.auth)
   const { selectedTime, selectedDate, items } = useSelector(state => state.cart)
-  const calculatePrice = () =>
-    cartItemsTotalPrice(cart).toFixed(2);
+  const { orderData } = useSelector(state => state.checkout)
+  const history = useHistory()
 
+  const calculatePrice = () =>
+    cartItemsTotalPrice(cart, coupon).toFixed(2);
+
+  const { currencySymbol: CURRENCY, taxPercentage } = useSelector(state => state.shop.salonData)
+  const calculateTaxAmount = () => {
+    const taxTotal = taxPercentage / 100
+    const taxAmount = parseFloat(cartItemsTotalPrice(cart, coupon) * taxTotal).toFixed(2)
+    return parseFloat(taxAmount);
+  }
+  const calculateNetAmount = () => {
+    return (cartItemsTotalPrice(cart, coupon) + calculateTaxAmount()).toFixed(2)
+  }
   const calculateDiscount = () => {
     const total = cartItemsTotalPrice(cart);
-    const discount = cart?.coupon
-      ? (total * Number(cart?.coupon?.discountInPercent)) / 100
+    const discount = coupon
+      ? (total * Number(coupon?.dealDiscount)) / 100
       : 0;
     return discount.toFixed(2);
   };
   const dispatch = useDispatch()
   const cartItemsCount = cart.length
   const [loading, setLoading] = useState(false);
+
   const [isValid, setIsValid] = useState(false);
-  const { contact, card } = data;
   const size = useWindowSize();
   const [open, setOpen] = useState(false)
   const [state, setState] = useState({ name, email, mobile })
@@ -107,34 +125,45 @@ const CheckoutWithSidebar = ({ token, deviceType }) => {
   const handleSubmit = async () => {
     setLoading(true);
     setOpen(true)
-    // if (isValid) {
-    //   clearCart();
-    //   Router.push('/order-received');
-    // }
     setLoading(false);
   };
-
   const handleCheckout = () => {
-    let orderData = {
+    let neworderData = {
+      salonId,
       ...state,
       selectedDate,
+      itemsTotal: calculatePrice(),
+      grandTotal: calculateNetAmount(),
+      taxCharges: calculateTaxAmount(),
+      taxPercentage: taxPercentage,
+      discount: calculateDiscount(),
+      isPaid: false,
       selectedTime, cartItems: items, userId: id,
     }
-    console.log(orderData);
+    dispatch(createOrder(neworderData)).then((res) => {
+      if (res.payload.status == 200) {
+        dispatch(clearCart())
+        dispatch(selectAppointmentDate(new Date()))
+        dispatch(selectAppointmentTime(undefined))
+        history.push(`/appointment-book/${res.payload.data.data.id}`)
+
+      }
+    }).catch((err) => {
+      setOpen(false)
+      dispatch(showSnackBar(err, 'error'))
+    })
   }
 
   useEffect(() => {
     if (
-      calculatePrice() > 0 &&
-      cartItemsCount > 0 &&
-
-      contact &&
-      card.length
+      Boolean(selectedDate) && Boolean(selectedTime) && items.length > 0
     ) {
       setIsValid(true);
     }
   }, [data]);
-
+  const GetFormattedDate = (inputFormat) => {
+    return moment(inputFormat).format('ddd, MMMM Do YYYY')
+  }
 
   return (
     <form>
@@ -184,16 +213,16 @@ const CheckoutWithSidebar = ({ token, deviceType }) => {
               {/* <Payment increment={true} deviceType={deviceType} /> */}
 
               {/* Coupon start */}
-              {/* {coupon ? (
-                <CouponBoxWrapper>
+              {coupon ? (
+                <CouponBoxWrapper >
                   <CouponCode>
                     <FormattedMessage id='couponApplied' />
-                    <span>{coupon.code}</span>
+                    <span>{coupon.dealCode}</span>
 
                     <RemoveCoupon
                       onClick={(e) => {
                         e.preventDefault();
-                        removeCoupon();
+                        dispatch(removeCoupon())
                         setHasCoupon(false);
                       }}
                     >
@@ -216,9 +245,9 @@ const CheckoutWithSidebar = ({ token, deviceType }) => {
                     </CouponInputBox>
                   )}
                 </CouponBoxWrapper>
-              )} */}
+              )}
               <Row >
-                <Col xs={12} sm={6} md={6} lg={6}>
+                <Col xs={12} >
                   <Label>
                     <FormattedMessage
                       id="profileNameField"
@@ -236,7 +265,7 @@ const CheckoutWithSidebar = ({ token, deviceType }) => {
                   />
                 </Col>
 
-                <Col xs={12} sm={6} md={6} lg={6}>
+                <Col xs={12} >
                   <Label>
                     <FormattedMessage
                       id="profileEmailField"
@@ -253,7 +282,7 @@ const CheckoutWithSidebar = ({ token, deviceType }) => {
                   />
                 </Col>
 
-                <Col xs={12} sm={6} md={6} lg={6}>
+                <Col xs={12} >
                   <Label>
                     <FormattedMessage
                       id="profileMobileField"
@@ -269,8 +298,24 @@ const CheckoutWithSidebar = ({ token, deviceType }) => {
                     backgroundColor="#F7F7F7"
                   />
                 </Col>
+                <Col xs={12}>
+                  <Label>
+                    <FormattedMessage
+                      id="profileAddressField"
+                      defaultMessage="Any special instruction"
+                    />
+                  </Label>
+                  <Textarea
+                    name="instruction"
+                    label="Any special instruction"
+                    value={state.instruction}
+                    onChange={handleChange}
+                    backgroundColor="#F7F7F7"
+                    rows="2"
+                  />
+                </Col>
               </Row>
-              <TermConditionText>
+              {/* <TermConditionText>
                 <FormattedMessage
                   id='termAndConditionHelper'
                   defaultMessage='By making this purchase you agree to our'
@@ -283,21 +328,21 @@ const CheckoutWithSidebar = ({ token, deviceType }) => {
                     />
                   </TermConditionLink>
                 </Link>
-              </TermConditionText>
+              </TermConditionText> */}
               <ModalContainer title="Are you sure want to place the order?" onSuccess={() => handleCheckout()} isOpen={open} isClose={() => setOpen(false)} />
               {/* CheckoutSubmit */}
               <CheckoutSubmit>
                 <Button
                   type='button'
                   onClick={() => handleSubmit()}
-                  // disabled={!isValid}
+                  disabled={!isValid}
                   size='big'
                   loading={loading}
                   style={{ width: '100%' }}
                 >
                   <FormattedMessage
                     id='processCheckout'
-                    defaultMessage='Proceed to Checkout'
+                    defaultMessage='Book An Appointment'
                   />
                 </Button>
               </CheckoutSubmit>
@@ -314,7 +359,7 @@ const CheckoutWithSidebar = ({ token, deviceType }) => {
                 <Title>
                   <FormattedMessage
                     id='cartTitle'
-                    defaultMessage='Your Order'
+                    defaultMessage='Booking Summary'
                   />
                 </Title>
 
@@ -322,7 +367,7 @@ const CheckoutWithSidebar = ({ token, deviceType }) => {
                   <ItemsWrapper>
                     {cartItemsCount > 0 ? (
                       cart.map((item) => (
-                        <OrderItem key={`cartItem-${item.id}`} product={item} />
+                        <OrderItem CURRENCY={CURRENCY} key={`cartItem-${item.id}`} product={item} />
                       ))
                     ) : (
                       <>
@@ -350,32 +395,53 @@ const CheckoutWithSidebar = ({ token, deviceType }) => {
                       />
                     </Text>
                     <Text>
-                      {CURRENCY}
-                      {calculatePrice()}
+                      {CURRENCY} {calculatePrice()}
                     </Text>
                   </TextWrapper>
-
-                  <TextWrapper>
-                    <Text>
-                      <FormattedMessage
-                        id='intlOrderDetailsDelivery'
-                        defaultMessage='Delivery Fee'
-                      />
-                    </Text>
-                    <Text>{CURRENCY}0.00</Text>
-                  </TextWrapper>
-
                   <TextWrapper>
                     <Text>
                       <FormattedMessage
                         id='discountText'
-                        defaultMessage='Discount'
+                        defaultMessage='discountText'
                       />
                     </Text>
                     <Text>
-                      {CURRENCY}
-                      {calculateDiscount()}
+                      {CURRENCY} {calculateDiscount()}
                     </Text>
+                  </TextWrapper>
+
+                  <TextWrapper>
+                    <Text>
+                      <FormattedMessage
+                        id='tax'
+                        defaultMessage='Tax'
+                      />
+                    </Text>
+                    <Text>
+                      {CURRENCY} {calculateTaxAmount()}
+                    </Text>
+                  </TextWrapper>
+
+                  <TextWrapper>
+                    <SemiBold>
+                      <FormattedMessage
+                        id='intlBookingDate'
+                        defaultMessage='Booking Date'
+                      />
+                    </SemiBold>
+                    <SemiBold>{GetFormattedDate(selectedDate)}</SemiBold>
+                  </TextWrapper>
+
+                  <TextWrapper>
+                    <SemiBold>
+                      <FormattedMessage
+                        id='intlBookingTime'
+                        defaultMessage='Booking Time'
+                      />
+                    </SemiBold>
+                    <SemiBold>
+                      {selectedTime}
+                    </SemiBold>
                   </TextWrapper>
 
                   <TextWrapper style={{ marginTop: 20 }}>
@@ -391,8 +457,7 @@ const CheckoutWithSidebar = ({ token, deviceType }) => {
                       </Small>
                     </Bold>
                     <Bold>
-                      {CURRENCY}
-                      {calculatePrice()}
+                      {CURRENCY} {calculateNetAmount()}
                     </Bold>
                   </TextWrapper>
                 </CalculationWrapper>

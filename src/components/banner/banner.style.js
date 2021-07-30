@@ -27,7 +27,7 @@ export const Box = styled.div(
     // backgroundColor: #f7f7f7;
 
     '@media (max-width: 990px)': {
-      padding: '80px 0 10px',
+      padding: '50px 0 20px',
     },
   },
   compose(space, color, layout, position, flexbox, border)
@@ -63,32 +63,43 @@ export const Content = styled.div(
     width: '100%',
   }
 );
-export const Title = styled.h2(
+
+export const Container = styled.div(
   css({
-    fontSize: [17, '2xl', 45],
-    color: 'text.bold',
-    fontWeight: 'bold',
+    padding: 30
   }),
   {
-    padding: 30,
-    textTransform: 'uppercase',
-    color: "primary.regular",
-    textAlign: 'left',
+    position: 'relative',
+    zIndex: 2,
+    width: '100%',
   }
 );
-
-export const subTitle = styled.h2(
+export const Title = styled.h1(
   css({
-    fontSize: 20,
-    color: 'text.bold',
+    fontSize: '7xl',
+    color: 'primary.regular',
     fontWeight: 'bold',
+    padding: '30px 0px',
+    lineHeight: 1.2
   }),
-  {
-    padding: 30,
-    textTransform: 'uppercase',
-    color: "primary.regular",
-    textAlign: 'left',
-  }
+);
+
+export const SubTitle = styled.p(
+  css({
+    fontSize: 'semibase',
+    color: 'text.bold',
+    lineHeight: 2,
+    marginBottom: 30
+  }),
+);
+
+export const TopTitle = styled.h5(
+  css({
+    fontSize: 'xl',
+    color: 'secondary.regular',
+    fontWeight: 'bold',
+    lineHeight: 2
+  }),
 );
 export const Description = styled.p(
   css({

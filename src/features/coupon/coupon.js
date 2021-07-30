@@ -6,6 +6,8 @@ import { Button } from 'components/button/button';
 import {
   applyCoupon,
 } from 'redux/actions/cartActions'
+import { useDispatch } from 'react-redux';
+import { showSnackBar } from 'redux/actions/snackActions';
 
 const Coupon = ({
   disabled,
@@ -18,18 +20,11 @@ const Coupon = ({
   const [code, setCode] = useState('');
   const [error, setError] = useState(null);
   // const [appliedCoupon] = useMutation(APPLY_COUPON);
-
+  const dispatch = useDispatch()
   const handleApplyCoupon = async () => {
-    // const { data } = await appliedCoupon({
-    //   variables: { code },
-    // });
-    // if (data.applyCoupon && data.applyCoupon.discountInPercent) {
-    //   setError('');
-    //   applyCoupon(data.applyCoupon);
-    //   setCode('');
-    // } else {
-    //   setError('Invalid Coupon');
-    // }
+    dispatch(applyCoupon(code)).then().catch((err) => {
+      dispatch(showSnackBar(err, 'error'))
+    })
   };
   const handleOnChange = (e) => {
     setCode(e.currentTarget.value);

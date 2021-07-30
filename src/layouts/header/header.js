@@ -50,7 +50,7 @@ const Header = ({ className }) => {
   return (
     <HeaderWrapper className={className} id="layout-header">
       {LogoImage && <LeftMenu logo={ServerUrl + LogoImage} />}
-      <Search minimal={false} className="headerSearch" />
+      {/* <Search minimal={false} className="headerSearch" /> */}
       <RightMenu
         isAuthenticated={isAuthenticated}
         onJoin={handleJoin}

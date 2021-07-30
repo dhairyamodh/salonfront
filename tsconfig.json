@@ -143,7 +143,17 @@
     "src/components/gift-card/gift-card.style.js",
     "src/components/gift-card/gift-card.js",
     "src/features/coupon/coupon.style.js",
-    "src/features/coupon/coupon.js"
+    "src/features/coupon/coupon.js",
+    "src/pages/appointment-book.js",
+    "src/features/order-received/order-received.style.js",
+    "src/features/order-received/order-received.js",
+    "src/components/search-box/search-box.style.js",
+    "src/components/search-box/search-box.js",
+    "src/features/user-profile/order/order-card/order-card.js",
+    "src/features/user-profile/order/order-card/order-card.style.js",
+    "src/features/user-profile/order/order-details/order-details.style.js",
+    "src/features/user-profile/order/order-details/order-details.js",
+    "src/components/loader/loader.js"
   ],
   "exclude": ["node_modules"]
 }

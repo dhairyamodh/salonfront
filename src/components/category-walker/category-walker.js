@@ -10,6 +10,7 @@ import { Button } from 'components/button/button';
 import SpringModal from 'components/spring-modal/spring-modal';
 // import { TreeMenu } from 'components/tree-menu/tree-menu';
 import startCase from 'lodash/startCase';
+import Filter from 'assets/icons/Filter'
 
 
 const CategoryWalker = ({
@@ -19,7 +20,8 @@ const CategoryWalker = ({
   onClose,
   onToggle,
   children,
-  categoryName
+  categoryName,
+  title
 }) => {
   return (
     <WalkerWrapper style={style} className={className}>
@@ -36,9 +38,9 @@ const CategoryWalker = ({
       </CategoryWrapper>
 
       <Button variant='text' onClick={() => onToggle()}>
-        Filter
+        <Filter style={{ marginRight: 5 }} />Filter
       </Button>
-      <SpringModal isOpen={isModal} onRequestClose={() => onToggle()}>
+      <SpringModal title={title} isOpen={isModal} onRequestClose={() => onToggle()}>
         {children}
       </SpringModal>
     </WalkerWrapper>

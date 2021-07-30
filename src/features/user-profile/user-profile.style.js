@@ -4,7 +4,7 @@ import { themeGet } from '@styled-system/theme-get';
 const PageWrapper = styled.div`
   width: 100%;
   height: auto;
-  min-height: 100vh;
+  // min-height: 100vh;
   display: flex;
   flex-wrap: wrap;
   background-color: ${themeGet('colors.white', '#ffffff')};
@@ -49,8 +49,12 @@ const ContentBox = styled.div`
 const BookingTitle = styled.h2`
 width:100%;
 padding-bottom: 30px;
+border-bottom: 1px solid #f1f1f1;
+
 @media only screen and (max-width: 990px) {
   padding: 20px;
+  font-size:${themeGet("fontSizes.xxl")}px;
+
 }
   @media only screen and (max-width: 1199px) {
     flex-direction: column;

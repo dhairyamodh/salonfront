@@ -40,13 +40,13 @@ const CartPopupStyle = createGlobalStyle`
 const CartPopUp = ({
   deviceType: { mobile, tablet, desktop },
 }) => {
-  const { isOpen, items } = useSelector(state => state.cart)
+  const { isOpen, items, coupon } = useSelector(state => state.cart)
   const cartItemsCount = items.length
   const dispatch = useDispatch()
   const { currencySymbol: CURRENCY } = useSelector(state => state.shop.salonData)
 
   const calculatePrice = () =>
-    cartItemsTotalPrice(items).toFixed(2);
+    cartItemsTotalPrice(items, coupon).toFixed(2);
   const handleModal = () => {
     openModal({
       show: true,

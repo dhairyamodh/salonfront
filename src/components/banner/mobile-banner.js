@@ -5,6 +5,7 @@ import {
   Content,
   ContentRow,
   Description,
+  Image,
   SearchWrapper,
 } from './banner.style';
 
@@ -17,7 +18,7 @@ import { useDispatch } from 'react-redux';
 import { removeSidebarSticky, setSticky } from 'redux/actions/appActions';
 
 
-export const MobileBanner = ({ type, intlTitleId }) => {
+export const MobileBanner = ({ type, intlTitleId, imageUrl }) => {
   const [isOpen, setOpen] = useState(false);
 
   const dispatch = useDispatch();
@@ -32,6 +33,7 @@ export const MobileBanner = ({ type, intlTitleId }) => {
   return (
     <Box display={['flex', 'flex', 'none']}>
       <Content>
+        {/* <Image backgroundImage={`url(${imageUrl})`} /> */}
         {/* <ContentRow>
           <Description>
             <FormattedMessage
@@ -50,9 +52,9 @@ export const MobileBanner = ({ type, intlTitleId }) => {
           </Button>
         </ContentRow> */}
 
-        <SearchWrapper>
+        {/* <SearchWrapper>
           <Search minimal={true} />
-        </SearchWrapper>
+        </SearchWrapper> */}
         {/* <Waypoint
           onEnter={removesticky}
           onLeave={sticky}

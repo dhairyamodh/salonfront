@@ -1,38 +1,42 @@
 import styled from 'styled-components';
 import css from '@styled-system/css';
-import { FormattedMessage } from 'react-intl';
 const Box = styled.div(
   css({
+    textAlign: 'center',
+    padding: '20px 80px',
+    justifyContent: 'space-around',
+    alignItems: 'center',
     fontFamily: 'body',
     fontSize: 'sm',
     fontWeight: 'regular',
     color: 'text.regular',
-    px: 20,
-
+    display: 'flex',
     a: {
       color: 'primary.regular',
     },
+    '@media (max-width: 990px)': {
+      padding: '20px',
+      display: 'block',
+
+    },
   }),
-  {
-    marginTop: 50,
-    width: '100%',
-    textAlign: 'center',
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-  }
+
 );
 const Footer = () => {
   return (
     <Box>
-      <FormattedMessage
-        id='siteFooter'
-        defaultMessage=''
-      />
-      &nbsp;
-      <a href='#' target='_blank'>
+      <div>
+        Copyright © 2021 The Brow shapers | All Rights Reserved
+      </div>
+      <div>
+        Designed and Developed By&nbsp;
+        <a href='#' target='_blank'>
+          Iteration Technology
+        </a>
+      </div>
 
-      </a>
+
+
     </Box>
   );
 };

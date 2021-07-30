@@ -7,19 +7,7 @@ import {
 } from "./search-box.style";
 import { SearchIcon } from "assets/icons/SearchIcon";
 
-interface Props {
-  onEnter: (e: React.SyntheticEvent) => void;
-  onChange: React.ChangeEventHandler<HTMLInputElement>;
-  value: string;
-  name: string;
-  minimal?: boolean;
-  className?: string;
-  showButtonText?: boolean;
-  shadow?: string;
-  [key: string]: unknown;
-}
-
-export const SearchBox: React.FC<Props> = ({
+export const SearchBox = ({
   onEnter,
   onChange,
   value,

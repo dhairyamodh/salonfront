@@ -31,6 +31,7 @@ const Grid = styled.div(
       gridGap: '20px',
       overflowX: 'auto',
       paddingTop: 10,
+      paddingBottom: 10,
       // gridTemplateColumns: 'repeat(3, minmax(48vw, 1fr))',
     },
 

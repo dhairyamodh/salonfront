@@ -2,6 +2,7 @@ import { checkoutTypes } from '../types'
 
 const initState = {
     availableTime: [],
+    orderData: undefined
 }
 
 const checkoutReducer = (state = initState, action) => {
@@ -11,6 +12,18 @@ const checkoutReducer = (state = initState, action) => {
                 ...state,
                 availableTime: action.payload.data.data
             }
+
+        case checkoutTypes.CREATE_ORDER_SUCCESS:
+            return {
+                ...state,
+                orderData: action.payload.data.data,
+            };
+
+        case checkoutTypes.GET_ORDER_BY_ID_SUCCESS:
+            return {
+                ...state,
+                orderData: action.payload.data.data,
+            };
         default:
             return state
     }

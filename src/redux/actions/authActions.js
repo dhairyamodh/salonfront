@@ -40,6 +40,7 @@ export const signOut = () => {
 }
 
 export const getUserDetails = (data, cb) => {
+  console.log("data", data);
   return {
     type: authTypes.GET_USER_DETAILS,
     payload: {
@@ -61,7 +62,7 @@ export const signUp = () => {
 
 export const register = (data) => {
   return {
-    type: authTypes.SIGNUP,
+    type: authTypes.REGISTER,
     payload: {
       request: {
         url: authApi.REGISTER,
@@ -82,4 +83,33 @@ export const forgotPass = () => {
   return {
     type: authTypes.FORGOTPASS,
   }
+};
+
+export const updateDetails = (data) => {
+  return {
+    type: authTypes.UPDATE_USER_DETAILS,
+    payload: {
+      request: {
+        url: authApi.UPDATE_USER_DETAILS,
+        method: "post",
+        data: data,
+      },
+    },
+  };
+};
+
+export const getBookings = (data) => {
+  console.log(data);
+  return {
+    type: authTypes.GET_BOOKINGS,
+    payload: {
+      request: {
+        url: authApi.GET_BOOKINGS,
+        method: "get",
+        params: {
+          salonId: data
+        }
+      },
+    },
+  };
 };

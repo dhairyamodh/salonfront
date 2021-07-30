@@ -32,7 +32,8 @@ const OrderListWrapper = styled.div`
   height: auto;
   display: flex;
   flex-direction: column;
-  border: 1px solid ${themeGet('colors.gray.500', '#f1f1f1')};
+  border: 1px solid ${themeGet('colors.gray.700', '#f1f1f1')};
+  border-radius:${themeGet('radii.big')};
   flex-shrink: 0;
   margin-right: 30px;
   overflow: hidden;
@@ -50,6 +51,8 @@ const OrderListWrapper = styled.div`
 
 const OrderList = styled.div`
   width: 100%;
+  height: auto;
+  overflow-y:auto;
   padding: 0 20px 20px;
 
   @media (max-width: 767px) {
@@ -64,7 +67,7 @@ const OrderList = styled.div`
     > .rc-collapse-item {
       margin-bottom: 15px;
       background-color: ${themeGet('colors.gray.200', '#f7f7f7')};
-      border-radius: ${themeGet('radii.base', '6px')};
+      border-radius: ${themeGet('radii.big')};
       overflow: hidden;
       margin-bottom: 15px;
       display: flex;
@@ -100,7 +103,9 @@ const OrderDetailsWrapper = styled.div`
   min-height: calc(100vh - 190px);
   display: flex;
   flex-direction: column;
-  border: 1px solid ${themeGet('colors.gray.500', '#f1f1f1')};
+  border: 1px solid ${themeGet('colors.gray.700', '#f1f1f1')};
+  border-radius:${themeGet('radii.big')};
+
 `;
 
 const Title = styled.h3`
@@ -122,6 +127,7 @@ const ImageWrapper = styled.span`
     width: 100%;
     height: 100%;
     object-fit: cover;
+    border-radius: ${themeGet('radii.big')};
   }
 `;
 

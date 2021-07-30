@@ -8,6 +8,13 @@ const SettingsForm = styled.div`
   flex-direction: column;
 `;
 
+const Error = styled.span`
+font-family: ${themeGet('fonts.heading', 'sans-serif')};
+font-size: ${themeGet('fontSizes.lg', '21')}px;
+font-weight: ${themeGet('fontWeights.semiBold', '600')};
+color: ${themeGet('colors.text.bold', '#0D1136')};
+`;
+
 const HeadingSection = styled.div`
   width: 100%;
   display: flex;
@@ -24,7 +31,7 @@ const Title = styled.h3`
 `;
 
 const SettingsFormContent = styled.div`
-  margin-bottom: 50px;
+  // margin-bottom: 50px;
 
   &:last-child {
     margin-bottom: 0;
@@ -32,7 +39,7 @@ const SettingsFormContent = styled.div`
 `;
 
 const Row = styled(Rows)`
-  margin-bottom: 40px;
+  // margin-bottom: 40px;
 
   @media only screen and (min-width: 0em) and (max-width: 47.99em) {
     margin-bottom: 30px;
@@ -50,4 +57,4 @@ margin-bottom: 20px;
   }
 `;
 
-export { SettingsForm, HeadingSection, Title, SettingsFormContent, Col, Row };
+export { SettingsForm, HeadingSection, Title, SettingsFormContent, Col, Row, Error };

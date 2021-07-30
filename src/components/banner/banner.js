@@ -1,22 +1,27 @@
 import React, { useCallback } from 'react';
 import { FormattedMessage } from 'react-intl';
+import { useHistory } from 'react-router-dom';
+
 import {
   Box,
   Image,
   Content,
   Title,
-  subTitle,
+  SubTitle,
   Description,
   SearchWrapper,
   SearchContainer,
   Row,
-  Col
+  Col,
+  TopTitle,
+  Container
 } from './banner.style';
 import { Input, Textarea } from "components/forms/input";
 import { Waypoint } from 'react-waypoint';
 import Search from 'features/search/search';
 import { useDispatch } from 'react-redux';
 import { setSticky, removeSidebarSticky } from '../../redux/actions/appActions'
+import { Button } from 'components/button/button';
 
 
 export const Banner = ({
@@ -33,25 +38,31 @@ export const Banner = ({
       setSticky();
     }
   };
+  const history = useHistory()
   return (
     <Box display={['none', 'none', 'flex']} style={style}>
       <Image backgroundImage={`url(${imageUrl})`} />
       <Content>
-        <Title>
-          <FormattedMessage
-            id={intlTitleId}
-            defaultMessage={intlTitleId}
-            values={{ minute: 90 }}
-          />
-        </Title>
-        {
+        <Container>
+          <TopTitle>
+            Enjoy the soothing experience
+          </TopTitle>
+          <Title>
+            Essense of <br /> natural beauty
+          </Title>
+          <SubTitle>We are open! Come and experience for <br /> yourself our newest treatments.</SubTitle>
+          <Button size="big" style={{ width: "auto" }} onClick={() => { history.push('/services/all') }}>
+            Book Now
+          </Button>
+        </Container>
+        {/* {
           intlDescriptionId && <Description>
             <FormattedMessage
               id={intlDescriptionId}
               defaultMessage={intlDescriptionId}
             />
           </Description>
-        }
+        } */}
 
 
         {/* <SearchWrapper>

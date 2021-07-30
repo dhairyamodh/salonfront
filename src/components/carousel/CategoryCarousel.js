@@ -100,7 +100,7 @@ export default function CategoryCarousel({
         <>
             {
                 mobile ?
-                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', overflowX: 'auto' }}>
+                    <div style={{ display: 'flex', justifyContent: 'flex-start', alignItems: 'center', overflowX: 'auto', paddingBottom: 10 }}>
                         {(data.map((item, index) => {
                             return (
                                 <MobileCategoryCard onClick={() => handleNavigate(`/services/${item._id}`)}>
@@ -146,7 +146,7 @@ export default function CategoryCarousel({
                                         </CategoryImageContainer>
                                         <CategoryCardWrapper>
                                             <CategoryTitle>{item.categoryName} </CategoryTitle>
-                                            <CategorySubTitle>{item.totalServices} Services</CategorySubTitle>
+                                            <CategorySubTitle>{item.totalServices} {item.totalServices > 1 ? `Services` : `Service`} </CategorySubTitle>
                                         </CategoryCardWrapper>
                                     </CategoryCard>
                                 );

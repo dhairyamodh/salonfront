@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Scrollbar } from 'components/scrollbar/scrollbar';
 import { useQuery, gql } from '@apollo/client';
 import {
@@ -21,39 +21,19 @@ import {
 import OrderDetails from './order-details/order-details';
 import OrderCard from './order-card/order-card';
 import OrderCardMobile from './order-card/order-card-mobile';
-import useComponentSize from 'utils/useComponentSize';
 import { FormattedMessage } from 'react-intl';
+import { useDispatch, useSelector } from 'react-redux';
+import { getBookings, getUserDetails, myBookings } from 'redux/actions/authActions';
+import moment from 'moment';
+import { ServerUrl } from '../../../constants';
 
 const progressData = ['Order Received', 'Order On The Way', 'Order Delivered'];
 
-const GET_ORDERS = gql`
-  query getAllOrders($text: String, $user: Int!, $limit: Int) {
-    orders(text: $text, limit: $limit, user: $user) {
-      id
-      status
-      deliveryAddress
-      amount
-      date
-      subtotal
-      deliveryFee
-      discount
-      deliveryTime
-      products {
-        title
-        price
-        total
-        image
-        weight
-        quantity
-        id
-      }
-    }
-  }
-`;
+
 
 const orderTableColumns = [
   {
-    title: <FormattedMessage id='cartItems' defaultMessage='Items' />,
+    title: <FormattedMessage id='cartItems' defaultMessage='Services' />,
     dataIndex: '',
     key: 'items',
     width: 250,
@@ -62,27 +42,27 @@ const orderTableColumns = [
       return (
         <ItemWrapper>
           <ImageWrapper>
-            <img src={record.image} alt={record.title} />
+            <img src={ServerUrl + record.imageSrc} alt={record.name} />
           </ImageWrapper>
 
           <ItemDetails>
-            <ItemName>{record.title}</ItemName>
-            <ItemSize>{record.weight}</ItemSize>
-            <ItemPrice>${record.price}</ItemPrice>
+            <ItemName>{record.name}</ItemName>
+            {/* <ItemSize>{record.weight}</ItemSize> */}
+            <ItemPrice>{record.categoryName}</ItemPrice>
           </ItemDetails>
         </ItemWrapper>
       );
     },
   },
-  {
-    title: (
-      <FormattedMessage id='intlTableColTitle2' defaultMessage='Quantity' />
-    ),
-    dataIndex: 'quantity',
-    key: 'quantity',
-    align: 'center',
-    width: 100,
-  },
+  // {
+  //   title: (
+  //     <FormattedMessage id='intlTableColTitle2' defaultMessage='Quantity' />
+  //   ),
+  //   dataIndex: 'quantity',
+  //   key: 'quantity',
+  //   align: 'center',
+  //   width: 100,
+  // },
   {
     title: <FormattedMessage id='intlTableColTitle3' defaultMessage='Price' />,
     dataIndex: '',
@@ -90,46 +70,43 @@ const orderTableColumns = [
     align: 'right',
     width: 100,
     render: (text, record) => {
-      return <p>${record.total}</p>;
+      return <p>${record.salePrice}</p>;
     },
   },
 ];
 
 const OrdersContent = () => {
+  const [booking, setBooking] = useState([]);
   const [order, setOrder] = useState(null);
   const [active, setActive] = useState('');
 
-  const [targetRef, size] = useComponentSize();
-  const orderListHeight = size.height - 79;
-  const { data, error, loading } = useQuery(GET_ORDERS, {
-    variables: {
-      limit: 7,
-      user: 1,
-    },
-  });
+  const targetRef = useRef();
+  const { currencySymbol: CURRENCY } = useSelector(state => state.shop.salonData)
+  const { salonId } = useSelector(state => state.salon)
+  const dispatch = useDispatch()
 
-  useEffect(() => {
-    if (data && data.orders && data.orders.length !== 0) {
-      setOrder(data.orders[0]);
-      setActive(data.orders[0].id);
-    }
-  }, [data && data.orders]);
 
-  if (loading) {
-    return <div>loading...</div>;
-  }
-
-  if (error) return <div>{error.message}</div>;
 
   const handleClick = (order) => {
     setOrder(order);
     setActive(order.id);
   };
 
+  useEffect(() => {
+    dispatch(getBookings(salonId)).then((res) => {
+      if (res.payload.status == 200) {
+        const newdata = res.payload.data.data
+        setBooking(newdata);
+        setOrder(newdata[0]);
+        setActive(newdata[0]?.id);
+      }
+    })
+
+  }, []);
   return (
     <OrderBox>
       <DesktopView>
-        <OrderListWrapper style={{ height: size.height }}>
+        <OrderListWrapper style={{ height: '100%' }}>
           <Title style={{ padding: '0 20px' }}>
             <FormattedMessage
               id='intlOrderPageTitle'
@@ -138,16 +115,17 @@ const OrdersContent = () => {
           </Title>
           <Scrollbar className='order-scrollbar'>
             <OrderList>
-              {data.orders.length !== 0 ? (
-                data.orders.map((current) => (
+              {booking && booking.length !== 0 ? (
+                booking?.map((current, index) => (
                   <OrderCard
                     key={current.id}
-                    orderId={current.id}
+                    CURRENCY={CURRENCY}
+                    orderId={current.orderNumber}
                     className={current.id === active ? 'active' : ''}
-                    status={progressData[current.status - 1]}
-                    date={current.date}
-                    deliveryTime={current.deliveryTime}
-                    amount={current.amount}
+                    status="At store"
+                    date={moment(current.createdAt).format('ddd, MMMM Do YYYY')}
+                    time={moment(current.startTime, ["HH:mm"]).format("h:mm A")}
+                    amount={current.grandTotal}
                     onClick={() => {
                       handleClick(current);
                     }}
@@ -161,44 +139,58 @@ const OrdersContent = () => {
                   />
                 </NoOrderFound>
               )}
+
             </OrderList>
           </Scrollbar>
         </OrderListWrapper>
 
-        <OrderDetailsWrapper ref={targetRef}>
+        {order && order.id && (<OrderDetailsWrapper ref={targetRef}>
           <Title style={{ padding: '0 20px' }}>
             <FormattedMessage
               id='orderDetailsText'
               defaultMessage='Order Details'
             />
           </Title>
-          {order && order.id && (
-            <OrderDetails
-              progressStatus={order.status}
-              progressData={progressData}
-              address={order.deliveryAddress}
-              subtotal={order.subtotal}
-              discount={order.discount}
-              deliveryFee={order.deliveryFee}
-              grandTotal={order.amount}
-              tableData={order.products}
-              columns={orderTableColumns}
-            />
-          )}
+
+          <OrderDetails
+            progressStatus="At store"
+            progressData={progressData}
+            address={order.deliveryAddress}
+            subtotal={order.itemsTotal}
+            // discount={order.discount}
+            // deliveryFee={order.deliveryFee}
+            CURRENCY={CURRENCY}
+            taxCharges={order.taxCharges}
+            grandTotal={order.grandTotal}
+            tableData={order.orderItems}
+            columns={orderTableColumns}
+          />
         </OrderDetailsWrapper>
+        )}
+
       </DesktopView>
 
       <MobileView>
         <OrderList>
-          <OrderCardMobile
-            orders={data.orders}
-            className={order && order.id === active ? 'active' : ''}
-            progressData={progressData}
-            columns={orderTableColumns}
-            onClick={() => {
-              handleClick(order);
-            }}
-          />
+          {booking && booking.length !== 0 ? (
+            <OrderCardMobile
+              orders={booking}
+              className={order && order.id === active ? 'active' : ''}
+              progressData={progressData}
+              columns={orderTableColumns}
+              CURRENCY={CURRENCY}
+              onClick={() => {
+                handleClick(order);
+              }}
+            />
+          ) : (
+            <NoOrderFound>
+              <FormattedMessage
+                id='intlNoOrderFound'
+                defaultMessage='No order found'
+              />
+            </NoOrderFound>
+          )}
         </OrderList>
       </MobileView>
     </OrderBox>

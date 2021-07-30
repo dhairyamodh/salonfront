@@ -21,13 +21,14 @@ import { FormattedMessage, useIntl } from 'react-intl';
 import { useDispatch, useSelector } from 'react-redux';
 import { register } from '../../redux/actions/authActions'
 import { closeModal } from '@redq/reuse-modal';
+import { showSnackBar } from 'redux/actions/snackActions';
 
 export default function SignOutModal() {
   const intl = useIntl();
   const dispatch = useDispatch()
-  const [name, setName] = React.useState('asdsdsds');
-  const [email, setEmail] = React.useState('asdadsadas@gmail.com');
-  const [password, setPassword] = React.useState('asd@1234');
+  const [name, setName] = React.useState('');
+  const [email, setEmail] = React.useState('');
+  const [password, setPassword] = React.useState('');
   const role = 'customer'
   const { salonId } = useSelector(state => state.salon)
 
@@ -42,12 +43,11 @@ export default function SignOutModal() {
     if (typeof window !== 'undefined') {
       dispatch(register({ name, email, password, salonId, role })).then((res) => {
         if (res.payload.status == 200) {
-          dispatch(showSnackBar('Account created successfully'))
           closeModal();
 
         }
       }).catch((err) => {
-        dispatch(showSnackBar('Account created successfully'))
+        dispatch(showSnackBar(err, 'error'))
 
       });
 

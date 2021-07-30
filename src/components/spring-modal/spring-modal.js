@@ -4,11 +4,13 @@ import { BaseModal } from 'react-spring-modal';
 import 'react-spring-modal/src/styles.css';
 import { CloseIcon } from 'assets/icons/CloseIcon';
 import { Scrollbar } from 'components/scrollbar/scrollbar';
-
+import styled from 'styled-components';
+import css from '@styled-system/css';
 const SpringModal = ({
   isOpen,
   onRequestClose,
   children,
+  title,
   style = {},
 }) => {
   // const transition = useTransition(isOpen, null, {
@@ -68,6 +70,23 @@ const SpringModal = ({
     height: '100%',
     maxHeight: '100%',
   };
+
+  const ModalHeader = styled.div(css({
+    width: '100%',
+    padding: '0 20px',
+  }))
+
+  const Line = styled.hr(css({
+    marginBottom: 10,
+    borderTop: '0.01rem solid',
+    borderColor: 'gray.600'
+  }))
+
+  const ModalTitle = styled.h5(css({
+    color: 'text.bold',
+    paddingBottom: 10,
+    textAlign: 'center'
+  }))
   return (
     <BaseModal isOpen={isOpen} onRequestClose={onRequestClose}>
       <animated.div
@@ -80,6 +99,9 @@ const SpringModal = ({
         >
           <CloseIcon style={{ width: 12, height: 12 }} />
         </button>
+        <ModalHeader>
+          <ModalTitle>{title}</ModalTitle>
+        </ModalHeader>
         <Scrollbar style={{ ...scrollbarStyle }}>
           {children}
         </Scrollbar>

@@ -104,7 +104,7 @@ const MobileDrawer = () => {
                 </LoginView>
               ) : (
                 <LogoutView>
-                  <Button variant='primary' onClick={signInOutForm}>
+                  <Button variant='secondary' onClick={signInOutForm}>
                     <FormattedMessage
                       id='mobileSignInButtonText'
                       defaultMessage='Login'
