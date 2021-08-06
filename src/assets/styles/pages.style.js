@@ -59,6 +59,7 @@ const MainContentArea = styled.main`
     background-color: ${themeGet("colors.white", "#ffffff")};
     padding: 20px 0 0px 0px;
   }
+  
 `;
 
 const SidebarSection = styled.div`
@@ -126,6 +127,7 @@ const OfferSection = styled.div`
       right: 5px;
     }
   }
+  
 `;
 
 const Heading = styled.h2`

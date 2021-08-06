@@ -244,17 +244,20 @@ export const ProductCartWrapper = styled.div`
   @media (max-width: 767px) {
     margin-top: 40px;
   }
+  @media screen and (max-width: 1024px) {
+    display: block;
+  }
 `;
 
 export const ProductCartBtn = styled.div`
-  .card-counter {
-    height: 48px;
-    width: 100%;
+  // .card-counter {
+  //   height: 48px;
+  //   width: auto;
 
-    .control-button {
-      padding: 10px 15px;
-    }
-  }
+  //   .control-button {
+  //     padding: 10px 30px;
+  //   }
+  // }
 
   .cart-button {
     padding-left: 30px;
@@ -276,6 +279,9 @@ export const ProductCartBtn = styled.div`
   .quantity {
     width: 115px;
     height: 38px;
+  }
+  @media screen and (max-width: 1024px) {
+    margin: 20px 0px;
   }
 `;
 

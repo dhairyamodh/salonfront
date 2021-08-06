@@ -42,13 +42,12 @@ const Cart = ({
 }) => {
 
   const history = useHistory()
-  const { currencySymbol: CURRENCY } = useSelector(state => state.shop.salonData)
+  const { currencySymbol: CURRENCY } = useSelector(state => state.salon.salonData)
   const { items: cart, coupon } = useSelector(state => state.cart)
   const calculatePrice = () =>
     cartItemsTotalPrice(cart, coupon).toFixed(2);
   const dispatch = useDispatch()
   const cartItemsCount = cart.length
-  console.log("cartItemsCount", cartItemsCount);
   const [hasCoupon, setCoupon] = useState(false);
   return (
     <CartPopupBody className={className} style={style}>

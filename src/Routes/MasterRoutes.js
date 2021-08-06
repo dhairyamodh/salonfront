@@ -26,7 +26,7 @@ const MasterRoutes = () => {
         return null;
     };
     return (
-        <div class="page-wrapper">
+        <div class="page-wrapper" >
             <UtilComponent />
             <Route component={ScrollToTop} />
             <Route exact path="/" component={(props) => <Home deviceType={deviceType} {...props} />} />
@@ -41,7 +41,7 @@ const MasterRoutes = () => {
             <Route exact path="/appointment-book/:id" component={(props) => <AppointmentBook deviceType={deviceType} {...props} />} />
             <Route exact path="/my-bookings" component={(props) => <Order deviceType={deviceType} {...props} />} />
 
-        </div>
+        </div >
     );
 };
 

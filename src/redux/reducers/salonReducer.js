@@ -5,7 +5,7 @@ const initState = {
     salonData: {},
 }
 
-const shopReducer = (state = initState, action) => {
+const salonReducer = (state = initState, action) => {
     switch (action.type) {
         case salonTypes.GET_SALON_DATA_SUCCESS:
             return {
@@ -18,4 +18,4 @@ const shopReducer = (state = initState, action) => {
     }
 }
 
-export default shopReducer
+export default salonReducer

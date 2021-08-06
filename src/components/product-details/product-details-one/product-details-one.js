@@ -68,7 +68,7 @@ const ProductDetails = ({
     return cart?.find((item) => item.id === id);
   };
   const data = product;
-  const { currencySymbol: CURRENCY } = useSelector(state => state.shop.salonData)
+  const { currencySymbol: CURRENCY } = useSelector(state => state.salon.salonData)
 
   const handleAddClick = (e) => {
     e.stopPropagation();
@@ -146,7 +146,7 @@ const ProductDetails = ({
                   </ButtonText>
                 </Button>
               ) : (
-                <Remove onDecrement={handleRemoveClick} className='card-counter' isIcon variant='altHorizontal' base='base' />
+                <Remove className='remove-cart-button' onDecrement={handleRemoveClick} className='card-counter' isIcon variant='altHorizontal' base='base' />
 
                 // <Counter
                 //   value={getItem(data?._id).quantity}

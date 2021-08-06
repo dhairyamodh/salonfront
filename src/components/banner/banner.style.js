@@ -27,7 +27,8 @@ export const Box = styled.div(
     // backgroundColor: #f7f7f7;
 
     '@media (max-width: 990px)': {
-      padding: '50px 0 20px',
+      padding: '50px 0 0px',
+      // marginBottom: 20
     },
   },
   compose(space, color, layout, position, flexbox, border)
@@ -46,6 +47,7 @@ export const Image = styled.div(
     left: 0,
     '@media (max-width: 990px) and (min-width: 768px)': {
       backgroundPosition: 'inherit',
+
     },
   },
   background
@@ -54,7 +56,7 @@ export const Image = styled.div(
 export const Content = styled.div(
   css({
     px: ['20px', '20px', '15px'],
-    pt: ['20px'],
+    pt: ['10px'],
     pb: ['10px'],
   }),
   {
@@ -66,7 +68,11 @@ export const Content = styled.div(
 
 export const Container = styled.div(
   css({
-    padding: 30
+    padding: 30,
+    '@media (max-width: 990px)': {
+      padding: 10,
+
+    },
   }),
   {
     position: 'relative',
@@ -77,26 +83,38 @@ export const Container = styled.div(
 export const Title = styled.h1(
   css({
     fontSize: '7xl',
-    color: 'primary.regular',
+    color: 'white',
     fontWeight: 'bold',
     padding: '30px 0px',
-    lineHeight: 1.2
+    lineHeight: 1.2,
+    '@media (max-width: 990px)': {
+      fontSize: 'lg',
+      padding: '10px 0px',
+      fontWeight: 'semiBold',
+
+    },
   }),
 );
 
 export const SubTitle = styled.p(
   css({
     fontSize: 'semibase',
-    color: 'text.bold',
+    color: '#f9f9f9',
     lineHeight: 2,
-    marginBottom: 30
+    marginBottom: 30,
+    '@media (max-width: 990px)': {
+      fontSize: 'sm',
+      lineHeight: 1.5,
+      marginBottom: 10,
+
+    },
   }),
 );
 
 export const TopTitle = styled.h5(
   css({
     fontSize: 'xl',
-    color: 'secondary.regular',
+    color: 'white',
     fontWeight: 'bold',
     lineHeight: 2
   }),

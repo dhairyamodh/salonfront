@@ -1,18 +1,19 @@
-import React from 'react';
 import Table from 'rc-table';
 import {
   DeliveryInfo,
-  DeliveryAddress,
-  Address,
+  // DeliveryAddress,
+  // Address,
   CostCalculation,
   PriceRow,
   Price,
-  ProgressWrapper,
+  // ProgressWrapper,
   OrderTableWrapper,
   OrderTable,
 } from './order-details.style';
-import Progress from 'components/progress-box/progress-box';
+// import Progress from 'components/progress-box/progress-box';
 import { FormattedMessage } from 'react-intl';
+import { Button } from 'components/button/button';
+
 
 const components = {
   table: OrderTable,
@@ -27,9 +28,17 @@ const OrderDetails = ({
   progressData,
   subtotal,
   discount,
+  status,
   taxCharges,
   grandTotal,
+  handleCancelBooking
 }) => {
+  let cancelStatus = false;
+  if (status === 'pending') {
+    cancelStatus = true
+  } else if (status === 'confirmed') {
+    cancelStatus = true
+  }
   return (
     <>
       {/* <DeliveryAddress>
@@ -59,7 +68,12 @@ const OrderDetails = ({
         />
       </OrderTableWrapper>
       <DeliveryInfo>
-
+        {
+          cancelStatus &&
+          <Button size="big" variant="danger" style={{ width: "auto", margin: 'auto auto' }} onClick={() => handleCancelBooking()}>
+            Cancel Booking
+          </Button>
+        }
         <CostCalculation>
           <PriceRow>
             <FormattedMessage id="subTotal" defaultMessage="Sub total" />
@@ -67,7 +81,7 @@ const OrderDetails = ({
               {CURRENCY} {subtotal}
             </Price>
           </PriceRow>
-          {/* <PriceRow>
+          <PriceRow>
             <FormattedMessage
               id="intlOrderDetailsDiscount"
               defaultMessage="Discount"
@@ -75,7 +89,7 @@ const OrderDetails = ({
             <Price>
               {CURRENCY} {discount}
             </Price>
-          </PriceRow> */}
+          </PriceRow>
           <PriceRow>
             <FormattedMessage
               id="tax"
@@ -92,7 +106,10 @@ const OrderDetails = ({
             </Price>
           </PriceRow>
         </CostCalculation>
+
       </DeliveryInfo>
+
+
     </>
   );
 };

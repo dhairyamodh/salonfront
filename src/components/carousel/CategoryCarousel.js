@@ -76,7 +76,7 @@ const responsive = {
     },
     tablet: {
         breakpoint: { max: 1024, min: 464 },
-        items: 4,
+        items: 3,
     },
     mobile: {
         breakpoint: { max: 464, min: 0 },
@@ -95,11 +95,17 @@ export default function CategoryCarousel({
         history.push(link)
     }
     const { desktop, tablet, mobile } = deviceType;
-
+    let devicetype = 'desktop';
+    if (mobile) {
+        devicetype = 'mobile';
+    }
+    if (tablet) {
+        devicetype = 'tablet';
+    }
     return (
         <>
             {
-                mobile ?
+                (mobile || tablet) ?
                     <div style={{ display: 'flex', justifyContent: 'flex-start', alignItems: 'center', overflowX: 'auto', paddingBottom: 10 }}>
                         {(data.map((item, index) => {
                             return (
@@ -133,7 +139,7 @@ export default function CategoryCarousel({
                             renderButtonGroupOutside={true}
                             additionalTransfrom={0}
                             customButtonGroup={<ButtonGroup />}
-                            deviceType={deviceType}
+                            deviceType={devicetype}
                         >
                             {data.map((item, index) => {
                                 return (
@@ -145,7 +151,7 @@ export default function CategoryCarousel({
                                             />
                                         </CategoryImageContainer>
                                         <CategoryCardWrapper>
-                                            <CategoryTitle>{item.categoryName} </CategoryTitle>
+                                            <CategoryTitle>{item.categoryName}</CategoryTitle>
                                             <CategorySubTitle>{item.totalServices} {item.totalServices > 1 ? `Services` : `Service`} </CategorySubTitle>
                                         </CategoryCardWrapper>
                                     </CategoryCard>

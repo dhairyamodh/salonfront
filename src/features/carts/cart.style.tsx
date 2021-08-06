@@ -6,7 +6,7 @@ const CartPopupBody = styled.div`
   width: 385px;
   display: flex;
   flex-direction: column;
-  border-radius: ${themeGet("radii.base", "6px")};
+  border-radius: ${themeGet("radii.big")};
   background-color: ${themeGet("colors.white", "#ffffff")};
   box-sizing: content-box;
 
@@ -31,7 +31,6 @@ const PopupHeader = styled.div`
   align-items: center;
   justify-content: space-between;
   border-bottom: 1px solid ${themeGet("colors.gray.500", "#f1f1f1")};
-
   @media (max-width: 766px) {
     justify-content: center;
   }

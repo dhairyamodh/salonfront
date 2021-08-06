@@ -40,7 +40,6 @@ export const signOut = () => {
 }
 
 export const getUserDetails = (data, cb) => {
-  console.log("data", data);
   return {
     type: authTypes.GET_USER_DETAILS,
     payload: {
@@ -99,7 +98,6 @@ export const updateDetails = (data) => {
 };
 
 export const getBookings = (data) => {
-  console.log(data);
   return {
     type: authTypes.GET_BOOKINGS,
     payload: {

@@ -6,23 +6,17 @@ import {
   BookingContent,
   BookingTitle
 } from 'features/user-profile/user-profile.style';
-import Footer from 'layouts/footer';
 import { Modal } from '@redq/reuse-modal';
 import { openModal } from '@redq/reuse-modal';
 import '@redq/reuse-modal/lib/index.css';
 import {
-  SettingsForm,
-  SettingsFormContent,
   HeadingSection,
   Title,
-  Col,
   TimeSelectorContent,
   TimeSelectorLabel,
-  RadioButton,
   TimeSelectorWrapper
 } from "../features/booking/calender/calender.style";
 import { Button } from "components/button/button";
-import { useState } from 'react';
 import { FormattedMessage } from "react-intl";
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';

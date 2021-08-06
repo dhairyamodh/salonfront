@@ -19,6 +19,13 @@ const checkoutReducer = (state = initState, action) => {
                 orderData: action.payload.data.data,
             };
 
+        case checkoutTypes.UPDATE_ORDER_SUCCESS:
+            return {
+                ...state,
+                orderData: action.payload.data.data,
+            };
+
+
         case checkoutTypes.GET_ORDER_BY_ID_SUCCESS:
             return {
                 ...state,

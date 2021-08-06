@@ -26,9 +26,8 @@ import { getItemCart, transferItem } from 'redux/actions/cartActions';
 export default function SignInModal() {
   const intl = useIntl();
   const dispatch = useDispatch()
-  const [email, setEmail] = React.useState('test@gmail.com');
-  const [password, setPassword] = React.useState('test');
-  const { salonId } = useSelector(state => state.salon)
+  const [email, setEmail] = React.useState('');
+  const [password, setPassword] = React.useState('');
 
   const toggleSignUpForm = () => {
     dispatch(signUp());
@@ -46,7 +45,7 @@ export default function SignInModal() {
         if (res.payload.status == 200) {
           closeModal();
           dispatch(transferItem())
-          dispatch(getItemCart(salonId))
+          dispatch(getItemCart())
         }
       }).catch((err) => {
         dispatch(showSnackBar(err, 'error'))

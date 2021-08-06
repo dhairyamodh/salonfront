@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 
 export const NoCartBag = () => {
   const { primaryColor: a, primaryDark: b } = useSelector(
-    (state) => state.shop.salonData
+    (state) => state.salon.salonData
   );
 
 

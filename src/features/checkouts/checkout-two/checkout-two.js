@@ -94,7 +94,7 @@ const CheckoutWithSidebar = ({ token, deviceType }) => {
   const calculatePrice = () =>
     cartItemsTotalPrice(cart, coupon).toFixed(2);
 
-  const { currencySymbol: CURRENCY, taxPercentage } = useSelector(state => state.shop.salonData)
+  const { currencySymbol: CURRENCY, taxPercentage } = useSelector(state => state.salon.salonData)
   const calculateTaxAmount = () => {
     const taxTotal = taxPercentage / 100
     const taxAmount = parseFloat(cartItemsTotalPrice(cart, coupon) * taxTotal).toFixed(2)
@@ -329,7 +329,7 @@ const CheckoutWithSidebar = ({ token, deviceType }) => {
                   </TermConditionLink>
                 </Link>
               </TermConditionText> */}
-              <ModalContainer title="Are you sure want to place the order?" onSuccess={() => handleCheckout()} isOpen={open} isClose={() => setOpen(false)} />
+              <ModalContainer title="Are you sure want to book an appointment?" onSuccess={() => handleCheckout()} isOpen={open} isClose={() => setOpen(false)} />
               {/* CheckoutSubmit */}
               <CheckoutSubmit>
                 <Button

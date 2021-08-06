@@ -12,7 +12,6 @@ function useGetAllData() {
   const history = useHistory()
   const dispatch = useDispatch();
   const domainName = window.location.host;
-  const { salonId } = useSelector(state => state.salon)
 
   const [ready, setReady] = useState(false);
   const delayReady = () => {
@@ -26,13 +25,13 @@ function useGetAllData() {
     }
   }
 
-  function handleCheckToken() {
+  const handleCheckToken = () => {
     const tkn = getToken();
     if (tkn) {
       dispatch(getUserDetails())
         .then((res) => {
           if (res.payload.status == 200) {
-            dispatch(getItemCart(salonId))
+            dispatch(getItemCart())
           }
         })
         .catch((err) => {
@@ -46,6 +45,7 @@ function useGetAllData() {
 
   const checkIfSalonData = () => {
     dispatch(getSalonData(domainName)).then((res) => {
+      handleCheckToken()
       delayReady(true)
     }).catch((err) => {
       delayReady(true)
@@ -55,9 +55,8 @@ function useGetAllData() {
 
   useEffect(() => {
     checkIfSalonData()
-    handleCheckToken()
 
-  }, []);
+  }, [domainName]);
 
   return ready;
 }

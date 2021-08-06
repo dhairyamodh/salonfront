@@ -298,7 +298,7 @@ export default function () {
                   />
                 </Col>
 
-                <Col xs={12} sm={2} md={2} lg={2}>
+                <Col xs={12} >
                   <Button size="big" style={{ width: "100%" }} onClick={handleSave}>
                     <FormattedMessage id="contactSendBtn" defaultMessage="Send" />
                   </Button>

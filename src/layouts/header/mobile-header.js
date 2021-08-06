@@ -95,10 +95,8 @@ const SearchModal = ({ deviceType }) => {
   }
   const handleSearch = async (value) => {
     if (value && value.length > 1) {
-      // setState({ isLoading: true, searchResults: [] })
-      console.log('newvalue', value);
+      setState({ isLoading: true, searchResults: [] })
       await axios.get(`${RootUrl}/services/search?salonId=${salonId}&searchTerm=${value}`).then((res) => {
-        console.log("res", res);
         if (res.status == 200) {
           setState({ isLoading: false, searchResults: res.data.data })
         }

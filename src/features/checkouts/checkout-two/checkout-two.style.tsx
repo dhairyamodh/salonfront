@@ -4,6 +4,7 @@ import { themeGet } from "@styled-system/theme-get";
 const CheckoutWrapper = styled.div`
   width: 100%;
   display: flex;
+  min-height: 100vh;
   padding: 130px 60px 60px;
   position: relative;
 
@@ -75,7 +76,8 @@ export const InformationBox = styled.div`
   padding-bottom: 20px;
   position: relative;
   margin-bottom: 20px;
-  box-shadow: 0 2px 16px 0 rgba(0, 0, 0, 0.08);
+  border-radius: ${themeGet("radii.big")};
+  // box-shadow: 0 2px 16px 0 rgba(0, 0, 0, 0.08);
 
   @media (max-width: 767px) {
     padding: 20px;

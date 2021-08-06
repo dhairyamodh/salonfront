@@ -44,8 +44,8 @@ export const RemoveBox = styled.div(
         color: 'text.bold',
       },
       altHorizontal: {
-        width: 104,
-        height: 36,
+        width: 'auto',
+        height: 48,
         borderRadius: '50px',
       },
       altVertical: {
@@ -64,19 +64,20 @@ export const RemoveBox = styled.div(
 
 export const RemoveButton = styled.button((props) =>
   css({
-    width: '100%',
+    // width: '100%',
     border: 'none',
     fontWeight: 'bold',
     fontSize: props.base ? ["base"] : undefined,
-    backgroundColor: 'transparent',
+    backgroundColor: 'danger.lighter',
     color: 'danger.regular',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    height: '100%',
-    padding: 10,
+    // height: '100%',
+    padding: '15px 30px',
     cursor: 'pointer',
     transition: '0.2s ease-in-out',
+    borderRadius: '50px',
     '&:hover, &:focus': {
       outline: 'none',
       backgroundColor: 'danger.regular',
@@ -90,6 +91,21 @@ export const RemoveButton = styled.button((props) =>
       },
       lightVertical: {
         color: 'text.regular',
+      },
+      altHorizontal: {
+        fontWeight: 'semiBold',
+        borderRadius: '50px',
+        height: 48,
+      },
+      full: {
+        width: '100%',
+        display: 'flex',
+        alignItems: 'center',
+        padding: 0,
+        border: 'none',
+        overflow: 'hidden',
+        height: 38,
+
       },
     },
   })

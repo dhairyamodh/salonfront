@@ -11,6 +11,7 @@ export const OrderDetailsWrapper = styled('div')`
 export const DeliveryInfo = styled.div`
   width: 100%;
   display: flex;
+  justify-content: flex-end;
   border-top: 1px solid ${themeGet('colors.gray.500', '#f1f1f1')};
   border-bottom: 1px solid ${themeGet('colors.gray.500', '#f1f1f1')};
 `;
@@ -45,7 +46,6 @@ export const CostCalculation = styled.div`
   flex-direction: column;
   flex-shrink: 0;
   padding: 20px;
-
   @media only screen and (min-width: 768px) and (max-width: 990px) {
     width: 220px;
   }

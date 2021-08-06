@@ -13,16 +13,16 @@ export const Remove = ({
   isIcon
 }) => {
   return (
-    <RemoveBox variant={variant} className={className}>
-      <RemoveButton
-        onClick={onDecrement}
-        variant={variant}
-        base={base}
-        className='control-button'
-      >
-        {isIcon && <CloseIcon style={{ marginRight: 10 }} />}
-        <span>Remove Service</span>
-      </RemoveButton>
-    </RemoveBox>
+    // <RemoveBox variant={variant} className={className}>
+    <RemoveButton
+      onClick={onDecrement}
+      variant={variant}
+      base={base}
+      className='control-button'
+    >
+      {isIcon && <CloseIcon style={{ marginRight: 10 }} />}
+      <span>Remove Service</span>
+    </RemoveButton>
+    // </RemoveBox>
   );
 };

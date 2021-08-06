@@ -26,6 +26,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getBookings, getUserDetails, myBookings } from 'redux/actions/authActions';
 import moment from 'moment';
 import { ServerUrl } from '../../../constants';
+import { updateOrder } from 'redux/actions/checkoutActions';
+import { showSnackBar } from 'redux/actions/snackActions';
+import ModalContainer from 'components/modal/modalContainer';
 
 const progressData = ['Order Received', 'Order On The Way', 'Order Delivered'];
 
@@ -79,20 +82,14 @@ const OrdersContent = () => {
   const [booking, setBooking] = useState([]);
   const [order, setOrder] = useState(null);
   const [active, setActive] = useState('');
+  const [open, setOpen] = useState(false)
 
   const targetRef = useRef();
-  const { currencySymbol: CURRENCY } = useSelector(state => state.shop.salonData)
+  const { currencySymbol: CURRENCY } = useSelector(state => state.salon.salonData)
   const { salonId } = useSelector(state => state.salon)
   const dispatch = useDispatch()
 
-
-
-  const handleClick = (order) => {
-    setOrder(order);
-    setActive(order.id);
-  };
-
-  useEffect(() => {
+  const getBookingData = () => {
     dispatch(getBookings(salonId)).then((res) => {
       if (res.payload.status == 200) {
         const newdata = res.payload.data.data
@@ -101,10 +98,37 @@ const OrdersContent = () => {
         setActive(newdata[0]?.id);
       }
     })
+  }
+  const handleClickCancel = () => {
+    setOpen(true)
+
+  }
+  const handleCancelBooking = () => {
+    dispatch(updateOrder({ salonId: salonId, id: order.id, orderStatus: 'canceled' })).then((res) => {
+      if (res.payload.status == 200) {
+        getBookingData()
+        setOpen(false)
+        dispatch(showSnackBar('Booking canceled successfully', 'success'))
+      }
+    }).catch((err) => {
+      dispatch(showSnackBar(err, 'error'))
+
+    })
+  }
+
+
+  const handleClick = (order) => {
+    setOrder(order);
+    setActive(order.id);
+  };
+
+  useEffect(() => {
+    getBookingData()
 
   }, []);
   return (
     <OrderBox>
+      <ModalContainer title="Are you sure want to cancel the booking?" onSuccess={() => handleCancelBooking()} isOpen={open} isClose={() => setOpen(false)} />
       <DesktopView>
         <OrderListWrapper style={{ height: '100%' }}>
           <Title style={{ padding: '0 20px' }}>
@@ -122,7 +146,7 @@ const OrdersContent = () => {
                     CURRENCY={CURRENCY}
                     orderId={current.orderNumber}
                     className={current.id === active ? 'active' : ''}
-                    status="At store"
+                    status={current.orderStatus}
                     date={moment(current.createdAt).format('ddd, MMMM Do YYYY')}
                     time={moment(current.startTime, ["HH:mm"]).format("h:mm A")}
                     amount={current.grandTotal}
@@ -160,9 +184,13 @@ const OrdersContent = () => {
             // discount={order.discount}
             // deliveryFee={order.deliveryFee}
             CURRENCY={CURRENCY}
+            handleCancelBooking={handleClickCancel}
+            status={order.orderStatus}
             taxCharges={order.taxCharges}
+            discount={order.discount}
             grandTotal={order.grandTotal}
             tableData={order.orderItems}
+            id={order.id}
             columns={orderTableColumns}
           />
         </OrderDetailsWrapper>

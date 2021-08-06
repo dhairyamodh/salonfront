@@ -48,7 +48,7 @@ export const Banner = ({
             Enjoy the soothing experience
           </TopTitle>
           <Title>
-            Essense of <br /> natural beauty
+            Essense of <br /> Natural beauty
           </Title>
           <SubTitle>We are open! Come and experience for <br /> yourself our newest treatments.</SubTitle>
           <Button size="big" style={{ width: "auto" }} onClick={() => { history.push('/services/all') }}>

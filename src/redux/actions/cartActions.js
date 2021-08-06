@@ -46,11 +46,12 @@ const transferItemHandler = (item, quantity = 1) => {
   }
 }
 
-export const getItemCart = (salonId) => {
+export const getItemCart = () => {
   return (dispatch, getState) => {
     const state = getState()
     const { id: userId } = state.auth
-
+    const { _id: salonId } = state.salon.salonData
+    console.log('cartsalonId', salonId);
     return dispatch({
       type: cartTypes.GET_CART,
       payload: {

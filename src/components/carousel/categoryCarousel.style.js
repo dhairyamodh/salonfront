@@ -6,7 +6,8 @@ export const CategoryTitle = styled.h5`
   text-transform: capitalize;
   color: ${themeGet('colors.text.bold')};
   white-space: nowrap; 
-  width: 140px; 
+  width: 100%;
+  
   overflow: hidden;
   text-overflow: ellipsis; 
   transition: 0.25s all ease-in-out;
@@ -42,6 +43,7 @@ export const CategoryCard = styled.div`
   height: auto;
   display:flex;
   border-radius: 100px;
+  overflow: hidden;
 //   margin-bottom: 20px;
 background: white;
 border: 1px solid #eee;
@@ -134,10 +136,12 @@ export const MobileCategoryImage = styled.img`
 
 export const CategoryCardWrapper = styled.div`
   padding:10px 10px;
+  width: 70%;
   display:flex;
   justify-content:space-around;
   align-items:flex-start;
   flex-direction:column;
+  overflow: hidden;
   @media (max-width: 768px) {
     
   }

@@ -174,7 +174,7 @@ const SalePrice = styled.span(
 
 export const ProductCard = ({ data, deviceType, normal }) => {
   const { name: title, salonId, _id, discount, imageSrc: image, price: price, salePrice, estimatedTime } = data;
-  const { currencySymbol } = useSelector(state => state.shop.salonData)
+  const { currencySymbol } = useSelector(state => state.salon.salonData)
   const { serviceDetails: product } = useSelector(state => state.service)
   const dispatch = useDispatch()
   const { mobile, tablet, desktop } = deviceType

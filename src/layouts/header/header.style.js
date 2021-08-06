@@ -66,7 +66,7 @@ display: flex;
 
 const HeaderWrapper = styled.header`
   /* padding: 30px 60px; */
-  padding: 20px 80px;
+  padding: 15px 80px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -120,8 +120,8 @@ const HeaderWrapper = styled.header`
     background-color: ${themeGet('colors.white', '#ffffff')};
     position: fixed;
     box-shadow: ${themeGet('shadows.header', '0 1px 2px rgba(0, 0, 0, 0.06)')};
-    padding-top: 20px;
-    padding-bottom: 20px;
+    // padding-top: 20px;
+    // padding-bottom: 20px;
 
     @media (max-width: 1400px) {
       padding-top: 20px;

@@ -53,7 +53,6 @@ const SidebarCategory = ({
     dispatch(getCategory(salonId, undefined, newcategoryId)).then((res) => {
       if (res.payload.status === 200) {
         const getCate = res.payload.data.data?.find((value) => value._id == newcategoryId)
-        console.log('getCate', getCate);
         setCategoryName(getCate?.categoryName)
       }
 

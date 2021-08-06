@@ -17,7 +17,6 @@ const reducers = combineReducers({
   language: languageReducer,
   auth: authReducer,
   app: appReducer,
-  shop: shopReducer,
   cart: cartReducer,
   profile: profileReducer,
   salon: salonReducer,

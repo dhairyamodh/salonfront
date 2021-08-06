@@ -21,7 +21,7 @@ export const CartItem = ({
   onIncrement,
   onRemove,
 }) => {
-  const { currencySymbol: CURRENCY } = useSelector(state => state.shop.salonData)
+  const { currencySymbol: CURRENCY } = useSelector(state => state.salon.salonData)
   const { name, categoryName, imageSrc, salePrice, quantity } = data;
   return (
     <ItemBox>

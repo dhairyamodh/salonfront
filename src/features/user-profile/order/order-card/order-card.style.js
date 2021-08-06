@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { keyframes, css } from 'styled-components';
 import { themeGet } from '@styled-system/theme-get';
 import {
   DeliveryInfo as DeliveryInfos,
@@ -10,6 +10,7 @@ import {
   ProgressWrapper as ProgressWrappers,
   OrderTable as OrderTables,
 } from '../order-details/order-details.style';
+import { compose, variant, border, space, layout } from "styled-system";
 
 export const Address = styled(Addresses)``;
 export const PriceRow = styled(PriceRows)``;
@@ -54,16 +55,35 @@ export const TrackID = styled.span`
   }
 `;
 
-export const Status = styled.span`
+export const Status = styled.span((props) =>
+(css`
   font-family: ${themeGet('fonts.body', 'Poppins')};
   font-size: ${themeGet('fontSizes.sm', '13')}px;
   font-weight: ${themeGet('fontWeights.regular', '400')};
-  color: ${themeGet('colors.blue.regular', '#2e70fa')};
+  color: white;
   line-height: 1;
   background-color: rgba(46, 112, 250, 0.1);
   padding: 10px;
+  text-transform: capitalize;
   border-radius: ${themeGet('radii.base', '6px')};
-`;
+`),
+  variant({
+    variants: {
+      success: {
+        backgroundColor: 'success.lighter',
+        color: 'success.regular',
+      },
+      danger: {
+        backgroundColor: 'danger.lighter',
+        color: 'danger.regular',
+      },
+      warning: {
+        backgroundColor: 'warning.lighter',
+        color: 'warning.regular',
+      }
+    },
+  }),
+);
 
 export const OrderMeta = styled.div`
   display: flex;
@@ -108,7 +128,7 @@ export const CardWrapper = styled.div`
 `;
 
 export const SingleOrderList = styled.div`
-  background-color: ${themeGet('colors.gray.200', '#f7f7f7')};
+  background-color: white;
   border-radius: ${themeGet('radii.big', '6px')};
   overflow: hidden;
   margin-bottom: 15px;
@@ -116,7 +136,7 @@ export const SingleOrderList = styled.div`
   flex-direction: column;
   cursor: pointer;
   flex-shrink: 0;
-  border: 2px solid transparent;
+  border: 2px solid ${themeGet('colors.gray.200')};
 
   &:last-child {
     margin-bottom: 0;

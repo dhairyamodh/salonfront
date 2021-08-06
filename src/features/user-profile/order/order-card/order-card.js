@@ -21,6 +21,14 @@ const OrderCard = ({
   deliveryTime,
   amount,
 }) => {
+  let variant;
+  if (status == 'pending') {
+    variant = "warning"
+  } else if (status == 'confirmed') {
+    variant = "success"
+  } else {
+    variant = "danger"
+  }
   return (
     <>
       <SingleOrderList onClick={onClick} className={className}>
@@ -32,7 +40,7 @@ const OrderCard = ({
             />
             <span> #{orderId}</span>
           </TrackID>
-          <Status>{status}</Status>
+          <Status variant={variant}>{status}</Status>
         </OrderListHeader>
 
         <OrderMeta>

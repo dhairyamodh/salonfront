@@ -182,7 +182,6 @@ const cartReducer = (state = initState, action) => {
             }
 
         case cartTypes.REMOVE_COUPON:
-            console.log('sas');
             return {
                 ...state,
                 coupon: null

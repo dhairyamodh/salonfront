@@ -9,7 +9,7 @@ const AppointmentBook = () => {
   const { id } = useParams()
   const dispatch = useDispatch()
   const { salonId } = useSelector(state => state.salon)
-  const { currencySymbol: CURRENCY } = useSelector(state => state.shop.salonData)
+  const { currencySymbol: CURRENCY } = useSelector(state => state.salon.salonData)
   const { orderData } = useSelector(state => state.checkout)
   useEffect(() => {
     dispatch(getOrderById(salonId, id))

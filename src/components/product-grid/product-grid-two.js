@@ -30,8 +30,11 @@ const Grid = styled.div(
       padding: '5px',
       gridTemplateColumns: 'repeat(2, minmax(48vw, 1fr))',
     },
-
     '@media screen and (min-width: 991px)': {
+      gridTemplateColumns: 'repeat(2, minmax(180px, 1fr))',
+    },
+
+    '@media screen and (max-width: 991px)': {
       gridTemplateColumns: 'repeat(3, minmax(180px, 1fr))',
     },
 

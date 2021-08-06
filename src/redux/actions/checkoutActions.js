@@ -33,6 +33,19 @@ export const createOrder = (data) => {
   };
 };
 
+export const updateOrder = (data) => {
+  return {
+    type: checkoutTypes.UPDATE_ORDER,
+    payload: {
+      request: {
+        url: checkoutApi.UPDATE_ORDER,
+        method: "put",
+        data: data
+      },
+    },
+  };
+};
+
 export const getOrderById = (salonId, data) => {
   return {
     type: checkoutTypes.GET_ORDER_BY_ID,

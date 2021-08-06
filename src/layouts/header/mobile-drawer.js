@@ -63,7 +63,7 @@ const MobileDrawer = () => {
       config: {
         enableResizing: false,
         disableDragging: true,
-        className: 'quick-view-modal',
+        className: 'modal',
         width: 458,
         height: 'auto',
       },

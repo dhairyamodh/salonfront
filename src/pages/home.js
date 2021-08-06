@@ -151,21 +151,22 @@ export default function Home({ deviceType }) {
       <MobileBanner imageUrl={Saloon} intlTitleId={shop?.tagLine || 'adasd'} />
       <Banner imageUrl={Saloon} intlTitleId={shop?.tagLine || 'dasd'}
       />
-
-      <CategoryContent>
-        <HeadingTitle title="Categories" deviceType={deviceType} />
-        {/* {!mobile && <HeaderContainer>
+      {allCategories?.length > 0 && (
+        <CategoryContent>
+          <HeadingTitle title="Categories" deviceType={deviceType} />
+          {/* {!mobile && <HeaderContainer>
           <HeaderWrapper>
             <h3>Categories</h3>
           </HeaderWrapper>
         </HeaderContainer>
 
         } */}
-        <CategoryContainer>
+          <CategoryContainer>
 
-          <CategoryCarousel data={allCategories} deviceType={deviceType} />
-        </CategoryContainer>
-      </CategoryContent >
+            <CategoryCarousel data={allCategories} deviceType={deviceType} />
+          </CategoryContainer>
+        </CategoryContent >
+      )}
       {/* <MobileCarouselDropdown>
         <SidebarCategory deviceType={deviceType} />
       </MobileCarouselDropdown> */}

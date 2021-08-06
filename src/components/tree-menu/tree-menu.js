@@ -64,7 +64,6 @@ export const TreeMenu = ({
   const handler = (children) => {
     return children.map((subOption) => {
       if (!subOption.children) {
-        console.log('activeClass == subOption._id', activeClass == subOption._id, activeClass, subOption._id);
         return (
           <Tree
             key={subOption.categoryName}

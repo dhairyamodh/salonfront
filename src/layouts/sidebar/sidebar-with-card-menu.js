@@ -46,7 +46,7 @@ const DesktopOnly = styled.div({
 export const SidebarWithCardMenu = ({ type }) => {
   const router = useLocation();
   const { isLoading: loading, error } = useSelector(state => state.app)
-  const { allCategories: data } = useSelector(state => state.shop)
+  const { allCategories: data } = useSelector(state => state.salon)
   if (error) return <ErrorMessage message={error.message} />;
   if (loading) return <p>Loading...</p>;
   if (!data) return null;

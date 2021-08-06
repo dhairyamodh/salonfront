@@ -4,9 +4,16 @@ import {
   Box,
   Content,
   ContentRow,
-  Description,
   Image,
+  SubTitle,
+  Description,
   SearchWrapper,
+  SearchContainer,
+  Row,
+  Col,
+  Title,
+  TopTitle,
+  Container
 } from './banner.style';
 
 import { Waypoint } from 'react-waypoint';
@@ -32,8 +39,15 @@ export const MobileBanner = ({ type, intlTitleId, imageUrl }) => {
   };
   return (
     <Box display={['flex', 'flex', 'none']}>
+      {/* <Image backgroundImage={`url(${imageUrl})`} /> */}
       <Content>
-        {/* <Image backgroundImage={`url(${imageUrl})`} /> */}
+        {/* <Container>
+          <Title>
+            Essense of <br /> Natural beauty
+          </Title>
+          <SubTitle>We are open! Come and experience for <br /> yourself our newest treatments.</SubTitle>
+
+        </Container> */}
         {/* <ContentRow>
           <Description>
             <FormattedMessage

@@ -43,7 +43,7 @@ const CartPopUp = ({
   const { isOpen, items, coupon } = useSelector(state => state.cart)
   const cartItemsCount = items.length
   const dispatch = useDispatch()
-  const { currencySymbol: CURRENCY } = useSelector(state => state.shop.salonData)
+  const { currencySymbol: CURRENCY } = useSelector(state => state.salon.salonData)
 
   const calculatePrice = () =>
     cartItemsTotalPrice(items, coupon).toFixed(2);
@@ -69,10 +69,9 @@ const CartPopUp = ({
   };
 
   let cartSliderClass = isOpen === true ? 'cartPopupFixed' : '';
-
   return (
     <>
-      {mobile ? (
+      {(mobile || tablet) ? (
         <>
           <CartPopupStyle />
           <CartPopupButton

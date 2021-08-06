@@ -22,12 +22,16 @@ const baseColor = {
   },
   transparent: 'transparent',
   danger: {
-    lighter: '#fcdbcc',
-    regular: '#cc4308'
+    lighter: '#fceaea',
+    regular: '#dc2020'
   },
   success: {
-    lighter: '#c5ffab',
-    regular: '#2c750d'
+    lighter: '#eaf3eb',
+    regular: '#29823b'
+  },
+  warning: {
+    lighter: '#fdf6e5',
+    regular: '#e9a100'
   },
   primary: {
     regular: '#009E7F', // primary color
@@ -52,7 +56,6 @@ const baseColor = {
     link: '#4285f4',
   },
   red: '#ea4d4a',
-  warning: '',
   muted: '',
   highlight: '',
 };
