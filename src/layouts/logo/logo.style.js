@@ -18,4 +18,8 @@ export const LogoImage = styled.img({
   display: 'block',
   backfaceVisibility: 'hidden',
   width: 65,
+  '@media screen and (max-width: 990px)': {
+    width: 50,
+
+  },
 });

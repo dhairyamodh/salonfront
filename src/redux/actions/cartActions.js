@@ -193,6 +193,12 @@ export const selectAppointmentDate = (data) => {
   return { type: cartTypes.SELECT_APPOINTMENT_DATE, payload: data }
 }
 
+export const selectAppointmentArtist = (data) => {
+  localStorage.setItem('selectedArtist', data)
+
+  return { type: cartTypes.SELECT_APPOINTMENT_ARTIST, payload: data }
+}
+
 
 export const cartItemsTotalPrice = (items, coupon) => {
   if (items === null || items.length === 0) return 0;

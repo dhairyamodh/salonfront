@@ -58,7 +58,7 @@ const OrderReceived = ({ data, CURRENCY }) => {
               <Text bold className="title">
                 <FormattedMessage id="orderDateText" defaultMessage="Date" />
               </Text>
-              <Text>{moment(data?.createdAt).format('dddd, MMMM Do YYYY')}</Text>
+              <Text>{moment(data?.startDate).format('dddd, MMMM Do YYYY')}</Text>
             </InfoBlock>
 
             <InfoBlock>

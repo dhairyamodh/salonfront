@@ -154,34 +154,17 @@ export default function Home({ deviceType }) {
       {allCategories?.length > 0 && (
         <CategoryContent>
           <HeadingTitle title="Categories" deviceType={deviceType} />
-          {/* {!mobile && <HeaderContainer>
-          <HeaderWrapper>
-            <h3>Categories</h3>
-          </HeaderWrapper>
-        </HeaderContainer>
-
-        } */}
           <CategoryContainer>
-
             <CategoryCarousel data={allCategories} deviceType={deviceType} />
           </CategoryContainer>
         </CategoryContent >
       )}
-      {/* <MobileCarouselDropdown>
-        <SidebarCategory deviceType={deviceType} />
-      </MobileCarouselDropdown> */}
+
       {offers?.length > 0 && (
 
         <OfferSection>
           <HeadingTitle title="Latest Offers" deviceType={deviceType} buttonText="View All" buttonOnClick={() => history.push('/offers-deals/offers')} />
-          {/* <HeaderContainer>
-          <HeaderWrapper>
-            {mobile ? <h5>Latest Offers</h5> : <h3>Latest Offers</h3>}
-          </HeaderWrapper>
-          <Button variant="secondary" onClick={() => history.push('/offers-deals/offers')}>
-            View All +
-          </Button>
-        </HeaderContainer> */}
+
           <OfferContainer>
             {offers?.map((offer, index) => {
               return (
@@ -208,28 +191,17 @@ export default function Home({ deviceType }) {
       )}
       <MainContentArea>
         <HeadingTitle title="Top Trending Services" subTitle="Our Services" deviceType={deviceType} />
-        {/* <SidebarSection>
-          <SidebarCategory setFilterService={setFilterService} deviceType={deviceType} />
-        </SidebarSection> */}
-        {/* <ContentSection> */}
+
         <ProductGrid data={data}
           deviceType={deviceType}
           loading={loading}
-        // handleLoadMore={handleLoadMore}
+
         />
-        {/* </ContentSection> */}
       </MainContentArea>
       {deals?.length > 0 && (
         <OfferSection>
           <HeadingTitle title="Limited Time Deals" deviceType={deviceType} buttonText="View All" buttonOnClick={() => history.push('/offers-deals/deals')} />
-          {/* <HeaderContainer>
-          <HeaderWrapper>
-            <h3>Limited Time Deals</h3>
-          </HeaderWrapper>
-          <Button variant="secondary" onClick={() => history.push('/offers-deals/deals')} >
-            View All +
-          </Button>
-        </HeaderContainer> */}
+
           <div style={{ width: '100%', position: 'relative', height: '100%' }}>
             <Carousel deviceType={deviceType} data={deals} />
           </div>

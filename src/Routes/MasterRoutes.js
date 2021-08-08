@@ -6,7 +6,7 @@ import Profile from "../pages/profile";
 import { useMedia } from "../utils/use-media";
 import ProductDetailsPage from "../pages/products";
 import CheckoutPage from "../pages/checkout";
-import Booking from "../pages/booking";
+import Booking from "../pages/booking/index";
 import UtilComponent from "./UtilComponent";
 import Services from "../pages/services";
 import OffersDeals from '../pages/offer'

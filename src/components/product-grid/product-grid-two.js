@@ -17,26 +17,19 @@ const Grid = styled.div(
     gridGap: '30px',
     gridTemplateColumns: 'repeat(2, minmax(180px, 1fr))',
 
-    '@media screen and (min-width: 630px)': {
-      gridTemplateColumns: 'repeat(2, minmax(180px, 1fr))',
-    },
-
-    '@media screen and (min-width: 768px)': {
-      gridTemplateColumns: 'repeat(2, minmax(180px, 1fr))',
-    },
-
-    '@media screen and (max-width: 768px)': {
+    '@media only screen and (max-width:480px)': {
       gridGap: '5px',
       padding: '5px',
       gridTemplateColumns: 'repeat(2, minmax(48vw, 1fr))',
     },
-    '@media screen and (min-width: 991px)': {
-      gridTemplateColumns: 'repeat(2, minmax(180px, 1fr))',
-    },
 
-    '@media screen and (max-width: 991px)': {
+    '@media only screen and (min-width: 481px) and (max-width:768px)': {
+      gridGap: '5px',
+      padding: '5px',
       gridTemplateColumns: 'repeat(3, minmax(180px, 1fr))',
     },
+
+
 
     '@media screen and (min-width: 1200px)': {
       gridTemplateColumns: 'repeat(4, minmax(180px, 1fr))',

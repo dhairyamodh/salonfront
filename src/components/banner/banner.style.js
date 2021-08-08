@@ -27,7 +27,7 @@ export const Box = styled.div(
     // backgroundColor: #f7f7f7;
 
     '@media (max-width: 990px)': {
-      padding: '50px 0 0px',
+      padding: '50px 0 10px',
       // marginBottom: 20
     },
   },

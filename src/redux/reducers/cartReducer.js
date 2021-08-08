@@ -7,6 +7,7 @@ const initState = {
     coupon: null,
     selectedTime: localStorage.getItem('selectedTime'),
     selectedDate: new Date() || localStorage.getItem('selectedDate'),
+    selectedArtist: {},
     retryCount: 0
 }
 
@@ -100,6 +101,12 @@ const cartReducer = (state = initState, action) => {
             return {
                 ...state,
                 selectedDate: action.payload
+            }
+
+        case cartTypes.SELECT_APPOINTMENT_ARTIST:
+            return {
+                ...state,
+                selectedArtist: action.payload
             }
 
 

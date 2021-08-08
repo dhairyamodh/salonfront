@@ -55,7 +55,11 @@ const TimeSelectorWrapper = styled.div`
 const TimeSelectorContent = styled.div`
   display:grid;
   gap: 20px;
-  grid-template-columns: auto auto auto;
+  width: 100%;
+  grid-template-columns: repeat(6, minmax(180px, 1fr));
+  @media (max-width: 990px) {
+    grid-template-columns: auto auto auto;
+  }
   padding: 10px;
   margin-bottom: 20px;
 `;

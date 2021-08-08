@@ -42,7 +42,7 @@ import { useWindowSize } from 'utils/useWindowSize';
 // import Coupon from 'features/coupon/coupon';
 // import Address from 'features/address/address';
 // import Schedules from 'features/schedule/schedule';
-import { clearCart, cartItemsTotalPrice, removeCoupon } from '../../../redux/actions/cartActions';
+import { clearCart, cartItemsTotalPrice, removeCoupon, selectAppointmentArtist } from '../../../redux/actions/cartActions';
 // import Contact from 'features/contact/contact';
 import Payment from 'features/payment/payment';
 import { useDispatch, useSelector } from 'react-redux';
@@ -87,7 +87,7 @@ const CheckoutWithSidebar = ({ token, deviceType }) => {
   const { items: cart, coupon } = useSelector(state => state.cart)
   const { salonId } = useSelector(state => state.salon)
   const { id, name, email, mobile } = useSelector(state => state.auth)
-  const { selectedTime, selectedDate, items } = useSelector(state => state.cart)
+  const { selectedTime, selectedDate, items, selectedArtist } = useSelector(state => state.cart)
   const { orderData } = useSelector(state => state.checkout)
   const history = useHistory()
 
@@ -138,6 +138,8 @@ const CheckoutWithSidebar = ({ token, deviceType }) => {
       taxPercentage: taxPercentage,
       discount: calculateDiscount(),
       isPaid: false,
+      employeeName: selectedArtist.employeeName,
+      employeeId: selectedArtist._id,
       selectedTime, cartItems: items, userId: id,
     }
     dispatch(createOrder(neworderData)).then((res) => {
@@ -145,6 +147,8 @@ const CheckoutWithSidebar = ({ token, deviceType }) => {
         dispatch(clearCart())
         dispatch(selectAppointmentDate(new Date()))
         dispatch(selectAppointmentTime(undefined))
+        dispatch(selectAppointmentArtist({}))
+        dispatch(showSnackBar('Appointment Booked Successfully', 'success'))
         history.push(`/appointment-book/${res.payload.data.data.id}`)
 
       }
@@ -156,7 +160,7 @@ const CheckoutWithSidebar = ({ token, deviceType }) => {
 
   useEffect(() => {
     if (
-      Boolean(selectedDate) && Boolean(selectedTime) && items.length > 0
+      Boolean(selectedDate) && Boolean(selectedTime) && Boolean(selectedArtist) && items.length > 0
     ) {
       setIsValid(true);
     }

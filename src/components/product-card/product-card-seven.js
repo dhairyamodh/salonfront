@@ -88,8 +88,8 @@ const Image = styled.img({
 const Discount = styled.div(
   css({
     position: 'absolute',
-    top: '1rem',
-    right: '1rem',
+    top: '0.5rem',
+    right: '0.5rem',
     backgroundColor: 'secondary.regular',
     color: '#fff',
     overflow: 'hidden',
@@ -102,13 +102,16 @@ const Discount = styled.div(
 
 const EstimatedTime = styled.div(
   css({
-    backgroundColor: 'secondaryLight.regular',
-    color: 'secondary.regular',
+    position: 'absolute',
+    bottom: '0.5rem',
+    right: '0.5rem',
+    backgroundColor: 'primaryLight.regular',
+    color: 'primary.regular',
     overflow: 'hidden',
     padding: '0.25rem 0.5rem',
     fontSize: 12,
     borderRadius: 20,
-    fontWeight: 'bold',
+    fontWeight: 'semiBold',
     pointerEvents: 'none',
     display: 'flex',
     alignItems: 'center'
@@ -143,6 +146,9 @@ const Price = styled.span(
     fontSize: 18,
     fontWeight: 'semiBold',
     lineHeight: 1,
+    '@media screen and (max-width: 768px)': {
+      fontSize: 'base',
+    },
   })
 );
 
@@ -168,6 +174,9 @@ const SalePrice = styled.span(
       position: 'absolute',
       top: '50%',
       left: 0,
+    },
+    '@media screen and (max-width: 768px)': {
+      fontSize: 'base',
     },
   })
 );
@@ -233,22 +242,21 @@ export const ProductCard = ({ data, deviceType, normal }) => {
     <Card normal={normal} className="product-card" onClick={() => handleModal()}>
       <ImageWrapper normal={normal}>
         <Image src={ServerUrl + image} alt={title} className="product-image" />
-        {discount ? <Discount>{discount}%</Discount> : null}
+        {discount != 0 ? <Discount>{discount}%</Discount> : null}
+        <EstimatedTime><Icon variant="full">
+          <svg width="12" height="14" viewBox="0 0 12 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M8 0H4V1.33333H8V0ZM5.33333 8.66667H6.66667V4.66667H5.33333V8.66667ZM10.6867 4.26L11.6333 3.31333C11.3467 2.97333 11.0333 2.65333 10.6933 2.37333L9.74667 3.32C8.71333 2.49333 7.41333 2 6 2C2.68667 2 0 4.68667 0 8C0 11.3133 2.68 14 6 14C9.32 14 12 11.3133 12 8C12 6.58667 11.5067 5.28667 10.6867 4.26ZM6 12.6667C3.42 12.6667 1.33333 10.58 1.33333 8C1.33333 5.42 3.42 3.33333 6 3.33333C8.58 3.33333 10.6667 5.42 10.6667 8C10.6667 10.58 8.58 12.6667 6 12.6667Z" fill="currentColor" />
+          </svg>
+        </Icon>{estimatedTime}</EstimatedTime>
       </ImageWrapper>
       <Box py={20} pb={20}>
         <Title>{title}</Title>
         <PriceWrapper>
           <PriceContainer>
-            <Price>{currencySymbol} {salePrice}</Price>
-            {discount ? <SalePrice>${price}</SalePrice> : null}
+            <Price>{currencySymbol}&nbsp;{salePrice}</Price>
+            {discount ? <SalePrice>{currencySymbol}&nbsp;{price}</SalePrice> : null}
           </PriceContainer>
-          <EstimatedTime><Icon variant="full">
-            <svg width="12" height="14" viewBox="0 0 12 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M8 0H4V1.33333H8V0ZM5.33333 8.66667H6.66667V4.66667H5.33333V8.66667ZM10.6867 4.26L11.6333 3.31333C11.3467 2.97333 11.0333 2.65333 10.6933 2.37333L9.74667 3.32C8.71333 2.49333 7.41333 2 6 2C2.68667 2 0 4.68667 0 8C0 11.3133 2.68 14 6 14C9.32 14 12 11.3133 12 8C12 6.58667 11.5067 5.28667 10.6867 4.26ZM6 12.6667C3.42 12.6667 1.33333 10.58 1.33333 8C1.33333 5.42 3.42 3.33333 6 3.33333C8.58 3.33333 10.6667 5.42 10.6667 8C10.6667 10.58 8.58 12.6667 6 12.6667Z" fill="currentColor" />
-            </svg>
 
-
-          </Icon>{estimatedTime}</EstimatedTime>
         </PriceWrapper>
         <AddItemToCart data={data} variant="full" buttonText="Add Service" />
       </Box>

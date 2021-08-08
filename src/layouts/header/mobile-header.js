@@ -43,6 +43,7 @@ const SearchModal = ({ deviceType }) => {
   const [searchTerm, setSearchTerm] = useState()
   const dispatch = useDispatch();
   const { salonId } = useSelector(state => state.salon)
+  const { currencySymbol: CURRENCY } = useSelector(state => state.salon.salonData)
   const [state, setState] = useState({ isLoading: false, searchResults: [] })
   const { isLoading, searchResults } = state
   const onSubmit = (value) => {
@@ -137,7 +138,7 @@ const SearchModal = ({ deviceType }) => {
                 </ItemImageContainer>
                 <ItemContent>
                   <Title>{result.name}</Title>
-                  <SubTitle>₹ {result.salePrice}</SubTitle>
+                  <SubTitle>{CURRENCY} {result.salePrice}</SubTitle>
                 </ItemContent>
               </Item>
             )

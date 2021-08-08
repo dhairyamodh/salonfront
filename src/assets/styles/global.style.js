@@ -239,6 +239,40 @@ export const GlobalStyle = createGlobalStyle(({ theme }) =>
       }
     },
 
+    '.hawk-stepper': {
+      marginBottom: 30
+    },
+
+    '.hawk-stepper__step-rounded': {
+      margin: 0
+    },
+
+    '.hawk-stepper .active .hawk-stepper__step-rounded': {
+      backgroundColor: "secondary.regular",
+      borderColor: "secondary.regular",
+    },
+    '.hawk-stepper__step-description': {
+      fontWeight: 'semiBold',
+      fontSize: 'semibase',
+      '@media (max-width: 990px)': {
+        fontWeight: 'medium',
+        fontSize: 'sm',
+      },
+    },
+
+    '.hawk-stepper .active .hawk-stepper__step-description, .hawk-stepper .active .hawk-stepper__step-title': {
+      color: "secondary.regular",
+    },
+
+    '.hawk-stepper .active': {
+
+      "&:after": {
+        backgroundColor: "secondary.regular",
+      },
+    },
+
+
+
     '.image-item': {
       padding: '0 15px',
     },

@@ -198,7 +198,7 @@ export const CategoryContent = styled.div`
   
 
   @media screen and (max-width: 768px) {
-    padding: 0;
+    padding: 0px;
   }
 `;
 

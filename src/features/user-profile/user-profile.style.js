@@ -3,10 +3,8 @@ import { themeGet } from '@styled-system/theme-get';
 
 const PageWrapper = styled.div`
   width: 100%;
-  height: auto;
-  // min-height: 100vh;
-  display: flex;
-  flex-wrap: wrap;
+  // height: auto;
+  min-height: 100vh;
   background-color: ${themeGet('colors.white', '#ffffff')};
   padding: 140px 80px 40px;
 
@@ -63,8 +61,7 @@ border-bottom: 1px solid #f1f1f1;
 
 const BookingContent = styled.div`
   width: 100%;
-  display:flex;
-  justify-content:space-between;
+  padding: 20px 20px;
   @media only screen and (max-width: 1199px) {
     flex-direction: column;
   }

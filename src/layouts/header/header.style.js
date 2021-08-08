@@ -323,7 +323,7 @@ export const MobileHeaderInnerWrapper = styled.div`
   transition: 0.25s ease-in-out;
 
   @media only screen and (max-width: 990px) {
-    padding: 15px 20px;
+    padding: 10px 20px;
   }
 
   &.home {
